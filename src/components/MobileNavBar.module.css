@@ -1,0 +1,168 @@
+.mobileNavBar {
+  width: 50px;
+  height: 50px;
+  padding: 7px 2px;
+  background: var(--background);
+  box-shadow: 0px 0px 2px var(--color-redC);
+  overflow: hidden;
+  border-radius: 50px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1), gap 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.mobileNavBarExpanded {
+  width: 70px;
+  padding: 16px 8px;
+  background: var(--background);
+  box-shadow: 0px 0px 2px var(--color-redC);
+  overflow: hidden;
+  border-radius: 50px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1), gap 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.brandmark {
+  width: 24.24px;
+  height: 22.16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Start of Selection */
+.selectionItems {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeSlideIn 1.5s cubic-bezier(0.4,0,0.2,1) 0.05s forwards;
+}
+/* End of Selection */
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navItem {
+  width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--background);
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  border-radius: 12px;
+  font-size: 6px;
+  color: var(--color-white);
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: fadeSlideInNavItem 1.5s cubic-bezier(0.4,0,0.2,1) 0.12s forwards;
+  outline: none;
+}
+
+@keyframes fadeSlideInNavItem {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iconWrapper {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconSvg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.expandIcon {
+  width: 14px;
+  height: 12px;
+  min-width: 14px;
+  min-height: 12px;
+  display: block;
+}
+
+.label {
+  font-size: 6px;
+  color: var(--color-white);
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.collapseButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.rotated {
+  transform: rotate(180deg);
+  transition: transform 2s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes fadeSlideOutNavItem {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.navItemExit {
+  animation: fadeSlideOutNavItem 1.5s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+.navItem:hover,
+.navItemSelected {
+  background: #151029;
+  box-shadow: 0px 0px 6px rgba(192, 40, 45, 0.54);
+  outline: 1px solid white;
+  outline-offset: -1px;
+} 

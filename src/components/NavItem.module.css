@@ -1,0 +1,85 @@
+.navItem {
+  width: auto;
+  /* Start of Selection */
+  --navitem-icon-size: clamp(16px, 2.5vw, 24px);
+  --navitem-font-size: clamp(10px, 1.5vw, 12px);
+  /* End of Selection */
+  height: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: var(--background);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 1px;
+  border-bottom-left-radius: 1px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  overflow: visible;
+  position: relative;
+}
+
+.navItemActivated {
+  background: linear-gradient(0deg, rgba(132,96,132,0.12) 0%, rgba(132,96,132,0.12) 100%), var(--background);
+  box-shadow: 0px 0px 4px rgba(192, 40, 45, 0.54);
+}
+
+.iconLabelRow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--navitem-icon-size);
+  height: var(--navitem-icon-size);
+}
+
+.label {
+  color: var(--color-white);
+  font-family: 'Hack';
+  font-weight: 400;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--navitem-font-size);
+}
+
+.underline {
+  display: block;
+  width: 100%;
+  min-width: 30px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  height: 3px;
+}
+
+/* Animate the SVG line using stroke-dasharray and stroke-dashoffset */
+.underlinePath {
+  stroke-dasharray: 97;
+  stroke-dashoffset: 97;
+  transition: stroke-dashoffset 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.underlineActive .underlinePath {
+  stroke-dashoffset: 0;
+}
+
+/* Utility classes for custom sizes */
+.widthCustom { width: var(--navitem-width) !important; }
+.iconSizeCustom { width: var(--navitem-icon-size) !important; height: var(--navitem-icon-size) !important; }
+.fontSizeCustom { font-size: var(--navitem-font-size) !important; } 

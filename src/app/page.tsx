@@ -1,4 +1,6 @@
 import Image from "next/image";
+import "tailwindcss";
+import "./globals.css";
 
 export default function Home() {
   return (
@@ -50,6 +52,19 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+
+        {/* Custom Color Palette Sample */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-4">Custom Color Palette</h2>
+          <div className="flex flex-wrap gap-4">
+            <div className="w-32 h-12 bg-primary text-white flex items-center justify-center rounded">Primary</div>
+            <div className="w-32 h-12 bg-blueC text-white flex items-center justify-center rounded">BlueC</div>
+            <div className="w-32 h-12 bg-redC text-white flex items-center justify-center rounded">RedC</div>
+            <div className="w-32 h-12 bg-background text-white flex items-center justify-center rounded">Background</div>
+            <div className="w-32 h-12 bg-black text-white flex items-center justify-center rounded">Black</div>
+            <div className="w-32 h-12 bg-white text-black flex items-center justify-center rounded border">White</div>
+          </div>
+        </section>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
