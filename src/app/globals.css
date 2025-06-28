@@ -90,11 +90,31 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Hack', Arial, Helvetica, sans-serif;
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-redC) transparent;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Moby', Arial, Helvetica, sans-serif;
 }
 p {
   font-family: 'Hack', Arial, Helvetica, sans-serif;
+}
+
+html {
+  scrollbar-gutter: stable overlay;
+}
+
+/* Hide scrollbar when not scrolling (Chromium/Webkit browsers) */
+body::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--color-redC);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
