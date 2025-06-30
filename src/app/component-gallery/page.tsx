@@ -23,6 +23,11 @@ import ArtPageIcon from '@/components/ArtPageIcon';
 import ArtProject from '@/components/ArtProject';
 import MiscDropdown from '@/components/MiscDropdown';
 import ProcessSelectionDropdown from '@/components/ProcessSelectionDropdown';
+import FreeTherapy from '@/components/FreeTherapy';
+import EighthNLucas from '@/components/8thNLucas';
+import LilBiscoff from '@/components/LilBiscoff';
+import Coloring from '@/components/Coloring';
+import TackyGarbageBig from '@/components/TackyGarbageBig';
 
 export default function ComponentGallery() {
   const [processDropdownExpanded, setProcessDropdownExpanded] = useState(false);
@@ -184,6 +189,76 @@ export default function ComponentGallery() {
               {...(!processDropdownExpanded && { onClick: () => setProcessDropdownExpanded(true) })}
             />
             <span style={{ fontSize: 16 }}>ProcessSelectionDropdown (click to expand/collapse)</span>
+          </div>
+          {/* SVG Components Gallery */}
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", 
+            gap: "16px", 
+            width: "100%", 
+            maxWidth: "600px",
+            margin: "0 auto"
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <FreeTherapy />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>FreeTherapy</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <EighthNLucas />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>EighthNLucas</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <LilBiscoff />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>LilBiscoff</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <Coloring />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>Coloring</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <TackyGarbageBig />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>TackyGarbageBig</span>
+            </div>
           </div>
         </section>
         {/* Carousel in its own row at the bottom */}
