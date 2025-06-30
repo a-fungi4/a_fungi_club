@@ -1,0 +1,34 @@
+.Frame140 {
+  align-self: stretch;
+  flex: 1 1 0;
+  padding: 1vw;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1vw;
+}
+
+.TextBox {
+  flex: 1 1 0;
+  align-self: stretch;
+  color: black;
+  font-size: 2.5vw;
+  min-font-size: 18px;
+  max-font-size: 30px;
+  font-family: 'Hack', monospace;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .Frame140 {
+    padding: 2vw;
+    gap: 2vw;
+  }
+  .TextBox {
+    font-size: 4vw;
+    min-font-size: 12px;
+  }
+} 

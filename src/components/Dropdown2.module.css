@@ -1,0 +1,238 @@
+.Dropdown2expanded {
+  width: 90vw;
+  max-width: 943px;
+  min-width: 260px;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 16px;
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
+  box-sizing: border-box;
+  max-height: 48px;
+  transition: max-height 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.Titleicon {
+  flex: 1 1 0;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border-radius: 36px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.Frame141 {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  background: #C0282D;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1vw;
+  display: flex;
+}
+
+.Icon {
+  /* SVG wrapper, no extra styles needed for now */
+}
+
+.Title {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5vw;
+  display: flex;
+}
+
+.Default {
+  color: white;
+  font-size: 3vw;
+  min-font-size: 18px;
+  max-font-size: 32px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Button {
+  /* SVG wrapper, no extra styles needed for now */
+}
+
+.Dropdown2expandedExpanded {
+  width: 90vw;
+  max-width: 943px;
+  min-width: 260px;
+  height: 52vw;
+  max-height: 491px;
+  min-height: 200px;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 16px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  display: inline-flex;
+  box-sizing: border-box;
+  max-height: 491px;
+  transition: max-height 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.Titleiconparent {
+  align-self: stretch;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  background: #C0282D;
+  border-radius: 36px;
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
+  transition: background 0.7s cubic-bezier(0.4,0,0.2,1), border-radius 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.TitleiconExpanded {
+  width: 26vw;
+  max-width: 247px;
+  min-width: 120px;
+  height: 5vw;
+  max-height: 48px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.IconExpanded {
+  /* Remove left, top, position; use flex alignment */
+}
+
+.TitleExpanded {
+  /* Remove left, top, position; use flex alignment */
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5vw;
+  display: flex;
+}
+
+.DefaultExpanded {
+  color: white;
+  font-size: 3vw;
+  min-font-size: 18px;
+  max-font-size: 32px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.ButtonExpanded {
+  /* SVG wrapper, no extra styles needed for now */
+}
+
+.Content {
+  align-self: stretch;
+  flex: 1 1 0;
+  padding: 1vw;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 8px;
+}
+
+.TitleiconCollapsed {
+  width: 26vw;
+  max-width: 247px;
+  min-width: 120px;
+  height: 5vw;
+  max-height: 48px;
+  min-height: 32px;
+  position: relative;
+}
+
+.IconCollapsed {
+  left: 0;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.DefaultCollapsed {
+  left: calc(28px + 1vw);
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 3vw;
+  min-font-size: 18px;
+  max-font-size: 32px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .Dropdown2expanded, .Dropdown2expandedExpanded {
+    width: 98vw;
+    min-width: 0;
+    max-width: none;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+  }
+  .Titleicon, .Titleiconparent {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  .Frame141 {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    gap: 2vw;
+  }
+  .Default, .DefaultExpanded {
+    font-size: 6vw;
+    min-font-size: 14px;
+  }
+  .TitleiconExpanded {
+    width: 48vw;
+    min-width: 60px;
+    max-width: none;
+    height: 10vw;
+    min-height: 24px;
+    max-height: none;
+  }
+  .Title {
+    gap: 1vw;
+  }
+  .Content {
+    padding: 2vw;
+  }
+}
+
+.DefaultCollapsed, .DefaultExpanded {
+  color: white;
+  font-size: 3vw;
+  min-font-size: 18px;
+  max-font-size: 32px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.dropdown2-animating {
+  transform: scale(0.95);
+}
+
+.chevron {
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  transform: rotate(0deg);
+}
+
+.chevron-rotated {
+  transform: rotate(180deg);
+} 

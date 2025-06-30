@@ -1,0 +1,357 @@
+.dropdown {
+  width: 1000px;
+  height: 438px;
+  padding-left: 43.09px;
+  padding-right: 43.09px;
+  padding-top: 24.56px;
+  padding-bottom: 24.56px;
+  background: #151029;
+  border-radius: 13.79px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4.91px;
+  box-sizing: border-box;
+  box-shadow: 0 0 16px var(--color-redC, #C0282D);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.title {
+  font-size: 1.3rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.chevron {
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #fff;
+  transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.content {
+  padding: 18px 24px;
+  color: #fff;
+  background: #221c3a;
+  border-radius: 0 0 10px 10px;
+  font-size: 1rem;
+}
+
+.Biodropdown {
+  width: 80vw;
+  max-width: 800px;
+  aspect-ratio: 1 / 0.4;
+  min-width: 180px;
+  min-height: 80px;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  background: #151029;
+  border-radius: 13.68px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1vw;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 4px var(--color-redC);
+  overflow: hidden;
+}
+
+.Ellipse2 {
+  width: 10vw;
+  max-width: 120px;
+  min-width: 32px;
+  height: 10vw;
+  max-height: 120px;
+  min-height: 32px;
+  background: #D9D9D9;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.Title {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5.17px;
+  display: inline-flex;
+}
+
+.Placeholder {
+  width: 110px;
+  height: 110px;
+  background: #D9D9D9;
+  border-radius: 9999px;
+}
+
+.Default {
+  color: white;
+  font-size: 74.33px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.Button,
+.ButtonRect {
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1),
+              border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
+              background 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.Button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--color-redC);
+  padding: 0;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+.ButtonRect {
+  width: 100%;
+  align-self: stretch;
+  height: 40px;
+  padding: 0;
+  background: #C0282D;
+  border-radius: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8.62px;
+  display: flex;
+  cursor: pointer;
+}
+
+.BiodropdownExpanded {
+  width: 80vw;
+  max-width: 800px;
+  aspect-ratio: 1 / 0.4;
+  min-width: 180px;
+  min-height: 80px;
+  height: auto;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  background: #151029;
+  border-radius: 13.68px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1vw;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 4px var(--color-redC);
+  overflow: hidden;
+}
+
+.ButtonExpanded {
+  width: 100%;
+  min-width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+  transition-delay: 1s;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  background: #C0282D;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.Polygon2 {
+  /* No extra styles needed for now, but class is here for future extension */
+}
+
+/* Animation classes for dropdown */
+.dropdownEnter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.dropdownEnterActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.7s, transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.dropdownExit {
+  opacity: 1;
+  transform: scale(1);
+}
+.dropdownExitActive {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.Button svg, .ButtonExpanded svg {
+  transition: transform 3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Start of Selection */
+.chevron {
+  transition: transform 1s cubic-bezier(0.4,0,0.2,1);
+  transform: rotate(0deg);
+}
+
+.ButtonIcon:global(.chevron-rotated) {
+  transform: rotate(180deg);
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+/* End of Selection */
+
+@media (max-width: 900px) {
+  .dropdown, .Dropdown1expanded {
+    width: 90vw;
+    height: 300px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 10px;
+    gap: 2vw;
+  }
+  .Placeholder {
+    width: 70px;
+    height: 70px;
+  }
+  .Default {
+    font-size: 40px;
+  }
+  .Content {
+    height: 180px;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  .Button {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+  .ButtonRect {
+    width: 100%;
+    min-width: 120px;
+    max-width: 100%;
+    height: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dropdown, .Dropdown1expanded {
+    width: 98vw;
+    height: 180px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 7px;
+    gap: 1vw;
+  }
+  .Placeholder {
+    width: 36px;
+    height: 36px;
+  }
+  .Default {
+    font-size: 18px;
+  }
+  .Content {
+    height: 60px;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 10px;
+  }
+  .Button {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+  }
+  .ButtonRect {
+    width: 100%;
+    min-width: 60px;
+    max-width: 100%;
+    height: 24px;
+  }
+}
+
+.Dropdown1expanded {
+  width: 1000px;
+  height: 438px;
+  padding: 20.68px;
+  background: #151029;
+  border-radius: 11.79px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20.68px;
+  box-sizing: border-box;
+  box-shadow: 0 0 16px var(--color-redC, #C0282D);
+}
+
+.Content {
+  align-self: stretch;
+  height: 336px;
+  padding: 6.89px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 6.89px;
+  justify-content: center;
+  align-items: center;
+  gap: 8.62px;
+  display: flex;
+  text-align: center;
+  font-size: 25.85px;
+  font-family: 'Hack', monospace;
+  font-weight: 700;
+  color: black;
+}
+
+.Chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ButtonIcon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.ChevronIcon {
+  width: 27px;
+  height: 17px;
+  display: block;
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+  transition: transform 1.2s cubic-bezier(0.4,0,0.2,1);
+} 

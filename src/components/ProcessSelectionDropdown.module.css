@@ -1,0 +1,102 @@
+.Collapsed {
+  width: 200px;
+  height: 200px;
+  padding: 16px;
+  background: #422B71;
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  overflow: hidden;
+  border-radius: 10.13px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  display: inline-flex;
+  transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.Collapsed:hover, .Hover {
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+}
+
+.Placeholder {
+  width: 80px;
+  height: 80px;
+  background: #D9D9D9;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Title {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.Automation {
+  width: 672px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: var(--Medium-Purple, #6B53A3);
+  border-radius: 10.13px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  display: inline-flex;
+}
+
+.Content {
+  align-self: stretch;
+  height: 232px;
+  padding-top: 8.11px;
+  padding-bottom: 8.11px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 4.05px;
+  outline: 2.53px black solid;
+  outline-offset: -2.53px;
+  justify-content: center;
+  align-items: center;
+  gap: 5.07px;
+  display: inline-flex;
+}
+
+.Text {
+  width: 598.88px;
+  align-self: stretch;
+  color: black;
+  font-size: 16px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Collapsebutton {
+  align-self: stretch;
+  padding-left: 5.07px;
+  padding-right: 5.07px;
+  padding-top: 10.13px;
+  padding-bottom: 10.13px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 4.05px;
+  outline: 3.04px black solid;
+  outline-offset: -3.04px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5.07px;
+  display: flex;
+}
+
+.Vector1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 

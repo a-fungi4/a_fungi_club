@@ -16,8 +16,16 @@ import YoutubeIcon from '@/components/icons/YoutubeIcon';
 import GithubIcon from '@/components/icons/GithubIcon';
 import Banner from '@/components/Banner';
 import HighlightedProject from '@/components/HighlightedProject';
+import Dropdown1 from '@/components/Dropdown1';
+import Dropdown2 from '@/components/Dropdown2';
+import Dropdown3 from '@/components/Dropdown3';
+import ArtPageIcon from '@/components/ArtPageIcon';
+import ArtProject from '@/components/ArtProject';
+import MiscDropdown from '@/components/MiscDropdown';
+import ProcessSelectionDropdown from '@/components/ProcessSelectionDropdown';
 
 export default function ComponentGallery() {
+  const [processDropdownExpanded, setProcessDropdownExpanded] = useState(false);
   return (
     <>
       <Banner title="Gallery Home Banner" variant="home">
@@ -119,8 +127,64 @@ export default function ComponentGallery() {
             <CarouselCard />
             <span style={{ fontSize: 16 }}>CarouselCard</span>
           </div>
+          {/* Dropdown1 Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <Dropdown1 />
+            <span style={{ fontSize: 16 }}>Dropdown1 (click to expand/collapse)</span>
+          </div>
+          {/* Dropdown2 Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <Dropdown2 />
+            <span style={{ fontSize: 16 }}>Dropdown2 (click to expand/collapse)</span>
+          </div>
+          {/* Dropdown3 Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <Dropdown3 />
+            <span style={{ fontSize: 16 }}>Dropdown3 (click to expand/collapse)</span>
+          </div>
+          {/* ArtPageIcon Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <ArtPageIcon
+              svg={<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="#D9D9D9" /></svg>}
+              link="https://example.com"
+            />
+            <span style={{ fontSize: 16 }}>ArtPageIcon (hover & click)</span>
+          </div>
+          {/* ArtProject Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <ArtProject
+              title="Sample Art Project"
+              description="BRIEF DESCRIPTION OF ART PROJECT."
+              svg={<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="#431D54" /></svg>}
+              link="https://example.com"
+              onButtonClick={() => window.open('https://example.com', '_blank')}
+            />
+            <span style={{ fontSize: 16 }}>ArtProject (with ArtPageIcon, text, and button)</span>
+          </div>
           {/* CarouselCard Selected State Demo */}
           <CarouselCardSelectedDemo />
+          {/* MiscDropdown Sample */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <MiscDropdown 
+              text="Text" 
+              title="Misc Title" 
+              content={<span>Content</span>} 
+            />
+            <span style={{ fontSize: 16 }}>MiscDropdown (default, hover, and expanded states)</span>
+          </div>
+          {/* ProcessSelectionDropdown Sample (interactive) */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <ProcessSelectionDropdown
+              icon={<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="#D9D9D9" /></svg>}
+              title="Process Selection"
+              content={<span>This is the expanded content area for process selection.</span>}
+              expanded={processDropdownExpanded}
+              onCollapse={() => setProcessDropdownExpanded(false)}
+              // When collapsed, clicking the card expands it
+              {...(!processDropdownExpanded && { onClick: () => setProcessDropdownExpanded(true) })}
+            />
+            <span style={{ fontSize: 16 }}>ProcessSelectionDropdown (click to expand/collapse)</span>
+          </div>
         </section>
         {/* Carousel in its own row at the bottom */}
         <section style={{ marginTop: 48, display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
