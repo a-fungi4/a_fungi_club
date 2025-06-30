@@ -28,6 +28,9 @@ import EighthNLucas from '@/components/8thNLucas';
 import LilBiscoff from '@/components/LilBiscoff';
 import Coloring from '@/components/Coloring';
 import TackyGarbageBig from '@/components/TackyGarbageBig';
+import PRPlasticity from '@/components/PRPlasticity';
+import PRInsideOut from '@/components/PRInsideOut';
+import PRAutomation from '@/components/PRAutomation';
 
 export default function ComponentGallery() {
   const [processDropdownExpanded, setProcessDropdownExpanded] = useState(false);
@@ -258,6 +261,42 @@ export default function ComponentGallery() {
                 <TackyGarbageBig />
               </div>
               <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>TackyGarbageBig</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <PRPlasticity />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>PRPlasticity</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <PRInsideOut />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>PRInsideOut</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <PRAutomation />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>PRAutomation</span>
             </div>
           </div>
         </section>
