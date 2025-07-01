@@ -20,16 +20,25 @@ const Banner: React.FC<BannerProps> = ({
   children,
   className = "",
 }) => {
-  const bannerStyle: React.CSSProperties = {
-    backgroundImage: `url(${backgroundImage})`,
-    height: typeof height === "number" ? `${height}px` : height,
-  };
+  const isHome = variant === "home";
+  const bannerStyle: React.CSSProperties = isHome
+    ? { height: "100vh" }
+    : {
+        backgroundImage: `url(${backgroundImage})`,
+        height: typeof height === "number" ? `${height}px` : height,
+      };
 
   return (
     <section
       className={`${styles.banner} ${styles[variant]} ${className}`}
       style={bannerStyle}
     >
+      {isHome ? (
+        <div
+          className={styles.parallax}
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      ) : null}
       {overlay && <div className={styles.overlay} />}
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>

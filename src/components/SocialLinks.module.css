@@ -1,7 +1,7 @@
 .socialLinks {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
 }
@@ -16,7 +16,18 @@
 
 .iconWrapper:hover > *,
 .iconWrapper:focus-visible > * {
-  transform: scale(2);
+  transform: scale(1.6);
   color: #CCBBE9 !important;
+  fill: #CCBBE9 !important;
+}
+
+/* Ensure SVG and their paths also turn light purple on hover */
+.iconWrapper:hover svg,
+.iconWrapper:focus-visible svg {
+  color: #CCBBE9 !important;
+  fill: #CCBBE9 !important;
+}
+.iconWrapper:hover svg path,
+.iconWrapper:focus-visible svg path {
   fill: #CCBBE9 !important;
 } 

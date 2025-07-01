@@ -2,8 +2,8 @@
   width: 100%;
   max-width: 700px;
   box-sizing: border-box;
-  height: auto;
-  min-height: 48px;
+  height: 64px;
+  min-height: 64px;
   background: var(--background);
   box-shadow: 0px 0px 4px var(--color-redC);
   overflow: visible;
@@ -12,6 +12,9 @@
   align-items: center;
   display: flex;
   margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .navbarInner {
@@ -32,10 +35,14 @@
   align-items: stretch;
   height: 100%;
   padding-right: 1.5rem;
+  justify-content: space-evenly;
 }
 
 .brandmark {
   margin-right: 2rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .navButton {
@@ -45,7 +52,8 @@
   margin: 0;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 @media (max-width: 600px) {

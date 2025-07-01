@@ -1,8 +1,10 @@
 .banner {
+  height: 100vh;
+  width: 100%;
   position: relative;
-  width: 100vw;
-  left: 50%;
-  margin-left: -50vw;
+  z-index: 2;
+  max-width: 2000px;
+  margin: 0 auto;
   right: 0;
   margin-right: 0;
   background-size: cover;
@@ -12,6 +14,23 @@
   justify-content: center;
   overflow: hidden;
   /* Remove any default margin or padding from parent containers if needed */
+}
+
+.fullBleed {
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+}
+
+.fullBleed.overlap {
+  min-height: 100vh !important;
+}
+
+.overlap {
+  margin-top: -220px;
+  z-index: 10;
+  position: relative;
+  box-shadow: 0 -12px 32px 0 rgba(0,0,0,0.12);
 }
 
 .overlay {
@@ -87,4 +106,35 @@
 .general {
   min-height: 300px;
   /* Add general-specific styles here */
+}
+
+.parallaxBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100dvh;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullBleed.parallaxBanner {
+  min-height: 100dvh !important;
+}
+
+.parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
 } 

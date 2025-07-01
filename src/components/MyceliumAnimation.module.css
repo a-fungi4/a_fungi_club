@@ -1,0 +1,119 @@
+/*
+  MyceliumAnimation.module.css
+  - Styles for the animated mycelium SVG background
+*/
+
+/* The outer wrapper: fills the viewport, centers content horizontally and vertically */
+.animationWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* The container for all mycelium SVGs, fills the wrapper and centers SVGs */
+.mycelium {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Each SVG layer is absolutely positioned, stacked, and pointer-events are disabled */
+.mycelium1,
+.mycelium2,
+.mycelium3,
+.mycelium4 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 100%;
+  pointer-events: none;
+}
+
+/*
+  Animation: fadeInOut
+  - Fades in to 60% opacity, then fades out to 25% opacity
+  - Used for all mycelium layers
+*/
+
+
+/* Custom keyframes for mycelium4 to stop at 60% opacity */
+@keyframes fadeInOutStatic {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  80% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Keyframes for initial fade-in/out (starts at 0% opacity) */
+@keyframes fadeInOutInitial {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.2;
+  }
+  60% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* Keyframes for looping fade (never goes to 0% opacity) */
+@keyframes fadeInOutLoop {
+  0% {
+    opacity: 0.2;
+  }
+  25% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  75% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/*
+  Animation assignments:
+  - mycelium1, mycelium2, mycelium3: loop infinitely with staggered delays
+  - mycelium4: animates once, then stays at 25% opacity
+*/
+.mycelium1 {
+  animation: fadeInOutInitial 8s ease-in 0s 1 forwards, fadeInOutLoop 4s ease-in-out 1s infinite;
+}
+.mycelium2 {
+  animation: fadeInOutInitial 8s ease-in 0s 1 forwards, fadeInOutLoop 3s ease-in-out 2s infinite;
+}
+.mycelium3 {
+  animation: fadeInOutInitial 8s ease-in 0s 1 forwards, fadeInOutLoop 4s ease-in-out 3s infinite;
+}
+.mycelium4 {
+  opacity: 0;
+  animation: fadeInOutStatic 8s ease-in-out 0s forwards;
+} 

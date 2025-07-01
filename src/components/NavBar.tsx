@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import BrandmarkIcon from "./icons/BrandmarkIcon";
 import PortfolioIcon from "./icons/PortfolioIcon";
 import AboutIcon from "./icons/AboutIcon";
@@ -11,19 +13,16 @@ import styles from "./NavBar.module.css";
 import MobileNavBar from "./MobileNavBar";
 
 const NAV_ITEMS = [
-  { label: "Portfolio", icon: <PortfolioIcon />, key: "portfolio" },
-  { label: "About", icon: <AboutIcon />, key: "about" },
-  { label: "Art", icon: <ArtIcon />, key: "art" },
-  { label: "TG", icon: <TGIcon />, key: "tg" },
-  { label: "Misc", icon: <MiscIcon />, key: "misc" },
+  { label: "Portfolio", icon: <PortfolioIcon />, key: "portfolio", href: "/portfolio" },
+  { label: "About", icon: <AboutIcon />, key: "about", href: "/about" },
+  { label: "Art", icon: <ArtIcon />, key: "art", href: "/art" },
+  { label: "TG", icon: <TGIcon />, key: "tg", href: "/tg" },
+  { label: "Misc", icon: <MiscIcon />, key: "misc", href: "/misc" },
 ];
 
-const NavBar: React.FC<{
-  selectedKey?: string;
-  onSelect?: (key: string) => void;
-}> = ({ selectedKey, onSelect }) => {
-  const [active, setActive] = useState<string>(selectedKey || NAV_ITEMS[0].key);
+const NavBar: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,11 +33,6 @@ const NavBar: React.FC<{
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleSelect = (key: string) => {
-    setActive(key);
-    onSelect?.(key);
-  };
-
   if (isMobile) {
     return <MobileNavBar />;
   }
@@ -46,22 +40,28 @@ const NavBar: React.FC<{
     <nav className={styles.navbar}>
       <div className={styles.navbarInner}>
         <span className={styles.brandmark} style={{ width: 24.24, height: 22.16, position: "relative", display: "flex", alignItems: "center" }}>
-          <BrandmarkIcon width={24.24} height={22.16} />
+          <Link href="/">
+            <BrandmarkIcon width={24.24} height={22.16} />
+          </Link>
         </span>
         <div className={styles.navScroll}>
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.key}
-              onClick={() => handleSelect(item.key)}
-              className={styles.navButton}
-            >
-              <NavItem
-                icon={item.icon}
-                label={item.label}
-                selected={active === item.key}
-              />
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            // If on home page, none selected. Otherwise, match pathname to href
+            const isSelected = pathname === item.href && pathname !== "/";
+            return (
+              <Link
+                key={item.key}
+                href={item.href}
+                className={styles.navButton}
+              >
+                <NavItem
+                  icon={item.icon}
+                  label={item.label}
+                  selected={isSelected}
+                />
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>
