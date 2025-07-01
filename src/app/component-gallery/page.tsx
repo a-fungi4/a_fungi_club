@@ -23,14 +23,19 @@ import ArtPageIcon from '@/components/ArtPageIcon';
 import ArtProject from '@/components/ArtProject';
 import MiscDropdown from '@/components/MiscDropdown';
 import ProcessSelectionDropdown from '@/components/ProcessSelectionDropdown';
-import FreeTherapy from '@/components/FreeTherapy';
-import EighthNLucas from '@/components/8thNLucas';
-import LilBiscoff from '@/components/LilBiscoff';
-import Coloring from '@/components/Coloring';
-import TackyGarbageBig from '@/components/TackyGarbageBig';
-import PRPlasticity from '@/components/PRPlasticity';
-import PRInsideOut from '@/components/PRInsideOut';
-import PRAutomation from '@/components/PRAutomation';
+import FreeTherapy from '@/components/icons/FreeTherapy';
+import EighthNLucas from '@/components/icons/8thNLucas';
+import LilBiscoff from '@/components/icons/LilBiscoff';
+import Coloring from '@/components/icons/Coloring';
+import TackyGarbageBig from '@/components/icons/TackyGarbageBig';
+import PRPlasticity from '@/components/icons/PRPlasticity';
+import PRInsideOut from '@/components/icons/PRInsideOut';
+import PRAutomation from '@/components/icons/PRAutomation';
+import MiscPrint from '@/components/icons/MiscPrint';
+import MiscHTown from '@/components/icons/MiscHTown';
+import MiscMail from '@/components/icons/MiscMail';
+import MiscPrivacy from '@/components/icons/MiscPrivacy';
+import ContactForm from '@/components/ContactForm';
 
 export default function ComponentGallery() {
   const [processDropdownExpanded, setProcessDropdownExpanded] = useState(false);
@@ -298,7 +303,60 @@ export default function ComponentGallery() {
               </div>
               <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>PRAutomation</span>
             </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <MiscPrint />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>MiscPrint</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <MiscHTown />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>MiscHTown</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <MiscMail />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>MiscMail</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <div style={{ 
+                width: "clamp(60px, 15vw, 80px)", 
+                height: "clamp(60px, 15vw, 80px)", 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <MiscPrivacy />
+              </div>
+              <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>MiscPrivacy</span>
+            </div>
           </div>
+        </section>
+        {/* ContactForm Sample */}
+        <section style={{ marginTop: 48, display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+          <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 16 }}>Contact Form</h2>
+          <ContactForm />
         </section>
         {/* Carousel in its own row at the bottom */}
         <section style={{ marginTop: 48, display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>

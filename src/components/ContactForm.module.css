@@ -1,0 +1,193 @@
+.Contactform {
+  width: clamp(220px, 80vw, 304px);
+  aspect-ratio: 304 / 296;
+  padding: clamp(12px, 6vw, 22px);
+  background: #151029;
+  overflow: hidden;
+  border-radius: 8px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(6px, 2vw, 10px);
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+}
+
+.Useremail, .Emailsubject {
+  width: 100%;
+  height: clamp(18px, 2.5vw, 22px);
+  padding: clamp(1px, 0.5vw, 2px) clamp(2px, 1vw, 4px);
+  background: var(--Medium-Dark-Purple, #422B71);
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  overflow: hidden;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(3px, 1vw, 5.07px);
+}
+
+.Mailiconcontainer, .Subjecticoncontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Emailinput, .Subjectinput {
+  flex: 1 1 0;
+  align-self: stretch;
+  padding: 0 clamp(2px, 1vw, 4px);
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 4px;
+  border: none;
+  font-size: clamp(10px, 2vw, 12px);
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  color: black;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 2vw, 10px);
+}
+
+.Emailinput::placeholder, .Subjectinput::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+.Emailbody {
+  width: 100%;
+  flex: 1 1 0%;
+  min-height: 0;
+  padding: clamp(2px, 1vw, 4px);
+  background: var(--Medium-Dark-Purple, #422B71);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: clamp(6px, 2vw, 10px);
+}
+
+.Emailbodyinput {
+  align-self: stretch;
+  flex: 1 1 0;
+  padding: clamp(4px, 2vw, 8px);
+  background: var(--Color---Light-Purple, #CCBBE9);
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  overflow: hidden;
+  border-radius: 4.05px;
+  border: none;
+  font-size: clamp(10px, 2vw, 12px);
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  color: black;
+  outline: none;
+  resize: none;
+}
+
+.Emailbodyinput::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+.ContactformForm {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 0.5vw, 4px);
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+.Sendbutton {
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.Sendbutton:active {
+  background: #C0282D;
+  box-shadow: 0px 0px 4px rgba(45, 169, 225, 0.42), inset 0 0 8px 4px rgba(21, 16, 41, 0.25);
+  transform: none;
+}
+
+.Send {
+  color: black;
+  font-size: 12px;
+  font-family: 'Moby', monospace, sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+  user-select: none;
+}
+
+.SubmitButton {
+  /* all: unset; */
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NameSection {
+  align-self: stretch;
+  height: 22px;
+  padding: 2px 4px;
+  background: var(--Medium-Dark-Purple, #422B71);
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  overflow: hidden;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 5.07px;
+  display: inline-flex;
+}
+
+.Nameinputicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Nameinput {
+  flex: 1 1 0;
+  align-self: stretch;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.NameinputField {
+  flex: 1 1 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: black;
+  font-size: 12px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  padding: 0;
+}
+
+.NameinputField::placeholder {
+  color: black;
+  opacity: 1;
+} 
