@@ -1,0 +1,78 @@
+.portfolioPage {
+  /* Add Portfolio page styles here */
+}
+
+.bannerProjectEmbed {
+  /* Matches .Bannerprojectembed1 */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerTextBox {
+  background: #151029;
+  border-radius: 16px;
+  padding: 10px;
+  color: white;
+}
+
+.highlightedProjectWrapper {
+  height: auto;
+  width: 80%;
+  margin: 4vw auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section {
+  width: 80%;
+  margin: 4vw auto;
+  padding: 2vw 0;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1vw;
+}
+
+.projectGrid {
+  display: flex;
+  gap: 2vw;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.projectCard {
+  flex: 1 1 300px;
+  min-width: 300px;
+  max-width: 400px;
+  background: transparent;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 0 8px #C0282D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iframeWrapper {
+  width: 100%;
+  aspect-ratio: 202 / 158;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+} 

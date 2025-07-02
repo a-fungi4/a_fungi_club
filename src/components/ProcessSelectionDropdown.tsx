@@ -7,6 +7,7 @@ interface ProcessSelectionDropdownProps {
   content?: ReactNode;
   expanded?: boolean;
   onCollapse?: () => void;
+  contentClassName?: string;
 }
 
 const CollapseIcon = (
@@ -24,19 +25,26 @@ const ProcessSelectionDropdown: React.FC<ProcessSelectionDropdownProps & { onCli
   expanded = false,
   onCollapse,
   onClick,
+  contentClassName,
 }) => {
   if (expanded) {
     return (
       <div className={styles.Automation} data-layer="Automation">
-        <div className={styles.Placeholder} data-layer="PlaceHolder">
-          {icon}
+        <div className={styles.HeaderRow}>
+          {icon ? (
+            <span className={styles.IconExpanded} data-layer="Icon">{icon}</span>
+          ) : (
+            <div className={styles.PlaceholderExpanded} data-layer="PlaceHolder" />
+          )}
+          <div className={styles.Title} data-layer="Title">
+            {title}
+          </div>
         </div>
-        <div className={styles.Title} data-layer="Title">
-          {title}
-        </div>
-        <div className={styles.Content} data-layer="Content">
-          <div className={styles.Text} data-layer="Text">
-            {content}
+        <div className={contentClassName ? `${styles.Content} ${contentClassName}` : styles.Content} data-layer="Content">
+          <div className={styles.ScrollArea}>
+            <div className={styles.Text} data-layer="Text">
+              {content}
+            </div>
           </div>
         </div>
         <button className={styles.Collapsebutton} data-layer="CollapseButton" onClick={onCollapse}>
@@ -47,9 +55,11 @@ const ProcessSelectionDropdown: React.FC<ProcessSelectionDropdownProps & { onCli
   }
   return (
     <div className={styles.Collapsed} data-layer="Collapsed" onClick={onClick} style={{ cursor: onClick ? 'pointer' : undefined }}>
-      <div className={styles.Placeholder} data-layer="PlaceHolder">
-        {icon}
-      </div>
+      {icon ? (
+        <span className={styles.IconCollapsed} data-layer="Icon">{icon}</span>
+      ) : (
+        <div className={styles.Placeholder} data-layer="PlaceHolder" />
+      )}
       <div className={styles.Title} data-layer="Title">
         {title}
       </div>

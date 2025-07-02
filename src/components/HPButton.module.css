@@ -1,0 +1,54 @@
+.button {
+  background: #2DA9E1;
+  border-radius: 100px;
+  outline: 2.28px #C0282D solid;
+  outline-offset: -2.28px;
+  color: white;
+  font-family: 'Hack', monospace;
+  font-size: 1.1rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: clamp(10px, 4vw, 45px); 
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.Gotoprojectbutton {
+  padding: 0;
+  background: #2DA9E1;
+  box-shadow: 0px 0px 16px rgba(192, 40, 45, 0.90);
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.8px;
+  border: none;
+  cursor: pointer;
+  aspect-ratio: 4.5 / 1;
+  width: clamp(120px, 30vw, 180px);
+  height: clamp(27px, 7vw, 40px);
+  min-width: 0;
+  min-height: 0;
+}
+
+.Gotoprojectbutton:active {
+  box-shadow: 0px 0px 16px rgba(192, 40, 45, 0.90), inset 0 0 12px 4px rgba(21, 16, 41, 0.5);
+}
+
+.GoToProject {
+  color: white;
+  font-size: clamp(12px, 2.5vw, 14.4px);
+  font-family: 'Hack', monospace;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 

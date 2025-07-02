@@ -9,6 +9,7 @@ interface BannerProps {
   overlay?: boolean;
   children?: React.ReactNode;
   className?: string;
+  skillPillCont?: React.ReactNode;
 }
 
 const Banner: React.FC<BannerProps> = ({
@@ -19,14 +20,15 @@ const Banner: React.FC<BannerProps> = ({
   overlay = true,
   children,
   className = "",
+  skillPillCont,
 }) => {
   const isHome = variant === "home";
   const bannerStyle: React.CSSProperties = isHome
     ? { height: "100vh" }
     : {
-        backgroundImage: `url(${backgroundImage})`,
-        height: typeof height === "number" ? `${height}px` : height,
-      };
+    backgroundImage: `url(${backgroundImage})`,
+    height: typeof height === "number" ? `${height}px` : height,
+  };
 
   return (
     <section
@@ -43,6 +45,11 @@ const Banner: React.FC<BannerProps> = ({
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         {children}
+        {skillPillCont && (
+          <div className={styles.BannerSkillPillWrapper}>
+            {skillPillCont}
+          </div>
+        )}
       </div>
     </section>
   );

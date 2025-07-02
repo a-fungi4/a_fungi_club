@@ -8,11 +8,12 @@ interface ArtProjectProps {
   svg: React.ReactNode;
   link: string;
   onButtonClick?: () => void;
+  iconPosition?: 'left' | 'right';
 }
 
-const ArtProject: React.FC<ArtProjectProps> = ({ title, description, svg, link, onButtonClick }) => {
+const ArtProject: React.FC<ArtProjectProps> = ({ title, description, svg, link, onButtonClick, iconPosition = 'left' }) => {
   return (
-    <div className={styles.Artproject}>
+    <div className={styles.Artproject} style={{ flexDirection: iconPosition === 'right' ? 'row-reverse' : 'row' }}>
       <ArtPageIcon svg={svg} link={link} />
       <div className={styles.Textbutton}>
         <div className={styles.Titledescription}>

@@ -1,15 +1,15 @@
 .Collapsed {
-  width: 200px;
-  height: 200px;
-  padding: 16px;
+  width: clamp(140px, 32vw, 200px);
+  height: clamp(140px, 32vw, 200px);
+  padding: clamp(8px, 2vw, 16px);
   background: #422B71;
   box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
   overflow: hidden;
-  border-radius: 10.13px;
+  border-radius: 2vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: clamp(2px, 1vw, 12px);
   display: inline-flex;
   transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
 }
@@ -19,8 +19,18 @@
 }
 
 .Placeholder {
-  width: 80px;
-  height: 80px;
+  width: clamp(48px, 8vw, 80px);
+  height: clamp(48px, 8vw, 80px);
+  background: #D9D9D9;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlaceholderExpanded {
+  width: clamp(20px, 3vw, 32px);
+  height: clamp(20px, 3vw, 32px);
   background: #D9D9D9;
   border-radius: 9999px;
   display: flex;
@@ -31,48 +41,57 @@
 .Title {
   text-align: center;
   color: white;
-  font-size: 18px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-family: 'Moby', sans-serif;
   font-weight: 700;
   word-wrap: break-word;
 }
 
 .Automation {
-  width: 672px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  /* width: clamp(130px, 50vw, 772px); */
+  /* height: clamp(130px, 48vw, 772px); */
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  align-self: stretch;
+  padding-left: clamp(2px, 1vw, 4px);
+  padding-right: clamp(2px, 1vw, 4px);
+  padding-top: clamp(8px, 2vw, 16px);
+  padding-bottom: clamp(8px, 2vw, 16px);
   background: var(--Medium-Purple, #6B53A3);
-  border-radius: 10.13px;
+  border-radius: 2vw;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 5px;
-  display: inline-flex;
+  gap: clamp(2px, 1vw, 12px);
+  display: flex;
 }
 
 .Content {
   align-self: stretch;
-  height: 232px;
-  padding-top: 8.11px;
-  padding-bottom: 8.11px;
+  width: 100%;
+  padding-top: clamp(4px, 1vw, 8.11px);
+  padding-bottom: clamp(4px, 1vw, 8.11px);
   background: var(--Color---Light-Purple, #CCBBE9);
   overflow: hidden;
-  border-radius: 4.05px;
-  outline: 2.53px black solid;
-  outline-offset: -2.53px;
-  justify-content: center;
+  overflow: auto;
+  border-radius: 1vw;
+  outline: 0.2vw black solid;
+  outline-offset: -0.2vw;
+  justify-content: top;
   align-items: center;
-  gap: 5.07px;
-  display: inline-flex;
+  gap: clamp(2px, 1vw, 8px);
+  display: flex;
+  flex-direction: column;
+  min-height: 80px;
+  max-height: 110px;
 }
 
 .Text {
-  width: 598.88px;
+  width: 90%;
   align-self: stretch;
   color: black;
-  font-size: 16px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-family: 'Hack', monospace;
   font-weight: 400;
   word-wrap: break-word;
@@ -80,18 +99,18 @@
 
 .Collapsebutton {
   align-self: stretch;
-  padding-left: 5.07px;
-  padding-right: 5.07px;
-  padding-top: 10.13px;
-  padding-bottom: 10.13px;
+  padding-left: clamp(2px, 1vw, 5.07px);
+  padding-right: clamp(2px, 1vw, 5.07px);
+  padding-top: clamp(6px, 2vw, 10.13px);
+  padding-bottom: clamp(6px, 2vw, 10.13px);
   background: var(--Color---Light-Purple, #CCBBE9);
-  border-radius: 4.05px;
-  outline: 3.04px black solid;
-  outline-offset: -3.04px;
+  border-radius: 1vw;
+  outline: 0.2vw black solid;
+  outline-offset: -0.2vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5.07px;
+  gap: clamp(2px, 1vw, 8px);
   display: flex;
 }
 
@@ -99,4 +118,101 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: clamp(18px, 4vw, 29px);
+  height: clamp(10px, 2vw, 17px);
+}
+
+@media (max-width: 900px) {
+  .Automation {
+    /* width: clamp(180px, 90vw, 400px); */
+    border-radius: 3vw;
+  }
+  .Collapsed {
+    width: clamp(100px, 40vw, 160px);
+    height: clamp(100px, 40vw, 160px);
+    border-radius: 3vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .Automation {
+    /* width: clamp(120px, 98vw, 320px); */
+    border-radius: 4vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  .Collapsed {
+    width: clamp(80px, 80vw, 120px);
+    height: clamp(80px, 80vw, 120px);
+    border-radius: 4vw;
+    padding: 2vw;
+  }
+  .Placeholder {
+    width: clamp(32px, 18vw, 60px);
+    height: clamp(32px, 18vw, 60px);
+  }
+  .Title {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+  }
+  .Content {
+    border-radius: 4vw;
+    outline-width: 1.5px;
+  }
+  .Collapsebutton {
+    border-radius: 4vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    outline-width: 1.5px;
+  }
+  .Vector1 {
+    width: clamp(14px, 8vw, 22px);
+    height: clamp(8px, 4vw, 12px);
+  }
+}
+
+@media (max-width: 900px) {
+  .Collapsed .Title {
+    display: none;
+  }
+}
+
+.transparentContent {
+  background: transparent !important;
+  outline: none !important;
+}
+
+.HeaderRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.IconCollapsed {
+  width: clamp(64px, 5vw, 128px);
+  height: clamp(64px, 5vw, 128px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.IconExpanded {
+  width: clamp(18px, 2vw, 28px);
+  height: clamp(18px, 2vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ScrollArea {
+  width: 100%;
+  height: 100%;
+  max-height: 110px;
+  overflow-y: auto;
+  border-radius: inherit;
 } 

@@ -3,6 +3,8 @@
   align-items: flex-start;
   gap: 70px;
   display: inline-flex;
+  margin-left: clamp(12px, 6vw, 120px);
+  margin-right: clamp(12px, 6vw, 120px);
 }
 
 .Textbutton {
@@ -86,6 +88,8 @@
     flex-direction: column;
     gap: 32px;
     align-items: center;
+    margin-left: clamp(8px, 4vw, 32px);
+    margin-right: clamp(8px, 4vw, 32px);
   }
   .Textbutton {
     width: 100%;
@@ -107,5 +111,9 @@
   }
   .Gotoprojectbutton {
     padding: 6px 16px;
+  }
+  .Artproject {
+    margin-left: clamp(4px, 2vw, 12px);
+    margin-right: clamp(4px, 2vw, 12px);
   }
 } 

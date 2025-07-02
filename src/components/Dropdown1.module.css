@@ -1,19 +1,20 @@
 .dropdown {
-  width: 1000px;
-  height: 438px;
-  padding-left: 43.09px;
-  padding-right: 43.09px;
-  padding-top: 24.56px;
-  padding-bottom: 24.56px;
+  width: clamp(320px, 80vw, 1000px);
+  height: auto;
+  padding-left: clamp(12px, 4vw, 44px);
+  padding-right: clamp(12px, 4vw, 44px);
+  padding-top: clamp(8px, 2vw, 25px);
+  padding-bottom: clamp(8px, 2vw, 25px);
   background: #151029;
-  border-radius: 13.79px;
+  border-radius: 2vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 4.91px;
+  gap: clamp(2px, 1vw, 20px);
   box-sizing: border-box;
   box-shadow: 0 0 16px var(--color-redC, #C0282D);
+  margin: clamp(12px, 3vw, 32px) clamp(12px, 3vw, 32px);
 }
 
 .header {
@@ -48,6 +49,9 @@
   background: #221c3a;
   border-radius: 0 0 10px 10px;
   font-size: 1rem;
+  justify-content: flex-start;
+  overflow-y: auto;
+  max-height: 260px;
 }
 
 .Biodropdown {
@@ -92,15 +96,18 @@
 }
 
 .Placeholder {
-  width: 110px;
-  height: 110px;
+  width: clamp(64px, 15vw, 110px);
+  height: clamp(64px, 15vw, 110px);
   background: #D9D9D9;
   border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Default {
   color: white;
-  font-size: 74.33px;
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
   font-family: 'Moby', sans-serif;
   font-weight: 700;
   word-wrap: break-word;
@@ -114,8 +121,8 @@
 }
 
 .Button {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 6vw, 40px);
+  height: clamp(32px, 6vw, 40px);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -131,17 +138,19 @@
 
 .ButtonRect {
   width: 100%;
-  align-self: stretch;
-  height: 40px;
+  max-width: 100%;
+  height: clamp(32px, 6vw, 40px);
   padding: 0;
   background: #C0282D;
-  border-radius: 12px;
+  border-radius: clamp(8px, 2vw, 12px);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8.62px;
+  gap: clamp(4px, 1vw, 12px);
   display: flex;
   cursor: pointer;
+  margin: 0;
+  align-self: stretch;
 }
 
 .BiodropdownExpanded {
@@ -256,79 +265,85 @@
   }
   .ButtonRect {
     width: 100%;
-    min-width: 120px;
     max-width: 100%;
     height: 32px;
+    margin: 0;
+    align-self: stretch;
   }
 }
 
 @media (max-width: 600px) {
-  .dropdown, .Dropdown1expanded {
-    width: 98vw;
-    height: 180px;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 7px;
-    gap: 1vw;
+  .dropdown {
+    margin: clamp(8px, 4vw, 18px) clamp(12px, 4vw, 18px);
   }
-  .Placeholder {
-    width: 36px;
-    height: 36px;
-  }
-  .Default {
-    font-size: 18px;
+  .LightPurpleContainer {
+    border-radius: 3vw;
+    padding: 2vw;
   }
   .Content {
-    height: 60px;
-    padding: 2px;
-    border-radius: 2px;
-    font-size: 10px;
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    max-height: 50vw;
   }
-  .Button {
-    width: 24px;
-    height: 24px;
-    padding: 2px;
+  .Placeholder {
+    width: clamp(48px, 22vw, 90px);
+    height: clamp(48px, 22vw, 90px);
+  }
+  .Button, .ButtonRect {
+    width: clamp(28px, 8vw, 36px);
+    height: clamp(28px, 8vw, 36px);
+    border-radius: 3vw;
   }
   .ButtonRect {
     width: 100%;
-    min-width: 60px;
     max-width: 100%;
-    height: 24px;
+    height: clamp(28px, 8vw, 36px);
+    border-radius: 3vw;
+    margin: 0;
+    align-self: stretch;
   }
 }
 
 .Dropdown1expanded {
-  width: 1000px;
-  height: 438px;
-  padding: 20.68px;
+  width: clamp(320px, 80vw, 1000px);
+  min-height: 320px;
+  padding: clamp(8px, 2vw, 24px);
   background: #151029;
-  border-radius: 11.79px;
+  border-radius: 2vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 20.68px;
+  gap: clamp(8px, 2vw, 24px);
   box-sizing: border-box;
   box-shadow: 0 0 16px var(--color-redC, #C0282D);
 }
 
-.Content {
-  align-self: stretch;
-  height: 336px;
-  padding: 6.89px;
+.LightPurpleContainer {
   background: var(--Color---Light-Purple, #CCBBE9);
-  border-radius: 6.89px;
-  justify-content: center;
-  align-items: center;
-  gap: 8.62px;
+  border-radius: 1vw;
+  padding: clamp(8px, 2vw, 24px);
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
   display: flex;
-  text-align: center;
-  font-size: 25.85px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+}
+
+.Content {
+  width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  display: block;
+  text-align: left;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
   font-family: 'Hack', monospace;
   font-weight: 700;
   color: black;
+  overflow-y: auto;
+  padding: 0;
 }
 
 .Chevron {
@@ -354,4 +369,51 @@
 .chevronRotated {
   transform: rotate(180deg);
   transition: transform 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.LightPurpleContainer.transparentContent {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.LightPurpleContainerHug {
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 1vw;
+  padding: clamp(8px, 2vw, 24px);
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: 0;
+}
+
+.LightPurpleContainerHug > .Content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: unset;
+  max-height: unset;
+  text-align: center;
+  overflow-y: visible;
+}
+
+.Dropdown1expandedHug {
+  width: clamp(320px, 80vw, 1000px);
+  padding: clamp(8px, 2vw, 24px);
+  background: #151029;
+  border-radius: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: clamp(8px, 2vw, 24px);
+  box-sizing: border-box;
+  box-shadow: 0 0 16px var(--color-redC, #C0282D);
+  height: 100%;
+  min-height: 0;
 } 

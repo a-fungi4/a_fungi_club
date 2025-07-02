@@ -7,40 +7,53 @@ import AboutIcon from "./icons/AboutIcon";
 import ArtIcon from "./icons/ArtIcon";
 import TGIcon from "./icons/TGIcon";
 import MiscIcon from "./icons/MiscIcon";
+import { useRouter } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "WIP", icon: <PortfolioIcon />, key: "portfolio" },
-  { label: "About", icon: <AboutIcon />, key: "about" },
-  { label: "Portfolio", icon: <ArtIcon />, key: "art" },
-  { label: "Art", icon: <TGIcon />, key: "tg" },
-  { label: "Misc", icon: <MiscIcon />, key: "misc" },
+  { label: "Portfolio", icon: <PortfolioIcon />, key: "portfolio", href: "/portfolio" },
+  { label: "About", icon: <AboutIcon />, key: "about", href: "/about" },
+  { label: "Art", icon: <ArtIcon />, key: "art", href: "/art" },
+  { label: "TG", icon: <TGIcon />, key: "tg", href: "/tg" },
+  { label: "Misc", icon: <MiscIcon />, key: "misc", href: "/misc" },
 ];
 
 const MobileNavBar: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
+  const router = useRouter();
 
   return (
     <div className={expanded ? styles.mobileNavBarExpanded : styles.mobileNavBar}>
       <span className={styles.brandmark}>
-        <BrandmarkIcon width={24.24} height={22.16} />
+        <BrandmarkIcon className={styles.brandmarkIcon} />
       </span>
       {expanded ? (
         <>
           <div className={styles.selectionItems}>
             {NAV_ITEMS.map((item) => (
-              <button
+              <span
                 key={item.key}
                 className={styles.navItem}
-                type="button"
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  setExpanded(false);
+                  router.push(item.href);
+                }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    setExpanded(false);
+                    router.push(item.href);
+                  }
+                }}
               >
                 <span className={styles.iconWrapper}>
                   {React.cloneElement(
-                    item.icon as React.ReactElement,
+                    item.icon as React.ReactElement<React.SVGProps<SVGSVGElement>>,
                     { className: styles.iconSvg }
                   )}
                 </span>
                 <span className={styles.label}>{item.label}</span>
-              </button>
+              </span>
             ))}
           </div>
           <button

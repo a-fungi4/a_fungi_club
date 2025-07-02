@@ -41,7 +41,7 @@ const NavBar: React.FC = () => {
       <div className={styles.navbarInner}>
         <span className={styles.brandmark} style={{ width: 24.24, height: 22.16, position: "relative", display: "flex", alignItems: "center" }}>
           <Link href="/">
-            <BrandmarkIcon width={24.24} height={22.16} />
+          <BrandmarkIcon width={24.24} height={22.16} />
           </Link>
         </span>
         <div className={styles.navScroll}>
@@ -50,15 +50,15 @@ const NavBar: React.FC = () => {
             const isSelected = pathname === item.href && pathname !== "/";
             return (
               <Link
-                key={item.key}
+              key={item.key}
                 href={item.href}
-                className={styles.navButton}
-              >
-                <NavItem
-                  icon={item.icon}
-                  label={item.label}
+              className={styles.navButton}
+            >
+              <NavItem
+                icon={item.icon}
+                label={item.label}
                   selected={isSelected}
-                />
+              />
               </Link>
             );
           })}

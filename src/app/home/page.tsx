@@ -9,7 +9,7 @@ export default function HomePage() {
       <div style={{ position: 'fixed', top: 0, left: 0, height: '100%', zIndex: -50 }}>
         <MyceliumAnimation />
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', zIndex: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'center', position: 'sticky', top: 0, left: 0, justifyContent: 'center', width: '100vw', height: '100vh', zIndex: 4 }}>
         <HeroSection />
       </div>
       <div style={{ position: 'relative', zIndex: 80 }}>

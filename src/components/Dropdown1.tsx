@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, ReactNode } from "react";
 import styles from "./Dropdown1.module.css";
 
@@ -5,6 +6,9 @@ interface Dropdown1Props {
   title?: string;
   content?: ReactNode;
   chevronIcon?: ReactNode;
+  placeholder?: ReactNode;
+  transparentProcess?: boolean;
+  hugContentHeight?: boolean;
 }
 
 const DefaultChevron = (
@@ -17,6 +21,9 @@ const Dropdown1: React.FC<Dropdown1Props> = ({
   title = "Default",
   content = "Content",
   chevronIcon,
+  placeholder,
+  transparentProcess = false,
+  hugContentHeight = false,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -31,7 +38,7 @@ const Dropdown1: React.FC<Dropdown1Props> = ({
   if (!expanded) {
     return (
       <div className={styles.dropdown}>
-        <div className={styles.Placeholder} />
+        {placeholder ? placeholder : <div className={styles.Placeholder} />}
         <div className={styles.Title}>
           <div className={styles.Default}>{title}</div>
         </div>
@@ -43,8 +50,18 @@ const Dropdown1: React.FC<Dropdown1Props> = ({
   }
 
   return (
-    <div className={styles.Dropdown1expanded}>
-      <div className={styles.Content}>{content}</div>
+    <div className={hugContentHeight ? styles.Dropdown1expandedHug : styles.Dropdown1expanded}>
+      <div
+        className={
+          hugContentHeight
+            ? styles.LightPurpleContainerHug + (transparentProcess ? ' transparentContent' : '')
+            : transparentProcess
+            ? styles.LightPurpleContainer + ' transparentContent'
+            : styles.LightPurpleContainer
+        }
+      >
+        <div className={styles.Content}>{content}</div>
+      </div>
       <div className={styles.ButtonRect} onClick={() => setExpanded(false)}>
         {buttonSvg}
       </div>

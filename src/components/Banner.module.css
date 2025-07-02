@@ -1,6 +1,7 @@
 .banner {
   height: 100vh;
   width: 100%;
+  padding-top: 10vh;
   position: relative;
   z-index: 2;
   max-width: 2000px;
@@ -57,17 +58,22 @@
   justify-content: center;
 }
 
+/* Start of Selection */
 .title {
-  display: inline-block;
+  display: flex;
   background: var(--blueC);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   color: #fff;
   border-radius: 999px;
-  padding: 0.5em 1.5em;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  padding: 0.25em 1em;
+  font-size: clamp(1rem, 2vw, 3rem);
   font-weight: bold;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
   width: auto;
+  height: clamp(3rem, 5vw, 4rem);
   min-width: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   white-space: nowrap;
@@ -75,6 +81,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* End of Selection */
 
 @media (max-width: 600px) {
   .banner {
@@ -137,4 +144,46 @@
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;
+}
+
+.Bannerprojectembed1 {
+  padding: 10px;
+  background: #151029;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  box-sizing: border-box;
+  max-width: 90vw;
+  z-index: 100;
+}
+
+@media (max-width: 600px) {
+  .Bannerprojectembed1 {
+    max-width: 98vw;
+    padding: 6px;
+    border-radius: 10px;
+  }
+}
+
+.BannerTextBox {
+  color: white;
+  font-size: 24px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .BannerTextBox {
+    font-size: 16px;
+    padding: 2px;
+  }
+}
+
+.BannerSkillPillWrapper {
+  margin-top: 32px;
 } 
