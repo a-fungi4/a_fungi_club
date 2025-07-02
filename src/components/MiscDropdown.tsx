@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from "react";
 import styles from "./MiscDropdown.module.css";
 import MiscIcon from "./icons/MiscIcon";
