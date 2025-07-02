@@ -19,31 +19,31 @@ export default function ArtPage() {
       </Banner>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 48, marginTop: 48, marginBottom: 48 }}>
         <ArtProject
-          title="Art Project 1"
-          description="This is a description for Art Project 1."
+          title="Free Therapy"
+          description="This is a description for Free Therapy."
           svg={<FreeTherapy />}
-          link="https://example.com/art1"
+          link="https://drive.google.com/drive/folders/1EzhZ1lYM_W7ddqVc5WPH0Y3xRhg9VwxP"
           iconPosition="left"
         />
         <ArtProject
-          title="Art Project 2"
-          description="This is a description for Art Project 2."
+          title="8th And Lucas"
+          description="This is a description for 8th And Lucas."
           svg={<EighthNLucas />}
-          link="https://example.com/art2"
+          link="https://opensea.io/collection/8thandlucas"
           iconPosition="right"
         />
         <ArtProject
-          title="Art Project 3"
-          description="This is a description for Art Project 3."
+          title="Lil Biscoff"
+          description="This is a description for Lil Biscoff."
           svg={<LilBiscoff />}
-          link="https://example.com/art3"
+          link="https://distrokid.com/hyperfollow/lilbiscoff/mr-uber?fbclid=PAZXh0bgNhZW0CMTEAAab1hlC-hTh7g5sqg5dFjpx_08-5D7PS812TAwemxqjEtjY9Qe2vbuWTdkg_aem_Z1H495rOnLtT3hJqrhQcpQ"
           iconPosition="left"
         />
         <ArtProject
-          title="Art Project 4"
-          description="This is a description for Art Project 4."
+          title="Coloring"
+          description="This is a description for Coloring."
           svg={<Coloring />}
-          link="https://example.com/art4"
+          link="https://www.amazon.com/dp/B0CHCPGYNB"
           iconPosition="right"
         />
       </div>
@@ -52,7 +52,7 @@ export default function ArtPage() {
           title="Art Project 5"
           description="This is a description for Art Project 5."
           svg={<TackyGarbageBig />}
-          link="https://example.com/art5"
+          link="/tg"
           iconPosition="left"
         />
       </div>
