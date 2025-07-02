@@ -4,12 +4,14 @@ import styles from "./MiscDropdown.module.css";
 import MiscIcon from "./icons/MiscIcon";
 
 interface MiscDropdownProps {
-  text: string;
+  defaultText: string;
+  hoverText: string;
   title?: string;
   content?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
-const MiscDropdown: React.FC<MiscDropdownProps> = ({ text, title, content }) => {
+const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, title, content, icon }) => {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -17,9 +19,9 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ text, title, content }) => 
     return (
       <div className={styles.Miscdropdownexpanded}>
         <div className={styles.Miscicon}>
-          <MiscIcon width={49} height={48} />
+          {icon || <MiscIcon width={49} height={48} />}
         </div>
-        <div className={styles.MiscTitleExpanded}>{title || text}</div>
+        <div className={styles.MiscTitleExpanded}>{title || hoverText}</div>
         <div className={styles.Contentcontainer}>
           <div className={styles.Content}>{content}</div>
         </div>
@@ -60,9 +62,9 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ text, title, content }) => 
         <>
           <div className={styles.Titleicon}>
             <span className={styles.Miscicon}>
-              <MiscIcon width={48} height={48} />
+              {icon || <MiscIcon width={48} height={48} />}
             </span>
-            <span className={styles.MiscTitle}>{title || text}</span>
+            <span className={styles.MiscTitle}>{hoverText}</span>
           </div>
           <span className={styles.ButtonDropdown}>
             <svg width="36" height="22" viewBox="0 0 36 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,10 +76,10 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ text, title, content }) => 
         <>
           <div className={styles.MiscdropdowndefaultInner}>
             <span className={styles.Misicon}>
-              <MiscIcon width={48} height={48} />
+              {icon || <MiscIcon width={48} height={48} />}
             </span>
           </div>
-          <div className={styles.Text}>{text}</div>
+          <div className={styles.Text}>{defaultText}</div>
         </>
       )}
     </div>

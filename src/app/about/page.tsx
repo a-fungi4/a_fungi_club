@@ -18,7 +18,7 @@ export default function AboutPage() {
       <Banner title="About" variant="general" className="fullBleed">
         <div className="Bannerprojectembed1">
           <div className="BannerTextBox" style={{ background: '#151029', borderRadius: 16, padding: 10 }}>
-            <p>This is the about page content. Add your information here.</p>
+            <p>It’s not all there. There’s a lot in the middle that I can’t put into a portfolio. My doctor questions how I’m alive every time I visit. I pop up on my friends sporadically and make their day interesting. If you decide to work with me you might get the details. For now, just know: I’m really living... and allergic to avocado. Please for the love of god keep the avocado away from the potluck.</p>
           </div>
         </div>
       </Banner>

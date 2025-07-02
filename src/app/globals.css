@@ -118,3 +118,10 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.BannerTextBox {
+  max-height: 200px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2DA9E1 #151029;
+}
+

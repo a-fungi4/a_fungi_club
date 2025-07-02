@@ -14,7 +14,7 @@ export default function PortfolioPage() {
       >
         <div className={styles.bannerProjectEmbed}>
           <div className={styles.bannerTextBox}>
-            <p>This is the portfolio page content. Add your information here.</p>
+            <p>The tools I know how to use don’t matter! What matters is that I listen to the clients’ needs. I empathize with their frustrations. And I find the right solution. The skills will come. Needless to say, I can do a lot of stuff.</p>
           </div>
         </div>
       </Banner>
