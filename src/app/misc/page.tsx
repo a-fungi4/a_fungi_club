@@ -1,5 +1,6 @@
 import React from "react";
 import Banner from "@/components/Banner";
+import MiscDropdown from "@/components/MiscDropdown";
 
 export default function MiscPage() {
   return (
@@ -11,8 +12,11 @@ export default function MiscPage() {
           </div>
         </div>
       </Banner>
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>Misc Page</h1>
+      <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 32, marginTop: 48, marginBottom: 48 }}>
+        <MiscDropdown text="Misc Item 1" content={<p>Content for Misc Item 1</p>} />
+        <MiscDropdown text="Misc Item 2" content={<p>Content for Misc Item 2</p>} />
+        <MiscDropdown text="Misc Item 3" content={<p>Content for Misc Item 3</p>} />
+        <MiscDropdown text="Misc Item 4" content={<p>Content for Misc Item 4</p>} />
       </div>
     </>
   );

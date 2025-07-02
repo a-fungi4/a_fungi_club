@@ -9,7 +9,7 @@ interface ProcessIconProps {
 
 const ProcessIcon: React.FC<ProcessIconProps> = ({
   width = 'clamp(180px, 22vw, 200px)',
-  height = 'auto',
+  height = '100%',
   style = {},
   className = '',
 }) => (
