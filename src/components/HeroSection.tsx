@@ -29,9 +29,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     className={className ? `${styles.heroSection} ${className}` : styles.heroSection}
     style={style}
   >
-    <Logo />
-    {mainText}
-    <div style={{ margin: '24px 0' }}>
+    <div className={styles.heroBlurBox}><Logo /></div>
+    <div className={styles.heroBlurBox}>{mainText}</div>
+    <div className={styles.heroBlurBox} style={{ margin: '24px 0' }}>
       <SocialLinks>
         <a href="https://www.behance.net/a-fungi" target="_blank" rel="noopener noreferrer" aria-label="Behance"><BehanceIcon /></a>
         <a href="https://www.instagram.com/afungiclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon /></a>
@@ -42,8 +42,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         <a href="https://github.com/a-fungi4" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><GithubIcon /></a>
       </SocialLinks>
     </div>
-    {middleText}
-    {secondaryText}
+    <div className={styles.heroBlurBox}>{middleText}</div>
+    <div className={styles.heroBlurBox}>{secondaryText}</div>
   </section>
 );
 
