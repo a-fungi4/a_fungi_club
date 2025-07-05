@@ -4,6 +4,7 @@ import HighlightedProject from "@/components/HighlightedProject";
 import HPButton from "@/components/HPButton";
 import Link from "next/link";
 import styles from "./page.module.css";
+import Image from "next/image";
 
 export default function PortfolioPage() {
   return (
@@ -56,23 +57,17 @@ I was tasked with creating the visual identity of the app. The initial design I 
         <div className={styles.projectGrid}>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/219795113/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/1-UIUserResearch.webp" alt="UI Project 1 - User Research" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/1-UIUserResearch.webp" alt="UI Project 1 - User Research" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/220356837/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/222677953/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
         </div>
@@ -84,23 +79,17 @@ I was tasked with creating the visual identity of the app. The initial design I 
         <div className={styles.projectGrid}>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/220936077/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/1-BrandingArea59.webp" alt="Branding Project 1 - Area 59" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/1-BrandingArea59.webp" alt="Branding Project 1 - Area 59" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/220075681/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/2-BrandingDevelopingGripNDrip.webp" alt="Branding Project 2 - Developing Grip N Drip" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/2-BrandingDevelopingGripNDrip.webp" alt="Branding Project 2 - Developing Grip N Drip" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/219877053/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/3-BrandingSqueezyDawgs.webp" alt="Branding Project 3 - Squeezy Dawgs" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/3-BrandingSqueezyDawgs.webp" alt="Branding Project 3 - Squeezy Dawgs" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
         </div>
@@ -112,23 +101,17 @@ I was tasked with creating the visual identity of the app. The initial design I 
         <div className={styles.projectGrid}>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/204709819/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/1-MarketingVochos.webp" alt="Marketing Project 1 - Vochos" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/1-MarketingVochos.webp" alt="Marketing Project 1 - Vochos" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/199249521/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/2-MarketingTheCreationOfEarl.webp" alt="Marketing Project 2 - The Creation of Earl" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/2-MarketingTheCreationOfEarl.webp" alt="Marketing Project 2 - The Creation of Earl" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
           <div className={styles.projectCard}>
             <div className={styles.iframeWrapper}>
-              <a href="https://www.behance.net/gallery/199256085/Project-Name" target="_blank" rel="noopener noreferrer">
-                <img src="/ProjectThumbnails/3-MarketingPresentingMyArt.webp" alt="Marketing Project 3 - Presenting My Art" className={styles.projectImage} />
-              </a>
+              <Image src="/ProjectThumbnails/3-MarketingPresentingMyArt.webp" alt="Marketing Project 3 - Presenting My Art" className={styles.projectImage} width={400} height={300} />
             </div>
           </div>
         </div>

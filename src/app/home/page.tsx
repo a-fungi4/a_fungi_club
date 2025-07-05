@@ -12,6 +12,7 @@ import styles from "./page.module.css";
 import FFigma from '@/components/icons/FFigma';
 import FCursor from '@/components/icons/FCursor';
 import FNextVercel from '@/components/icons/FNextVercel';
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -26,10 +27,10 @@ export default function HomePage() {
         <Banner title="I Made this UI" variant="home" className="parallaxBanner">
           <div className={styles.bannerProjectsRow}>
             <a href="https://www.behance.net/gallery/220356837/Project-Name" target="_blank" rel="noopener noreferrer" className={styles.bannerProjectCard}>
-              <img src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.bannerProjectImage} />
+              <Image src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.bannerProjectImage} width={400} height={300} />
             </a>
             <a href="https://www.behance.net/gallery/222677953/Project-Name" target="_blank" rel="noopener noreferrer" className={styles.bannerProjectCard}>
-              <img src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.bannerProjectImage} />
+              <Image src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.bannerProjectImage} width={400} height={300} />
             </a>
           </div>
           <a href="/designtocode" className={styles.goToProjectButton}>
@@ -751,8 +752,8 @@ export default function HomePage() {
                   <ResourceLinkButton label="Github Pages" href="https://pages.github.com/" icon={<RLBIconCode />} />
                   <div style={{ fontWeight: 700, fontSize: '1.2em', color: '#fff', margin: '1em 0 0.5em 0' }}>Ready to Deploy?</div>
                   <div style={{ color: '#fff', fontSize: '1em', lineHeight: 1.6 }}>
-                    Vercel has full compatibility with Next JS. You can use dynamic and static elements. If you want any kind of user input that isn't dependednt on an iframe embed you should use vercel. It has a decent free tier that's pretty close to what you get in github pages. Just push your project to github and start the deployment process.<br /><br />
-                    Github Pages is a great free tool for creating your first static website. I had some dynamic stuff so I ended up switching to vercel Use it to build your portfolio and learn to use cursor. I haven't tried Figma Sites yet. I was too deep into this project to start. But give it a try, it doesn't hurt.
+                    Vercel has full compatibility with Next JS. You can use dynamic and static elements. If you want any kind of user input that isn&apos;t dependednt on an iframe embed you should use vercel. It has a decent free tier that&apos;s pretty close to what you get in github pages. Just push your project to github and start the deployment process.<br /><br />
+                    Github Pages is a great free tool for creating your first static website. I had some dynamic stuff so I ended up switching to vercel Use it to build your portfolio and learn to use cursor. I haven&apos;t tried Figma Sites yet. I was too deep into this project to start. But give it a try, it doesn&apos;t hurt.
                   </div>
                 </>
               }
