@@ -51,12 +51,12 @@
 
 .Default {
   color: white;
-  font-size: 3vw;
+  font-size: 1vw;
   min-font-size: 18px;
   max-font-size: 32px;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
-  word-wrap: break-word;
+  word-wrap: nowrap;
 }
 
 .Button {
@@ -67,9 +67,6 @@
   width: 90vw;
   max-width: 943px;
   min-width: 260px;
-  height: 52vw;
-  max-height: 491px;
-  min-height: 200px;
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 0.5vw;
@@ -78,11 +75,10 @@
   overflow: hidden;
   border-radius: 16px;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  display: inline-flex;
+  display: flex;
   box-sizing: border-box;
-  max-height: 491px;
   transition: max-height 0.7s cubic-bezier(0.4,0,0.2,1);
 }
 
@@ -138,10 +134,13 @@
 
 .Content {
   align-self: stretch;
-  flex: 1 1 0;
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 1vw;
   background: var(--Color---Light-Purple, #CCBBE9);
   border-radius: 8px;
+  color: #111;
+  overflow-y: auto;
 }
 
 .TitleiconCollapsed {
@@ -172,18 +171,14 @@
   max-font-size: 32px;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
-  word-wrap: break-word;
+  word-wrap: nowrap;
 }
 
 @media (max-width: 600px) {
-  .Dropdown2expanded, .Dropdown2expandedExpanded {
-    width: 98vw;
-    min-width: 0;
-    max-width: none;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-top: 1vw;
-    padding-bottom: 1vw;
+  .Dropdown2expanded,
+  .Dropdown2expandedExpanded {
+    margin-left: 12px;
+    margin-right: 12px;
   }
   .Titleicon, .Titleiconparent {
     padding-left: 2vw;
@@ -216,12 +211,12 @@
 
 .DefaultCollapsed, .DefaultExpanded {
   color: white;
-  font-size: 3vw;
+  font-size: 1.5vw;
   min-font-size: 18px;
   max-font-size: 32px;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
-  word-wrap: break-word;
+  word-wrap: nowrap;
 }
 
 .dropdown2-animating {
@@ -235,4 +230,33 @@
 
 .chevron-rotated {
   transform: rotate(180deg);
+}
+
+.Dropdown2expandedExpanded .Content {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  .Dropdown2expandedExpanded .Content {
+    max-height: 220px;
+    overflow-y: auto;
+  }
+}
+
+.IconCollapsed, .IconExpanded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(16px, 2.5vw, 28px);
+  height: clamp(16px, 2.5vw, 28px);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media (max-width: 600px) {
+  .IconCollapsed, .IconExpanded {
+    width: clamp(14px, 5vw, 22px);
+    height: clamp(14px, 5vw, 22px);
+  }
 } 

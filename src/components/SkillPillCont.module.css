@@ -11,6 +11,7 @@
   padding-bottom: 1vw;
   border-radius: clamp(16px, 2vw, 32px);
   background-color: #1510295d;
+  margin-top: 1.5em;
 }
 
 .ProjectTypePill {

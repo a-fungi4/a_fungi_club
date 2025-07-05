@@ -24,7 +24,7 @@ const Banner: React.FC<BannerProps> = ({
 }) => {
   const isHome = variant === "home";
   const bannerStyle: React.CSSProperties = isHome
-    ? { height: "100vh" }
+    ? {}
     : {
     backgroundImage: `url(${backgroundImage})`,
     height: typeof height === "number" ? `${height}px` : height,

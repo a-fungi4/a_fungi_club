@@ -8,6 +8,8 @@ interface CarouselCardProps {
   selected?: boolean;
   onClose?: () => void;
   photoSize?: number;
+  onPrev?: () => void;
+  onNext?: () => void;
 }
 
 const Placeholder = () => (
@@ -25,7 +27,7 @@ const Placeholder = () => (
   </div>
 );
 
-const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, onClose, photoSize = 80 }) => {
+const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, onClose, photoSize = 80, onPrev, onNext }) => {
   // Overlay content for selected state
   const overlay = (
     <div className={styles.overlay}>
@@ -38,6 +40,14 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, on
           </button>
         </div>
         <div className={styles.selectedPhotoArea}>
+          {onPrev && (
+            <button className={styles.overlayArrowLeft} onClick={onPrev} aria-label="Previous">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="#2DA9E1"/>
+                <path d="M28 34L20 24L28 14" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          )}
           {photo ? (
             typeof photo === "string" ? (
               <img src={photo} alt="carousel" className={styles.selectedPhotoImg} />
@@ -59,6 +69,14 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, on
                 </svg>
               </span>
             </div>
+          )}
+          {onNext && (
+            <button className={styles.overlayArrowRight} onClick={onNext} aria-label="Next">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="#2DA9E1"/>
+                <path d="M20 34L28 24L20 14" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           )}
         </div>
       </div>

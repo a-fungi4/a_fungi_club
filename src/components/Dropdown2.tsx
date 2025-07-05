@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, ReactNode } from "react";
 import styles from "./Dropdown2.module.css";
 

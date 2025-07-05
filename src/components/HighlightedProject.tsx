@@ -11,6 +11,7 @@ interface HighlightedProjectProps {
   className?: string;
   thumbnailBackgroundColor?: string;
   button?: React.ReactNode;
+  text?: string;
 }
 
 function useIsMobile(breakpoint = 600) {
@@ -24,7 +25,7 @@ function useIsMobile(breakpoint = 600) {
   return isMobile;
 }
 
-const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, className = "", thumbnailBackgroundColor = "#D4CAFE", button }) => {
+const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, className = "", thumbnailBackgroundColor = "#D4CAFE", button, text }) => {
   const isMobile = useIsMobile();
   if (isMobile === null) return null;
   const effectiveVariant = isMobile && variant !== "mobile" ? "mobile" : variant;
@@ -37,7 +38,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
             <HPThumbnail svg={<HeirloomThumbnail />} backgroundColor={thumbnailBackgroundColor} />
           </div>
           <div data-layer="Project Description" className={styles.projectDescriptionSection}>
-            <HPTextbox text="Project DescriptionProject Description" />
+            <HPTextbox text={text || "Project DescriptionProject Description"} />
             <div className={styles.buttonWrapper}>
               {button}
             </div>
@@ -51,7 +52,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
       <div className={styles.desktopAspectRatioBox}>
         <div data-layer="HighlightedProject2" className={`${styles.highlightedProjectContainer} ${className}`}>
           <div data-layer="Project Description" className={`${styles.projectDescriptionSection} ${styles.project2LeftRadius}`}>
-            <HPTextbox text="DesignToCode project description" />
+            <HPTextbox text={text || "DesignToCode project description"} />
             <div className={styles.buttonWrapper}>
               {button}
             </div>
@@ -89,7 +90,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
           />
         </div>
         <div data-layer="Project Description" className={styles.projectDescriptionSection} style={{borderTopLeftRadius: 0, borderTopRightRadius: 0, borderBottomLeftRadius: 100, borderBottomRightRadius: 100}}>
-          <HPTextbox text="Project DescriptionProject Description" />
+          <HPTextbox text={text || "Project DescriptionProject Description"} />
           <div className={styles.buttonWrapper}>
             {button}
           </div>

@@ -84,6 +84,11 @@
 /* End of Selection */
 
 @media (max-width: 600px) {
+  .banner,
+  .parallaxBanner {
+    height: auto !important;
+    min-height: 0 !important;
+  }
   .banner {
     width: 100%;
     left: 0;
@@ -111,7 +116,7 @@
 }
 
 .general {
-  min-height: 300px;
+  min-height: 520px;
   /* Add general-specific styles here */
 }
 
@@ -186,4 +191,16 @@
 
 .BannerSkillPillWrapper {
   margin-top: 32px;
+}
+
+.banner.home {
+  height: auto !important;
+  min-height: 100dvh !important;
+}
+
+@media (max-width: 600px) {
+  .banner.home {
+    min-height: 100dvh !important;
+    height: auto !important;
+  }
 } 

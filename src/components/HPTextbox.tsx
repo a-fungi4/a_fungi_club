@@ -11,7 +11,13 @@ const HPTextbox: React.FC<HPTextboxProps> = ({ children, text, className = "" })
   return (
     <div data-layer="Text" className={`${styles.Text} ${className}`}>
       <div data-layer="Project DescriptionProject Description" className={styles.ProjectDescriptionprojectDescription}>
-        {children || text}
+        {children ||
+          (text
+            ? text.split(/\n\s*\n/).map((para, idx) => (
+                <p key={idx} style={{ margin: 0, marginBottom: '1em' }}>{para.trim()}</p>
+              ))
+            : null)
+        }
       </div>
     </div>
   );

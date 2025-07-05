@@ -1,0 +1,61 @@
+.Resourcelinkbutton {
+  width: fit-content;
+  padding: 0.3em 0.7em;
+  margin: 0 0.5em;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  border-radius: 100px;
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
+  gap: 0.7em;
+  text-decoration: none;
+  transition: box-shadow 0.2s;
+}
+
+.Resourcelinkbutton:hover {
+  box-shadow: 0px 0px 16px #2DA9E1;
+}
+
+.Titleicon {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: auto;
+  height: 1.2em;
+}
+
+.Placeholdericon {
+  width: 1em;
+  height: 1em;
+  background: #fff2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LinkText {
+  color: white;
+  font-size: min(max(0.9em, 2.5vw), 1.1em);
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: visible;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.LinkIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.LinkSvg {
+  width: 1.2em;
+  height: 1.1em;
+  display: block;
+} 
