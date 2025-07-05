@@ -1,9 +1,7 @@
 import React from "react";
 
 const MarketingIcon2: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="100%" height="100%" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}
-    aria-label="A dynamic marketing chart icon representing analytics, strategy, and campaign management for designers, marketers, and software developers" role="img">
-    <title>Marketing icon: A chart symbolizing analytics, marketing strategy, and campaign management for creative professionals and developers.</title>
+  <svg width="100%" height="100%" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path fill="#000" d="M0 0h56.25v56.25H0z"></path>
     <path
       fill="#F5BE15"

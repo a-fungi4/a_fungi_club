@@ -80,5 +80,4 @@ const CLemona: React.FC<CLemonaProps> = ({ className }) => (
   </svg>
 );
 
-
 export default CLemona; 
