@@ -11,8 +11,9 @@ export default function TGPage() {
           </div>
         </div>
       </Banner>
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>TG Page</h1>
+        <p style={{ fontSize: '1.5rem', fontWeight: 500, marginTop: '1em', color: '#a78bfa' }}>Coming Soon</p>
       </div>
     </>
   );
