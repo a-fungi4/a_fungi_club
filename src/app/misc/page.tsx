@@ -10,10 +10,24 @@ import MarketingIcon1 from "@/components/icons/MarketingIcon1";
 import MarketingIcon2 from "@/components/icons/MarketingIcon2";
 import MarketingIcon3 from "@/components/icons/MarketingIcon3";
 import ContactForm from "@/components/ContactForm";
+import Head from 'next/head';
 
 export default function MiscPage() {
   return (
     <>
+      <Head>
+        <title>Miscellaneous | Khaled Momani</title>
+        <meta name="description" content="Explore old work, side projects, and compliance resources by Khaled Momani." />
+        <meta property="og:title" content="Miscellaneous | Khaled Momani" />
+        <meta property="og:description" content="Explore old work, side projects, and compliance resources by Khaled Momani." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://afungiclub.com/misc" />
+        <meta property="og:image" content="/headshot-bw.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Miscellaneous | Khaled Momani" />
+        <meta name="twitter:description" content="Explore old work, side projects, and compliance resources by Khaled Momani." />
+        <meta name="twitter:image" content="/headshot-bw.webp" />
+      </Head>
       <Banner title="Misc" variant="general" className="fullBleed">
         <div className="Bannerprojectembed1">
           <div className="BannerTextBox" style={{ background: '#151029', borderRadius: 16, padding: 10 }}>

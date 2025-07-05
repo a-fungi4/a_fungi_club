@@ -8,7 +8,10 @@ const FNextVercel: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
+    aria-label="A Next.js and Vercel logo icon representing modern web development, deployment, and software engineering for developers and designers"
+    role="img"
   >
+    <title>Next.js and Vercel icon: A logo symbolizing modern web development, deployment, and software engineering.</title>
     <path d="M92 80H0L45.9994 0L92 80ZM8.9027 74.8387H83.0973L45.9994 10.3226L8.9027 74.8387Z" fill="white"/>
     <path d="M46.2631 72.333C60.4989 72.333 72.0394 60.7455 72.0394 46.4516C72.0394 32.1577 60.4989 20.5703 46.2631 20.5703C32.0273 20.5703 20.4869 32.1577 20.4869 46.4516C20.4869 60.7455 32.0273 72.333 46.2631 72.333Z" fill="black"/>
     <path d="M46.263 71.4702C60.0243 71.4702 71.1801 60.269 71.1801 46.4516C71.1801 32.6341 60.0243 21.4329 46.263 21.4329C32.5017 21.4329 21.346 32.6341 21.346 46.4516C21.346 60.269 32.5017 71.4702 46.263 71.4702Z" fill="black"/>

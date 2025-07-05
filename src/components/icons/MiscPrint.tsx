@@ -8,8 +8,9 @@ const MiscPrint: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
-    aria-label="MiscPrint icon"
+    aria-label="A print document icon representing documentation, creative print work, and project deliverables for designers, marketers, and developers"
   >
+    <title>Print icon: A document symbolizing documentation, creative print work, and project deliverables for professionals.</title>
     <rect x="1.15625" y="1.15625" width="45.6875" height="45.6875" rx="5.34375" fill="#151029" />
     <rect x="1.15625" y="1.15625" width="45.6875" height="45.6875" rx="5.34375" stroke="#2DA9E1" strokeWidth="1.6875" />
     <path d="M30.7606 36.1733H17.6152V38.5534H30.7606V36.1733Z" fill="#EB008B" />

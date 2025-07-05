@@ -8,9 +8,12 @@ const Mycelium4: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid meet"
+    aria-label="A mycelium network icon representing innovation, creative connections, and collaborative design projects for designers, marketers, and developers"
+    role="img"
     {...props}
   >
-  <path
+    <title>Mycelium icon: A network symbolizing innovation, creative connections, and collaborative design projects for professionals.</title>
+    <path
       fill="#2DA9E1"
       d="M49.33 640h-.914v-.914h.914zM304.201 575.997l12.79.914v2.743l-16.444-.914-19.184 17.372 1.827-8.229 13.703-10.057 3.654-9.143h2.741z"
     ></path>

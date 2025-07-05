@@ -1,7 +1,8 @@
 import React from 'react';
 
 const TackyGarbageBig: React.FC = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style={{display: 'block'}}>
+  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style={{display: 'block'}} aria-label="A Tacky Garbage icon representing creative expression, unique branding, and portfolio projects for designers, marketers, and developers" role="img">
+    <title>Tacky Garbage icon: A symbol of creative expression, unique branding, and portfolio projects for professionals.</title>
     <rect width="200" height="200" fill="#EF4037" rx="8"></rect>
     <path
       fill="#F9A981"

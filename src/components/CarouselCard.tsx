@@ -2,6 +2,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import styles from "./CarouselCard.module.css";
+import Image from 'next/image';
 
 interface CarouselCardProps {
   photo?: string | React.ReactNode;
@@ -50,7 +51,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, on
           )}
           {photo ? (
             typeof photo === "string" ? (
-              <img src={photo} alt="carousel" className={styles.selectedPhotoImg} />
+              <Image src={photo} alt="Portfolio Project Image by Khaled Momani - Designer, UI Designer, Marketing, Software Developer" className={styles.selectedPhotoImg} width={photoSize} height={photoSize} />
             ) : (
               React.isValidElement(photo)
                 ? React.cloneElement(photo as React.ReactElement<{ width?: number | string; height?: number | string }>, { width: photoSize, height: photoSize })
@@ -93,7 +94,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ photo, selected = false, on
       <div className={styles.photoArea}>
         {photo ? (
           typeof photo === "string" ? (
-            <img src={photo} alt="carousel" className={styles.photoImg} />
+            <Image src={photo} alt="Portfolio Project Image by Khaled Momani - Designer, UI Designer, Marketing, Software Developer" className={styles.photoImg} width={photoSize} height={photoSize} />
           ) : (
             React.isValidElement(photo)
               ? React.cloneElement(photo as React.ReactElement<{ width?: number | string; height?: number | string }>, { width: photoSize, height: photoSize })

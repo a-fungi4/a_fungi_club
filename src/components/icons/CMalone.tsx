@@ -5,8 +5,17 @@ interface CMaloneProps {
 }
 
 const CMalone: React.FC<CMaloneProps> = ({ className }) => (
-  <svg className={className} width="100%" height="100%" viewBox="0 0 245 245" fill="none" xmlns="http://www.w3.org/2000/svg">
-    
+  <svg
+    className={className}
+    width="100%"
+    height="100%"
+    viewBox="0 0 245 245"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A creative malone icon representing unique design, creative projects, and artistic inspiration for designers, marketers, and developers"
+    role="img"
+  >
+    <title>Malone icon: A symbol of unique design, creative projects, and artistic inspiration for professionals.</title>
 
     <path
       fill="#F55"
@@ -58,8 +67,6 @@ const CMalone: React.FC<CMaloneProps> = ({ className }) => (
       fill="#4F1F46"
       d="M106.364 131.911a.664.664 0 0 1 .91.236l-.599.352.026-.015.573-.336h.001l.001.003.003.005.008.013.021.04q.026.05.064.132c.051.11.114.266.174.461.121.39.231.944.203 1.62-.055 1.374-.672 3.157-2.703 5.041a.664.664 0 1 1-.904-.974c1.804-1.674 2.24-3.137 2.279-4.12a3.5 3.5 0 0 0-.145-1.175 3 3 0 0 0-.113-.302l-.032-.066-.006-.01h.001l.001.002v.001l.001.001a.664.664 0 0 1 .236-.909M128.477 132.825a.665.665 0 0 1 1.295.297l-.003.017-.015.089a4 4 0 0 0-.035.366c-.016.319-.003.768.112 1.276.222.982.833 2.224 2.461 3.205l.078.046.029.018a.665.665 0 0 1-.671 1.146l-.03-.017-.094-.056c-1.969-1.187-2.776-2.752-3.069-4.049a6 6 0 0 1-.143-1.635 5 5 0 0 1 .072-.639l.008-.042.003-.014.001-.005.001-.002c0-.001.006 0 .631.144zm1.296.296v.001zv-.001z"
     ></path>
-
-
   </svg>
 );
 

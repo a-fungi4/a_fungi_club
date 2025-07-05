@@ -9,6 +9,7 @@ const PRInsideOut: React.FC = () => (
     xmlns="http://www.w3.org/2000/svg"
     role="img"
     aria-label="PRInsideOut icon"
+    title="Inside Out icon: A symbol of creative thinking, unique design, and innovative projects for professionals."
   >
     <g filter="url(#filter0_d_904_4559)">
       <path

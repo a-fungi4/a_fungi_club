@@ -1,7 +1,15 @@
 import React from "react";
 
 const BehanceIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="34"
+    height="34"
+    viewBox="0 0 34 34"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A Behance logo icon representing creative portfolios, design projects, and professional networking for designers, marketers, and developers"
+    role="img">
+    <title>Behance icon: A logo symbolizing creative portfolios, design projects, and professional networking for creative professionals.</title>
     <path d="M22.37 15.91C22 15.57 21.55 15.4 21.03 15.4C20.77 15.4 20.53 15.45 20.3 15.54C20.07 15.63 19.88 15.76 19.7 15.92C19.53 16.08 19.39 16.28 19.28 16.51C19.17 16.74 19.11 16.99 19.09 17.27H23C22.95 16.7 22.74 16.25 22.37 15.91Z" fill="white"/>
     <path d="M13.77 15.32C14.01 15.08 14.13 14.76 14.13 14.34C14.13 13.92 14.02 13.61 13.8 13.38C13.58 13.14 13.3 13.02 12.98 13.02H10.16V15.68H12.89C13.24 15.68 13.53 15.56 13.77 15.32Z" fill="white"/>
     <path d="M14.18 17.71C14.07 17.58 13.94 17.48 13.79 17.41C13.64 17.34 13.48 17.3 13.3 17.3H10.15V20.07H13.19C13.38 20.07 13.55 20.04 13.72 19.97C13.88 19.9 14.02 19.8 14.14 19.68C14.26 19.56 14.35 19.41 14.42 19.24C14.49 19.07 14.52 18.89 14.52 18.71C14.52 18.53 14.49 18.34 14.42 18.17C14.36 18 14.27 17.85 14.16 17.72L14.18 17.71Z" fill="white"/>

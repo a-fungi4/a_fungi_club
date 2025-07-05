@@ -1,7 +1,16 @@
 import React from "react";
 
 const YoutubeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="34"
+    height="34"
+    viewBox="0 0 34 34"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+    aria-label="A YouTube logo icon representing video content, creative marketing, and digital portfolio for designers, marketers, and developers"
+    role="img">
+    <title>YouTube icon: A logo symbolizing video content, creative marketing, and digital portfolio for professionals.</title>
     <path d="M20.61 16.745L15.39 13.905C15.18 13.785 14.44 13.935 14.44 14.185V19.725C14.44 19.965 15.17 20.125 15.38 20.005L20.84 17.305C21.06 17.185 20.84 16.865 20.61 16.745Z" fill="white"/>
     <path d="M16.84 0.295013C7.68 0.295013 0.25 7.72501 0.25 16.885C0.25 26.045 7.68 33.475 16.84 33.475C26 33.475 33.43 26.045 33.43 16.885C33.43 7.72501 26 0.295013 16.84 0.295013ZM27.99 19.715C27.99 22.345 25.86 24.475 23.23 24.475H11.06C8.43 24.475 6.3 22.345 6.3 19.715V14.055C6.3 11.425 8.43 9.29501 11.06 9.29501H23.23C25.86 9.29501 27.99 11.425 27.99 14.055V19.715Z" fill="white"/>
   </svg>

@@ -9,16 +9,30 @@ import ProcessSelectionDropdown from "@/components/ProcessSelectionDropdown";
 import PRPlasticity from "@/components/icons/PRPlasticity";
 import PRInsideOut from "@/components/icons/PRInsideOut";
 import PRAutomation from "@/components/icons/PRAutomation";
+import Head from 'next/head';
 
 export default function AboutPage() {
   const [openProcess, setOpenProcess] = useState<number | null>(null);
 
   return (
     <>
+      <Head>
+        <title>About | Khaled Momani</title>
+        <meta name="description" content="Learn more about Khaled Momani, a designer and developer passionate about accessible, impactful design and technology." />
+        <meta property="og:title" content="About | Khaled Momani" />
+        <meta property="og:description" content="Learn more about Khaled Momani, a designer and developer passionate about accessible, impactful design and technology." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://afungiclub.com/about" />
+        <meta property="og:image" content="/headshot-bw.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About | Khaled Momani" />
+        <meta name="twitter:description" content="Learn more about Khaled Momani, a designer and developer passionate about accessible, impactful design and technology." />
+        <meta name="twitter:image" content="/headshot-bw.webp" />
+      </Head>
       <Banner title="About" variant="general" className="fullBleed">
         <div className="Bannerprojectembed1">
           <div className="BannerTextBox" style={{ background: '#151029', borderRadius: 16, padding: 10 }}>
-            <p>It’s not all there. There’s a lot in the middle that I can’t put into a portfolio. My doctor questions how I’m alive every time I visit. I pop up on my friends sporadically and make their day interesting. If you decide to work with me you might get the details. For now, just know: I’m really living... and allergic to avocado. Please for the love of god keep the avocado away from the potluck.</p>
+            <p>It's not all there. There's a lot in the middle that I can't put into a portfolio. My doctor questions how I'm alive every time I visit. I pop up on my friends sporadically and make their day interesting. If you decide to work with me you might get the details. For now, just know: I'm really living... and allergic to avocado. Please for the love of god keep the avocado away from the potluck.</p>
           </div>
         </div>
       </Banner>
@@ -38,7 +52,7 @@ export default function AboutPage() {
           placeholder={
             <Image
               src="/headshot-bw.webp"
-              alt="Headshot"
+              alt="Headshot of Khaled Momani - Designer, UI Designer, Marketing, Software Developer, Portfolio"
               width={0}
               height={0}
               sizes="(max-width: 600px) 40vw, (max-width: 900px) 75vw, 200px"

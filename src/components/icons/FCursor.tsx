@@ -8,7 +8,8 @@ const FCursor: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
-  >
+    aria-label="A stylized cursor icon representing digital design, user interface navigation, and creative software development for designers and developers" role="img">
+    <title>Cursor icon: A pointer symbolizing digital design, UI navigation, and creative software development.</title>
     <path d="M62.7676 18.6416L62.4531 55.3604L31.1328 73.5L0 54.8584L0.313477 18.1396L31.6973 0L62.7676 18.6416Z" fill="#EBEBEB"/>
     <path fillRule="evenodd" clipRule="evenodd" d="M31.6973 0L0.313477 18.1396L0 54.8584L31.1328 73.5L62.4531 55.3604L62.7676 18.6416L31.6973 0Z" fill="#BABABA"/>
     <path fillRule="evenodd" clipRule="evenodd" d="M31.6973 0L0.313477 18.1396L0 54.8584L31.3836 36.7188L31.6973 0Z" fill="#757575"/>

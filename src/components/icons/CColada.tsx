@@ -5,10 +5,19 @@ interface CColadaProps {
 }
 
 const CColada: React.FC<CColadaProps> = ({ className }) => (
-  <svg className={className} width="100%" height="100%" viewBox="0 0 245 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={className}
+    width="100%"
+    height="100%"
+    viewBox="0 0 245 245"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A creative colada icon representing tropical inspiration, creative projects, and unique design for designers, marketers, and developers"
+    role="img"
+  >
+    <title>Colada icon: A symbol of tropical inspiration, creative projects, and unique design for professionals.</title>
 
-
-<path
+    <path
       fill="#64892F"
       d="M135.536 59.354c0 21.285-5.55 30.178-12.385 30.184-6.842 0-12.385-8.9-12.385-30.177 0-21.29 12.385-46.9 12.385-46.9s12.385 25.61 12.385 46.9z"
     ></path>
@@ -124,9 +133,6 @@ const CColada: React.FC<CColadaProps> = ({ className }) => (
       fill="#4F1F46"
       d="M108.965 157.437a.664.664 0 0 1 .91.236l-.599.352.026-.015.573-.336.001.001.001.002.003.005a.4.4 0 0 1 .029.053q.027.05.065.132c.05.111.113.266.173.461.121.39.231.944.204 1.62-.056 1.374-.673 3.157-2.704 5.041a.664.664 0 1 1-.904-.974c1.804-1.674 2.24-3.137 2.28-4.12a3.5 3.5 0 0 0-.146-1.175 3 3 0 0 0-.113-.301q-.022-.049-.032-.067l-.006-.01h.001l.001.002.001.001v.001a.665.665 0 0 1 .236-.909M131.078 158.351a.665.665 0 0 1 1.296.297l-.004.017-.014.089a3 3 0 0 0-.035.366c-.016.319-.004.768.111 1.276.222.982.833 2.224 2.461 3.205l.078.046.029.018a.665.665 0 0 1-.671 1.146l-.03-.017-.094-.056c-1.969-1.187-2.776-2.752-3.069-4.049a6 6 0 0 1-.143-1.635 5 5 0 0 1 .072-.639l.008-.042.003-.014.001-.005.001-.002c0-.001.006 0 .631.144zm1.296.296v.001zv-.001z"
     ></path>
-
-
-
   </svg>
 );
 

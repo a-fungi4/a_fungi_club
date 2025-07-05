@@ -1,7 +1,16 @@
 import React from "react";
 
 const TGIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A stylized TG icon representing creative branding, project identity, and digital design for designers, marketers, and developers"
+    role="img"
+    {...props}>
+    <title>TG icon: A stylized logo symbolizing creative branding, project identity, and digital design for portfolios and marketing.</title>
     <g clipPath="url(#clip0_874_3887)">
       <path d="M22.123 -3.05176e-05L20.123 1.99997L2.12299 1.99997L2.12299 19L0.122988 20L0.123047 0.999969C0.123047 0.499969 0.623047 -3.04898e-05 1.12305 -3.04461e-05L22.123 -3.05176e-05Z" fill="#C0282D"/>
       <path d="M2.12305 24L4.12311 22L22.1231 22L22.1231 5L24.1231 4L24.123 23C24.123 23.5 23.623 24 23.123 24L2.12305 24Z" fill="#C0282D"/>

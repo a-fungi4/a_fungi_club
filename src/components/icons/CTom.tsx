@@ -5,9 +5,19 @@ interface CTomProps {
 }
 
 const CTom: React.FC<CTomProps> = ({ className }) => (
-  <svg className={className} width="100%" height="100%" viewBox="0 0 245 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={className}
+    width="100%"
+    height="100%"
+    viewBox="0 0 245 245"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A creative tom icon representing unique design, creative projects, and artistic inspiration for designers, marketers, and developers"
+    role="img"
+  >
+    <title>Tom icon: A symbol of unique design, creative projects, and artistic inspiration for professionals.</title>
 
-<path
+    <path
       fill="#FF5050"
       d="M123.046 190.837c32.292 0 58.469-26.177 58.469-58.469s-26.177-58.47-58.469-58.47-58.47 26.178-58.47 58.47 26.178 58.469 58.47 58.469"
     ></path>
@@ -76,8 +86,6 @@ const CTom: React.FC<CTomProps> = ({ className }) => (
       d="M110.845 123.227a.664.664 0 0 1 .91.235l-.599.352.026-.015.573-.336.001.001.001.002.003.005.007.014q.01.015.022.04.026.048.064.132c.051.11.114.265.174.46.12.391.231.945.203 1.621-.055 1.373-.673 3.156-2.703 5.041a.664.664 0 1 1-.904-.974c1.804-1.674 2.24-3.138 2.279-4.121a3.5 3.5 0 0 0-.145-1.175 3 3 0 0 0-.113-.301l-.032-.066-.006-.011.001.001.001.002v.001l.001.001a.664.664 0 0 1 .236-.909M132.958 124.14a.664.664 0 0 1 1.295.298l-.003.016-.015.089a4 4 0 0 0-.035.367c-.016.319-.003.767.112 1.275.222.983.833 2.225 2.46 3.205l.079.047.029.018a.664.664 0 0 1-.671 1.145l-.03-.016-.094-.057c-1.969-1.186-2.776-2.752-3.069-4.048a6 6 0 0 1-.143-1.635c.01-.207.03-.376.047-.496q.014-.09.025-.143l.008-.043.003-.013.001-.005.001-.002v-.001l.631.144zm1.296.296-.001.001zv-.002z"
     ></path>
   </svg>
-
-
 );
 
 export default CTom; 

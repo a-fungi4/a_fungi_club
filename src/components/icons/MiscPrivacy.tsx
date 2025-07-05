@@ -8,8 +8,9 @@ const MiscPrivacy: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
-    aria-label="MiscPrivacy icon"
+    aria-label="A privacy shield icon representing data protection, privacy, and secure digital experiences for designers, marketers, and software developers"
   >
+    <title>Privacy icon: A shield symbolizing data protection, privacy, and secure digital experiences for creative professionals.</title>
     <rect x="1.15625" y="1.15625" width="45.6875" height="45.6875" rx="5.34375" fill="#151029" />
     <rect x="1.15625" y="1.15625" width="45.6875" height="45.6875" rx="5.34375" stroke="#2DA9E1" strokeWidth="1.6875" />
     <g transform="translate(9 6)">

@@ -5,7 +5,17 @@ interface CBarryProps {
 }
 
 const CBarry: React.FC<CBarryProps> = ({ className }) => (
-  <svg className={className} width="100%" height="100%" viewBox="0 0 245 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={className}
+    width="100%"
+    height="100%"
+    viewBox="0 0 245 245"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A creative barry icon representing unique design, creative projects, and artistic inspiration for designers, marketers, and developers"
+    role="img"
+  >
+    <title>Barry icon: A symbol of unique design, creative projects, and artistic inspiration for professionals.</title>
     <path
       fill="#8CC63E"
       d="M147.234 58.423c11.147-5.17 49.03 2.29 49.03 2.29s-20.059 34.307-31.194 39.47c-11.148 5.163-24.176 0-29.1-11.533-4.925-11.54.116-25.076 11.257-30.227z"

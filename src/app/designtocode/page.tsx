@@ -14,21 +14,35 @@ import OCursorAI from '@/components/OCursorAI';
 import ONextVercel from '@/components/ONextVercel';
 import RLBIconVideo from '@/components/RLBIconVideo';
 import RLBIconCode from '@/components/RLBIconCode';
+import Head from 'next/head';
 
 export default function DesignToCodePage() {
   const [dropdownExpanded, setDropdownExpanded] = useState(false);
   const [cursorAIExpanded, setCursorAIExpanded] = useState(false);
   const [deploymentExpanded, setDeploymentExpanded] = useState(false);
   const DESIGN_TO_CODE_CAROUSEL_PHOTOS = [
-    "/design-to-code-carousel-photos/1 - HomePage.png",
-    "/design-to-code-carousel-photos/2 - PortfolioPage.png",
-    "/design-to-code-carousel-photos/3 - PorfolioProject.png",
-    "/design-to-code-carousel-photos/4 - AboutPage.png",
-    "/design-to-code-carousel-photos/5 - Art.png",
-    "/design-to-code-carousel-photos/6 - Misc.png",
+    "/design-to-code-carousel-photos/1_-_HomePage.png",
+    "/design-to-code-carousel-photos/2_-_PortfolioPage.png",
+    "/design-to-code-carousel-photos/3_-_PorfolioProject.png",
+    "/design-to-code-carousel-photos/4_-_AboutPage.png",
+    "/design-to-code-carousel-photos/5_-_Art.png",
+    "/design-to-code-carousel-photos/6_-_Misc.png",
   ];
   return (
     <>
+      <Head>
+        <title>Design to Code | Khaled Momani</title>
+        <meta name="description" content="A deep dive into the DesignToCode project by Khaled Momani, exploring Figma, UI development, and automation." />
+        <meta property="og:title" content="Design to Code | Khaled Momani" />
+        <meta property="og:description" content="A deep dive into the DesignToCode project by Khaled Momani, exploring Figma, UI development, and automation." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://afungiclub.com/designtocode" />
+        <meta property="og:image" content="/headshot-bw.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Design to Code | Khaled Momani" />
+        <meta name="twitter:description" content="A deep dive into the DesignToCode project by Khaled Momani, exploring Figma, UI development, and automation." />
+        <meta name="twitter:image" content="/headshot-bw.webp" />
+      </Head>
       <Banner title="DesignToCode" variant="general" className={styles.banner}>
         <HPTextbox text="DesignToCode is a project about ... (add your description here)." />
         <SkillPillCont skills={["UI Development", "Figma", "React", "Automation", "Prototyping"]} projectType="designtocode" />

@@ -5,9 +5,19 @@ interface CDragonProps {
 }
 
 const CDragon: React.FC<CDragonProps> = ({ className }) => (
-  <svg className={className} width="100%" height="100%" viewBox="0 0 245 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className={className}
+    width="100%"
+    height="100%"
+    viewBox="0 0 245 245"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="A creative dragon fruit icon representing bold ideas, creative projects, and unique design for designers, marketers, and developers"
+    role="img"
+  >
+    <title>Dragon Fruit icon: A symbol of bold ideas, creative projects, and unique design for professionals.</title>
 
-  <path
+    <path
       fill="#749C17"
       fillRule="evenodd"
       d="M125.74 82.676s4.128-11.773-9.359-33.596c-13.487-21.83-14.59-24.181-14.038-21.83s5.23 29.315 3.025 47.506c-2.205 18.185 20.372 7.92 20.372 7.92"

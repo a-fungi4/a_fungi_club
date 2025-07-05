@@ -8,8 +8,9 @@ const MiscHTown: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
-    aria-label="MiscHTown icon"
+    aria-label="A stylized HTown icon representing local culture, creative branding, and unique portfolio projects for designers, marketers, and developers"
   >
+    <title>HTown icon: A stylized symbol for local culture, creative branding, and unique portfolio projects.</title>
     <rect x="1.15625" y="0.91626" width="46.6875" height="45.3008" rx="5.34375" fill="black" />
     <rect x="1.15625" y="0.91626" width="46.6875" height="45.3008" rx="5.34375" stroke="#2DA9E1" strokeWidth="1.6875" />
     <g filter="url(#filter0_d_900_4354)">
