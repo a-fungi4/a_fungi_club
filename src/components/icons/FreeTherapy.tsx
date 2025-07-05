@@ -11,7 +11,7 @@ const FreeTherapy: React.FC = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_901_4484)">
+    <g clipPath="url(#clip0_901_4484)">
       <rect width="200" height="200" fill="#431D54" rx="8"></rect>
       <path
         fill="#EF4037"
@@ -195,5 +195,5 @@ const FreeTherapy: React.FC = () => {
     </defs>
   </svg>
 );
-
+}
 export default FreeTherapy;
