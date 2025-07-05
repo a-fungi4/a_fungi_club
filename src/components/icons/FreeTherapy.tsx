@@ -1,16 +1,14 @@
 import React from 'react';
 
-const FreeTherapy: React.FC = () => {
-  return (
-    <svg
-      aria-label="A Free Therapy icon representing wellness, support, and creative mental health projects for designers, marketers, and developers"
-      role="img"
-      width="100%"
-      height="100%"
-      viewBox="0 0 200 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+const FreeTherapy: React.FC = () => (
+  <svg
+    role="img"
+    width="100%"
+    height="100%"
+    viewBox="0 0 200 200"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <g clipPath="url(#clip0_901_4484)">
       <rect width="200" height="200" fill="#431D54" rx="8"></rect>
       <path
@@ -195,5 +193,5 @@ const FreeTherapy: React.FC = () => {
     </defs>
   </svg>
 );
-}
+
 export default FreeTherapy;
