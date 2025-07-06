@@ -1,3 +1,6 @@
+/* =====================
+   Thumbnail Desktop
+   ===================== */
 .highlightedProjectContainer {
   width: 100%;
   max-width: 1280px;
@@ -11,18 +14,11 @@
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
-  box-shadow: 0 8px 32px 0 var(--color-redC, #C0282D);
+  box-shadow: 0 0 32px 0 var(--color-redC, #C0282D);
   border-top-left-radius: 8.5vw;
   border-bottom-left-radius: 8.5vw;
   border-top-right-radius: 8.5vw;
   border-bottom-right-radius: 8.5vw;
-}
-
-@media (min-width: 1100px) {
-  .highlightedProjectContainer {
-    aspect-ratio: 1280 / 536;
-    height: auto;
-  }
 }
 
 .projectThumbnailSection {
@@ -45,6 +41,31 @@
   overflow: hidden;
 }
 
+.projectThumbnailSection > * {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projectThumbnailSection > div:first-child {
+  flex: 1 1 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project2LeftRadius {
+  border-top-left-radius: 8.5vw;
+  border-bottom-left-radius: 8.5vw;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* =====================
+   Description Section and Contents Desktop
+   ===================== */
 .projectDescriptionSection {
   width: 50%;
   height: 100%;
@@ -55,16 +76,30 @@
   align-items: center;
   justify-content: center;
   flex: 1 1 0%;
-  padding: 2vw 4vw;
+  padding: 2vw 2vw;
   background: rgba(45, 169, 225, 0.25);
-  border-top-right-radius: 8vw;
-  border-bottom-right-radius: 8vw;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   gap: 10px;
 }
 
-.descriptionTextBox {
-  width: 80%;
+.projectDescriptionSection > .Gotoprojectbutton {
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  width: auto !important;
+}
+
+.projectDescriptionSection > .descriptionTextBox {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
+}
+
+.descriptionTextBox {
+  width: 100%;
+  height: 95%;
   min-width: 300px;
   padding: 2vw;
   background: #151029;
@@ -86,95 +121,121 @@
   word-wrap: break-word;
 }
 
-.highlightedProjectMobileContainer {
+.project2RightRadius {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 8.5vw;
+  border-bottom-right-radius: 8.5vw;
+}
+
+.buttonWrapper {
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 635px;
-  margin: 0 auto;
-  background: transparent;
-  box-shadow: 0 8px 32px 0 var(--color-redC, #C0282D);
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
-  border-bottom-left-radius: 100px;
-  border-bottom-right-radius: 100px;
 }
 
-.highlightedProjectMobileContainer .projectThumbnailSection {
-  width: 100%;
-  box-sizing: border-box;
-  flex-direction: column;
-}
-
-.highlightedProjectMobileContainer .projectDescriptionSection {
-  width: 100%;
-  box-sizing: border-box;
-  flex-direction: column;
-}
-
+/* =====================
+   Thumbnail Mobile
+   ===================== */
 @media (max-width: 900px) {
-  .projectThumbnailSection {
-    width: 100%;
+  .mobileAspectRatioBox {
+    aspect-ratio: 285 / 480;
+    width: auto;
+    max-width: 80vw;
     height: auto;
-    flex: unset;
-    flex-direction: column;
-  }
-  .projectDescriptionSection {
-    width: 100%;
-    height: auto;
-    flex: unset;
-    flex-direction: column;
-  }
-  .mobileAspectRatioBox .projectDescriptionSection {
-    flex-direction: column !important;
-  }
-  .projectDescriptionSection > .Gotoprojectbutton {
-    margin-left: auto !important;
-    margin-right: auto !important;
+    max-height: 100vh;
+    margin: auto;
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    background: transparent;
+    overflow: hidden;
   }
   .highlightedProjectMobileContainer {
-    box-shadow: 0 8px 32px 0 var(--color-redC, #C0282D);
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    border-bottom-left-radius: 100px;
-    border-bottom-right-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 0;
+  }
+  .projectThumbnailSection,
+  .projectDescriptionSection {
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto !important;
+    /* Remove any fixed height for equal split */
+  }
+  .mobileAspectRatioBox .projectThumbnailSection {
+    width: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+  .mobileAspectRatioBox .projectDescriptionSection {
+    width: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 0;
+  }
+  .mobileAspectRatioBox .descriptionTextBox,
+  .mobileAspectRatioBox .HPTextbox_Text__K5OmW, /* fallback for HPTextbox */
+  .mobileAspectRatioBox .Text {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    flex: 1 1 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobileAspectRatioBox .Gotoprojectbutton,
+  .mobileAspectRatioBox .buttonWrapper {
+    align-self: center;
+    margin-top: 16px;
+    margin-bottom: 0;
+    flex: 0 0 auto;
   }
 }
 
-.projectThumbnailSection > * {
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.projectThumbnailSection > div:first-child {
-  flex: 1 1 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.projectDescriptionSection > .Gotoprojectbutton {
-  flex: 0 0 auto !important;
-  align-self: center !important;
-  width: auto !important;
-}
-
-.projectDescriptionSection > .descriptionTextBox {
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+/* =====================
+   Description Section Mobile
+   ===================== */
+@media (max-width: 900px) {
+  .mobileAspectRatioBox .projectDescriptionSection {
+    width: 100%;
+    padding: 2vw 4vw 4vw 4vw;
+    min-height: 0;
+    box-sizing: border-box;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .mobileAspectRatioBox .descriptionTextBox {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  .mobileAspectRatioBox .Gotoprojectbutton {
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .desktopAspectRatioBox {
-  aspect-ratio: 1280 / 536;
   width: 100vw;
   max-width: 100vw;
   max-height: 100vh;
@@ -184,68 +245,4 @@
   align-items: stretch;
   justify-content: stretch;
   background: transparent;
-}
-
-.mobileAspectRatioBox {
-  aspect-ratio: 537 / 1280;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
-  margin: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: stretch;
-  background: transparent;
-}
-
-.mobileAspectRatioBox .projectThumbnailSection {
-  width: 100%;
-  min-height: 0;
-  box-sizing: border-box;
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.mobileAspectRatioBox .projectDescriptionSection {
-  width: 100%;
-  min-height: 0;
-  box-sizing: border-box;
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.buttonWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 900px) {
-  .buttonWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.project2LeftRadius {
-  border-top-left-radius: 8.5vw;
-  border-bottom-left-radius: 8.5vw;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.project2RightRadius {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 8.5vw;
-  border-bottom-right-radius: 8.5vw;
 } 

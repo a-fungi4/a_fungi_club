@@ -40,13 +40,16 @@
 @media (max-width: 600px) {
   .Text {
     max-width: 95vw;
-    max-height: 220px;
+    height: 100%;
+    flex: 1 1 0;
+    min-height: 0;
     padding: 4vw;
-    border-radius: 24px;
+    border-radius: 8vw;
+    display: flex;
+    flex-direction: column;
   }
   .ProjectDescriptionprojectDescription {
     max-width: 90vw;
-    max-height: 140px;
     font-size: clamp(11px, 4vw, 18px);
     overflow-y: auto;
   }

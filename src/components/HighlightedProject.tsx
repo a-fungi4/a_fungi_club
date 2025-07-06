@@ -77,7 +77,6 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
             borderTopRightRadius: 100,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
-            height: 537,
           }}
         >
           <HPThumbnail
