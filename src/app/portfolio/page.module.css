@@ -97,7 +97,7 @@
 @media (max-width: 900px) {
   .projectGrid {
     flex-direction: column;
-    gap: 4vw;
+    gap: 16vw;
   }
   .projectCard {
     min-width: 0;

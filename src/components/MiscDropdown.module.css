@@ -29,26 +29,25 @@
   min-width: 0;
   min-height: 0;
   box-sizing: border-box;
+  aspect-ratio: 48 / 48;
 }
 
-.Misicon {
+.Miscicon {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: auto;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  aspect-ratio: 48 / 48;
 }
 
-.Misicon svg, .Miscicon svg {
+.Miscicon svg, .Miscicon svg {
   display: block;
-  width: 100%;
+  width: auto;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: auto;
+  aspect-ratio: 48 / 48;
 }
 
 .Text {
@@ -230,6 +229,7 @@
     width: auto;
     min-width: 0;
     min-height: 0;
+    aspect-ratio: 48 / 48;
   }
   .Titleicon {
     width: 70vw;
