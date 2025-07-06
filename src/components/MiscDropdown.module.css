@@ -204,14 +204,17 @@
 @media (max-width: 600px) {
   .Miscdropdowndefault,
   .Miscdropdownhover {
-    width: 98vw;
+    width: 80%;
     min-width: 0;
     max-width: 100vw;
     box-sizing: border-box;
-    height: 52px;
+    height: auto;
+    margin: 0 2vw;
+    aspect-ratio: 375 / 68;
   }
   .Miscdropdownexpanded {
     height: auto;
+    width: 80%;
     min-height: 220px;
     padding: 10px 2vw;
     border-radius: 7px;
