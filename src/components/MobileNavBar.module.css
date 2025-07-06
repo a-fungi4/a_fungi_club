@@ -15,12 +15,13 @@
 }
 
 .mobileNavBarExpanded {
-  width: 140px;
-  padding: 36px 18px;
+  width: auto;
+  height: auto;
+  padding: 12vw 4vw;
   background: var(--background);
   box-shadow: 0px 0px 2px var(--color-redC);
   overflow: hidden;
-  border-radius: 50px;
+  border-radius: 100vw;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -31,8 +32,8 @@
 }
 
 .brandmark {
-  width: 70%;
-  height: 70%;
+  width: 12vw;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
@@ -51,10 +52,12 @@
 .selectionItems {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
+  align-items: left;
+  justify-content: space-between;
+  gap:  clamp(14px, 4vw, 20px);
+  padding: 8vw 0;
   width: auto;
-  height: auto;
+  height: 100%;
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeSlideIn 1.5s cubic-bezier(0.4,0,0.2,1) 0.05s forwards;
@@ -70,10 +73,8 @@
 
 .navItem {
   width: auto;
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding:  1.5vw 1.5vw;
+  margin: 4vw 0;
   background: var(--background);
   display: inline-flex;
   justify-content: flex-start;
@@ -146,7 +147,7 @@
   background: none;
   border: none;
   padding: 0;
-  margin-top: 36px;
+  margin-top: 1vw;
   cursor: pointer;
   display: flex;
   align-items: center;

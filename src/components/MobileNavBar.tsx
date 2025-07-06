@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import BrandmarkIcon from "./icons/BrandmarkIcon";
 import styles from "./MobileNavBar.module.css";
 import PortfolioIcon from "./icons/PortfolioIcon";
@@ -7,7 +8,7 @@ import AboutIcon from "./icons/AboutIcon";
 import ArtIcon from "./icons/ArtIcon";
 import TGIcon from "./icons/TGIcon";
 import MiscIcon from "./icons/MiscIcon";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { label: "Portfolio", icon: <PortfolioIcon />, key: "portfolio", href: "/portfolio" },
@@ -20,41 +21,45 @@ const NAV_ITEMS = [
 const MobileNavBar: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className={expanded ? styles.mobileNavBarExpanded : styles.mobileNavBar}>
-      <span className={styles.brandmark}>
+      <Link href="/" className={styles.brandmark}>
         <BrandmarkIcon className={styles.brandmarkIcon} />
-      </span>
+      </Link>
       {expanded ? (
         <>
           <div className={styles.selectionItems}>
-            {NAV_ITEMS.map((item) => (
-              <span
-                key={item.key}
-                className={styles.navItem}
-                role="button"
-                tabIndex={0}
-                onClick={() => {
-                  setExpanded(false);
-                  router.push(item.href);
-                }}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
+            {NAV_ITEMS.map((item) => {
+              const isSelected = pathname === item.href && pathname !== "/";
+              return (
+                <span
+                  key={item.key}
+                  className={isSelected ? `${styles.navItem} ${styles.navItemSelected}` : styles.navItem}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
                     setExpanded(false);
                     router.push(item.href);
-                  }
-                }}
-              >
-                <span className={styles.iconWrapper}>
-                  {React.cloneElement(
-                    item.icon as React.ReactElement<React.SVGProps<SVGSVGElement>>,
-                    { className: styles.iconSvg }
-                  )}
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      setExpanded(false);
+                      router.push(item.href);
+                    }
+                  }}
+                >
+                  <span className={styles.iconWrapper}>
+                    {React.cloneElement(
+                      item.icon as React.ReactElement<React.SVGProps<SVGSVGElement>>,
+                      { className: styles.iconSvg }
+                    )}
+                  </span>
+                  <span className={styles.label}>{item.label}</span>
                 </span>
-                <span className={styles.label}>{item.label}</span>
-              </span>
-            ))}
+              );
+            })}
           </div>
           <button
             className={styles.collapseButton}
