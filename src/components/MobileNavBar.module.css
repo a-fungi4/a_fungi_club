@@ -1,6 +1,6 @@
 .mobileNavBar {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   padding: 18px 8px;
   background: var(--background);
   box-shadow: 0px 0px 2px var(--color-redC);
@@ -12,12 +12,14 @@
   align-items: center;
   transition: width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1), gap 0.3s cubic-bezier(0.4,0,0.2,1);
   margin-left: 16px;
+  pointer-events: auto;
+  position: sticky;
 }
 
 .mobileNavBarExpanded {
   width: auto;
-  height: auto;
-  padding: 12vw 4vw;
+  height: 90%;
+  padding: 4vw 4vw;
   background: var(--background);
   box-shadow: 0px 0px 2px var(--color-redC);
   overflow: hidden;
@@ -29,6 +31,7 @@
   gap: 4px;
   transition: width 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1), gap 0.3s cubic-bezier(0.4,0,0.2,1);
   margin-left: 16px;
+  pointer-events: auto;
 }
 
 .brandmark {
@@ -54,8 +57,8 @@
   flex-direction: column;
   align-items: left;
   justify-content: space-between;
-  gap:  clamp(14px, 4vw, 20px);
-  padding: 8vw 0;
+  gap:  clamp(12px, 4vw, 18px);
+  padding: 2vw 0;
   width: auto;
   height: 100%;
   opacity: 0;
