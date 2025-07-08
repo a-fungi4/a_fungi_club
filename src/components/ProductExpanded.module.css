@@ -1,0 +1,323 @@
+.Productexpanded {
+  position: relative;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  background: linear-gradient(0deg, rgba(132,96,132,0.12) 0%, rgba(132,96,132,0.12) 100%), #151029;
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  overflow: hidden;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  display: inline-flex;
+}
+
+.PhotoPrice {
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.Photo {
+  width: 15vw;
+  max-width: 220px;
+  height: auto;
+  aspect-ratio: 250 / 280;
+  background: black;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+  margin: 0 auto 1vh auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.DefaultSvg1 {
+  position: absolute;
+  left: 24px;
+  top: 41px;
+}
+.DefaultSvg2 {
+  position: absolute;
+  left: 58.5px;
+  top: 75.5px;
+}
+
+.SelectionDots {
+  position: absolute;
+  left: 50px;
+  top: 228px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  display: inline-flex;
+}
+
+.Productnameandprice {
+  width: auto;
+  height: auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 7px;
+  display: flex;
+  position: relative;
+  margin-bottom: 12px;
+}
+.Productname {
+  width: 100%;
+  background: #2DA9E1;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  color: white;
+  font-size: 0.5em;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  flex-direction: column;
+  word-wrap: break-word;
+}
+.Price {
+  padding-left: 4px;
+  padding-right: 4px;
+  background: #C0282D;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  color: white;
+  font-size: 0.5em;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+  margin-bottom: 8px;
+}
+.Addtocartbutton {
+  padding-left: 8px;
+  padding-right: 8px;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+.AddToCart {
+  color: white;
+  font-size: 0.5em;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.Line9 {
+  display: flex;
+  align-items: center;
+}
+
+.SizeDesc {
+  width: 100%;
+  height: 100%;
+  flex: 1 1 0%;
+  min-height: 0;
+  gap: 1vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 200 / 280;
+}
+.Sizeselection {
+  width: 186px;
+  padding-left: 2px;
+  padding-right: 2px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.Sizeselectionitem {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 7px;
+  display: flex;
+}
+.Ellipse6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SizeLabel {
+  color: white;
+  font-size: 8px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.QtyWrapper {
+  width: 133px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.QtyBox {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: rgba(45, 169, 225, 0.25);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  display: inline-flex;
+  position: relative;
+}
+.QtyLabel, .QtyValue {
+  color: white;
+  font-size: 12px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.Plus {
+  cursor: pointer;
+  position: relative;
+}
+.Minus {
+  cursor: pointer;
+  position: relative;
+}
+.Productdetails {
+  flex: 1 1 0%;
+  width: 100%;
+  padding: 8px;
+  background: rgba(45, 169, 225, 0.25);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  display: flex;
+  position: relative;
+  overflow-y: auto;
+}
+.ProductDetails {
+  width: 190px;
+  align-self: stretch;
+  color: white;
+  font-size: 12px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.Lessinfobutton {
+  align-self: stretch;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  gap: 8px;
+}
+.LessInfo {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: white;
+  font-size: 0.5em;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.Polygon4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Line9 svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.ProductExpandedGrid {
+  grid-column: 1 / -1 !important;
+  z-index: 100;
+  position: relative;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .Productexpanded {
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh;
+    gap: 1vw;
+    aspect-ratio: 3/7;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+  .SizeDesc {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 200 / 280;
+  }
+  .Line9 svg {
+    transform: rotate(90deg);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .Lessinfobutton {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .LessInfo {
+    writing-mode: unset;
+    text-orientation: unset;
+  }
+  .PhotoPrice {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 200 / 280;
+  }
+  .Line9 {
+    display: none;
+  }
+  .Photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 200 / 280;
+  }
+  
+} 

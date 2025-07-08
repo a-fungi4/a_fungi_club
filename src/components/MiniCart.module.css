@@ -1,0 +1,75 @@
+.Minicart {
+  height: 546px;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background: rgba(21, 16, 41, 0.98); /* High-contrast, nearly opaque background */
+  box-shadow: 0 8px 32px 0 rgba(192, 40, 45, 0.54), 0 0 0 2px #2DA9E1;
+  border-radius: 32px;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #2DA9E1;
+}
+
+.CartItemsContainer {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1vw;
+}
+
+.XBar {
+  align-self: stretch;
+  background: var(--Blue-Drop-Shadow, rgba(45, 169, 225, 0.56));
+  border-radius: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.XButton {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.Minicartitem {
+  width: 311px;
+  height: 58.5px;
+  position: relative;
+}
+
+.Addtocartbutton {
+  padding-left: 8px;
+  padding-right: 8px;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.CheckOut {
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+} 

@@ -1,0 +1,398 @@
+.Checkout {
+  width: 95vw;
+  height: auto;
+  max-width: 500px;
+  min-width: 260px;
+  padding: 1.5vw;
+  background: linear-gradient(0deg, rgba(132, 96, 132, 0.12) 0%, rgba(132, 96, 132, 0.12) 100%), #151029;
+  box-shadow: 0px 0px 16px rgba(192, 40, 45, 0.54);
+  border-radius: 16px;
+  overflow-y: auto;
+  max-height: 80vh;
+  aspect-ratio: 3/4;
+}
+
+.CheckoutMainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  margin-top: 2vw;
+}
+
+@media (min-width: 768px) {
+  .Checkout {
+    aspect-ratio: 830/400;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    min-width: 100%;
+    /* Remove display: flex and gap from here, move to CheckoutMainContent */
+  }
+  .CheckoutMainContent {
+    flex-direction: row;
+    gap: 2vw;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .CheckoutContainer1,
+  .CheckoutContainer2,
+  .CheckoutContainer3 {
+    flex: 1 1 0;
+    aspect-ratio: 3/4;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .XBar {
+    height: 2vw;
+    padding: 0;
+  }
+  .XButton {
+    height: 2vw;
+    width: 2vw;
+  }
+}
+
+.XBar {
+  align-self: stretch;
+  background: var(--Blue-Drop-Shadow, rgba(45, 169, 225, 0.56));
+  border-radius: 10px;
+  display: flex;
+  height: 18px;
+  padding: 1px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.XButton {
+  max-height: 16px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.CheckoutContainer1 {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #151029;
+}
+
+.CheckoutContainer2 {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/4;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  gap: 0.5vh;
+  background: #151029;
+  display: flex;
+  flex-direction: column;
+}
+
+.CheckoutContainer3 {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    gap: 16px;
+    background: #151029;
+    display: flex;
+    flex-direction: column;
+}
+
+.Paymentinfo {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.DebitCreditCardOption {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.Checkcircleselection {
+  padding: 4px;
+  background: #C0282D;
+  overflow: hidden;
+  border-radius: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.Frame173 {
+  position: relative;
+}
+
+.DebitCreditCard {
+  width: 191px;
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Nameoncardinput {
+  align-self: stretch;
+  height: 26px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.NameOnCard {
+  width: 134px;
+  color: #151029;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.CardNumber {
+  width: 134px;
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Cardnumber {
+  align-self: stretch;
+  height: 34px;
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  display: inline-flex;
+}
+
+.Cardnumber1, .Cardnumber2, .Frame184, .Frame185 {
+  flex: 1 1 0;
+  padding-left: 23px;
+  padding-right: 23px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.Cardnumber2, .Frame184, .Frame185 {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.Expirationdateinput, .CvvInput, .Zipinput {
+  align-self: stretch;
+  height: 26px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.ExpirationDate, .Cvv, .Zip {
+  width: 188px;
+  color: #151029;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Cvv, .Zip {
+  color: #151029;
+}
+
+.Applepayplaceholder {
+  align-self: stretch;
+  height: 34px;
+  position: relative;
+  background: var(--Blue-Drop-Shadow, rgba(45, 169, 225, 0.56));
+  border-radius: 100px;
+}
+
+.Googleplaybuttonplaceholder {
+  align-self: stretch;
+  height: 35px;
+  position: relative;
+  background: var(--Blue-Drop-Shadow, rgba(45, 169, 225, 0.56));
+  border-radius: 100px;
+}
+
+.TermsAgreement {
+  width: 188px;
+  color: #2DA9E1;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+
+.Addtocartbutton {
+  padding-left: 8px;
+  padding-right: 8px;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.Purchase {
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Nameinput {
+  align-self: stretch;
+  height: 26px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.Name {
+  color: #151029;
+  font-size: 12px;
+  min-height: 26px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Emailinput {
+  align-self: stretch;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  overflow: hidden;
+  border-radius: 100px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.Email {
+  color: #151029;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.BillingAddress {
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Addressline1input, .Addressline2input, .Addressline3input {
+  align-self: stretch;
+  height: 24px;
+  padding: 10px;
+  background: var(--Color---Light-Purple, #CCBBE9);
+  border-radius: 100px;
+}
+
+.ShippingAddress {
+  color: white;
+  font-size: 12px;
+  font-family: 'Moby', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.Signupforemail {
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  display: inline-flex;
+}
+
+.Agreetoterms {
+  padding: 4px;
+  background: #C0282D;
+  overflow: hidden;
+  border-radius: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.Checkcircle {
+  position: relative;
+}
+
+.SignUpForEmailMarketingUpdates {
+  color: white;
+  font-size: 12px;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+} 
