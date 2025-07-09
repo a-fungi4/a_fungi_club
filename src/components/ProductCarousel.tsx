@@ -1,40 +1,95 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductExpanded from './ProductExpanded';
-// import ProductLargePhotoOverlay from './ProductLargePhotoOverlay';
 import styles from './ProductCarousel.module.css';
-
-const sampleProducts = [
-  { title: 'Sample 1', price: 29.99 },
-  { title: 'Sample 2', price: 39.99 },
-  { title: 'Sample 3', price: 49.99 },
-  { title: 'Sample 4', price: 59.99 },
-  { title: 'Sample 5', price: 69.99 },
-  { title: 'Sample 6', price: 79.99 },
-  { title: 'Sample 7', price: 89.99 },
-  { title: 'Sample 8', price: 99.99 },
-  { title: 'Sample 9', price: 109.99 },
-  { title: 'Sample 10', price: 119.99 },
-  { title: 'Sample 11', price: 129.99 },
-  { title: 'Sample 12', price: 139.99 },
-  { title: 'Sample 13', price: 149.99 },
-  { title: 'Sample 14', price: 159.99 },
-  { title: 'Sample 15', price: 169.99 },
-];
 
 const VISIBLE_CARDS = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_CARDS / 2);
-const SCALE_STEP = 0.13;
+
+// Define a Variation type matching Square API
+interface Variation {
+  id: string;
+  name: string;
+  price: number | string;
+  currency?: string;
+  color?: string | null;
+  size?: string | null;
+  description?: string;
+  image?: string;
+}
+
+// Define a Product type for type safety
+interface Product {
+  id: string;
+  name: string;
+  price: string | number;
+  description?: string;
+  image?: string;
+  variations?: Variation[];
+}
+
+// Type for API variation object
+interface APIVariation {
+  id: string;
+  name?: string;
+  price?: number | string;
+  currency?: string;
+  color?: string | null;
+  size?: string | null;
+  description?: string;
+  image?: string;
+}
+// Type for API product object
+interface APIProduct {
+  id: string;
+  name: string;
+  price: string | number;
+  description?: string;
+  image?: string;
+  variations?: APIVariation[];
+}
 
 const ProductCarousel: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const [center, setCenter] = useState(0); // index of the center card
   const [gridMode, setGridMode] = useState(false);
-  const numProducts = sampleProducts.length;
+  const numProducts = products.length;
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(900);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('/api/square-products')
+      .then(res => res.json())
+      .then(data => {
+        const mapped = (data.products || []).map((p: APIProduct) => {
+          return {
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            description: p.description,
+            image: p.image,
+            variations: (p.variations || []).map((v: APIVariation) => ({
+              id: v.id,
+              name: v.name || '',
+              price: v.price || 0,
+              currency: v.currency || 'USD',
+              color: v.color || null,
+              size: v.size || null,
+              description: v.description || '',
+              image: v.image || '',
+            })),
+          };
+        });
+        setProducts(mapped);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   useLayoutEffect(() => {
     if (containerRef.current) {
@@ -48,6 +103,21 @@ const ProductCarousel: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Deduplicate products by id on the client side
+  const uniqueProducts = products.filter(
+    (product, index, self) =>
+      index === self.findIndex((p) => p.id === product.id)
+  );
+  console.log('Rendering product IDs:', uniqueProducts.map((p: Product) => p.id));
+  console.log('uniqueProducts:', uniqueProducts);
+
+  if (loading) {
+    return <div className={styles.ProductCarousel} ref={containerRef}>Loading products...</div>;
+  }
+  if (uniqueProducts.length === 0) {
+    return <div className={styles.ProductCarousel} ref={containerRef}>No products found.</div>;
+  }
 
   // Responsive base size: max 80% of carousel height, max 32% of width, min 120px, max 250px
   let BASE_WIDTH = Math.min(containerWidth * 0.22, 250);
@@ -66,45 +136,25 @@ const ProductCarousel: React.FC = () => {
   ];
 
   // Prepare visible cards (window centered on 'center')
-  const visible = [];
+  type ProductWithOffset = Product & { offset: number };
+  const visible: ProductWithOffset[] = [];
   for (let i = -CENTER_INDEX; i <= CENTER_INDEX; i++) {
-    const idx = (center + i + numProducts) % numProducts;
-    visible.push({ ...sampleProducts[idx], idx, offset: i });
+    const index = (center + i + numProducts) % numProducts;
+    visible.push({ ...uniqueProducts[index], offset: i });
   }
 
   // Handler for clicking the image area
-  const handleImageClick = (idx: number) => {
+  const handleImageClick = () => {
     // setLargePhotoIdx(idx); // This state is no longer used
   };
 
+  // Each product is a parent ITEM. We use its id as the key and pass its variations for selection.
+  // uniqueProducts is already deduplicated by id and should only contain ITEMs.
+
+  // In grid mode:
+  // The main return must be a single parent <div>.
   return (
     <div className={styles.ProductCarousel} ref={containerRef}>
-      {/* Modal overlay for expanded product */}
-      {expandedIdx !== null && (
-        <div className={styles.ModalOverlay} onClick={() => setExpandedIdx(null)}>
-          <div className={styles.ModalContent} onClick={e => e.stopPropagation()}>
-            <ProductExpanded
-              name={sampleProducts[expandedIdx].title}
-              price={sampleProducts[expandedIdx].price}
-              details={`This is a sample product description for ${sampleProducts[expandedIdx].title}.`}
-              sizes={sizes}
-              onSelectSize={setSelectedSize}
-              quantity={quantity}
-              onQuantityChange={setQuantity}
-              onAddToCart={() => alert('Added to cart!')}
-              onCollapse={() => setExpandedIdx(null)}
-            />
-          </div>
-        </div>
-      )}
-      {/* Overlay for large photo */}
-      {/* {largePhotoIdx !== null && (
-        <ProductLargePhotoOverlay
-          image={sampleProducts[largePhotoIdx].image}
-          title={sampleProducts[largePhotoIdx].title}
-          onClose={() => setLargePhotoIdx(null)}
-        />
-      )} */}
       {/* Category Dropdown */}
       <div className={styles.CategoryDropdown}>
         <div className={styles.Category}>Category</div>
@@ -167,14 +217,16 @@ const ProductCarousel: React.FC = () => {
       {/* Carousel or Grid Row */}
       {gridMode ? (
         <div className={styles.GridView}>
-          {sampleProducts.map((product, i) => (
+          {uniqueProducts.map((product: Product, i) => (
             <ProductCard
-              key={i}
-              title={product.title}
+              key={product.id}
+              image={product.image}
+              title={product.name}
               price={product.price}
               inStock={true}
+              variations={product.variations || []}
               onViewDetails={() => setExpandedIdx(i)}
-              onImageClick={() => handleImageClick(i)}
+              onImageClick={() => handleImageClick()}
               selected={expandedIdx === i}
             />
           ))}
@@ -190,43 +242,22 @@ const ProductCarousel: React.FC = () => {
             </div>
             <div className={styles.CardsRowOuter}>
               <div className={styles.CardsRow}>
-                {visible.map((product) => {
-                  const offset = product.offset;
-                  const scale = 1 - Math.abs(offset) * SCALE_STEP;
-                  const width = BASE_WIDTH * scale;
-                  const height = BASE_HEIGHT * scale;
-                  const zIndex = 10 - Math.abs(offset);
-                  const translateX = offset * (BASE_WIDTH * 0.7); // overlap a bit for effect
+                {visible.map((product: ProductWithOffset, i) => {
+                  const uniqueIdx = uniqueProducts.findIndex(p => p.id === product.id);
                   return (
-                    <div
-                      key={product.idx}
-                      className={
-                        expandedIdx === product.idx
-                          ? styles.ProductCardAnimated + ' ' + styles.ExpandedCard
-                          : styles.ProductCardAnimated
-                      }
-                      style={
-                        (expandedIdx === product.idx
-                          ? { zIndex: 100 }
-                          : {
-                              '--card-width': `${width}px`,
-                              '--card-height': `${height}px`,
-                              '--card-z': zIndex,
-                              '--card-transform': `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`,
-                              '--card-shadow': offset === 0 ? '0 4px 24px rgba(44,44,44,0.12)' : 'none',
-                            }) as React.CSSProperties
-                      }
-                    >
-                      {expandedIdx === product.idx ? (
+                    <div key={product.id + '-' + i} style={{ zIndex: CENTER_INDEX - Math.abs(product.offset) }}>
+                      {expandedIdx === uniqueIdx ? (
                         <></>
                       ) : (
                         <ProductCard
-                          title={product.title}
+                          image={product.image}
+                          title={product.name}
                           price={product.price}
                           inStock={true}
-                          onViewDetails={() => setExpandedIdx(product.idx)}
-                          onImageClick={() => handleImageClick(product.idx)}
-                          selected={expandedIdx === product.idx}
+                          variations={product.variations || []}
+                          onViewDetails={() => setExpandedIdx(uniqueIdx)}
+                          onImageClick={() => handleImageClick()}
+                          selected={expandedIdx === uniqueIdx}
                         />
                       )}
                     </div>
@@ -242,7 +273,7 @@ const ProductCarousel: React.FC = () => {
           </div>
           {/* Selection Dots */}
           <div className={styles.SelectionDots}>
-            {sampleProducts.map((_, i) => (
+            {uniqueProducts.map((_: Product, i: number) => (
               <div
                 key={i}
                 className={`${styles[`Ellipse${(i%8)+3}`]} ${styles.SelectionDot}`}
@@ -256,6 +287,26 @@ const ProductCarousel: React.FC = () => {
             ))}
           </div>
         </>
+      )}
+      {/* Modal overlay for expanded product */}
+      {expandedIdx !== null && uniqueProducts[expandedIdx] && (
+        <div className={styles.ModalOverlay} onClick={() => setExpandedIdx(null)}>
+          <div className={styles.ModalContent} onClick={e => e.stopPropagation()}>
+            <ProductExpanded
+              name={uniqueProducts[expandedIdx]?.name}
+              price={uniqueProducts[expandedIdx]?.price}
+              details={uniqueProducts[expandedIdx]?.description || ''}
+              image={uniqueProducts[expandedIdx]?.image}
+              sizes={sizes}
+              variations={uniqueProducts[expandedIdx]?.variations || []}
+              onSelectSize={setSelectedSize}
+              quantity={quantity}
+              onQuantityChange={setQuantity}
+              onAddToCart={() => alert('Added to cart!')}
+              onCollapse={() => setExpandedIdx(null)}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

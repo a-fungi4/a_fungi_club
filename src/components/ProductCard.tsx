@@ -9,6 +9,7 @@ interface ProductCardProps {
   onViewDetails?: () => void;
   onImageClick?: () => void;
   selected?: boolean;
+  variations?: unknown[];
 }
 
 const defaultImage = (
