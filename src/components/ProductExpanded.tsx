@@ -87,6 +87,26 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
   const [selectedColor, setSelectedColor] = useState(colors[0] || '');
   const [selectedSize, setSelectedSize] = useState((byColor[colors[0]] && byColor[colors[0]][0]) || sizes[0] || '');
 
+  // Gather all unique images: main image + all variation images
+  const allImages = Array.from(
+    new Set([
+      image,
+      ...variations.map(v => v.image).filter(Boolean)
+    ].filter(Boolean))
+  ) as string[];
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const hasImages = allImages.length > 0;
+  const showImage = hasImages ? allImages[currentIdx] : undefined;
+  const totalImages = hasImages ? allImages.length : 1;
+  const goLeft = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIdx(idx => (idx - 1 + totalImages) % totalImages);
+  };
+  const goRight = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIdx(idx => (idx + 1) % totalImages);
+  };
+
   // Update size if color changes and current size is not available
   React.useEffect(() => {
     if (!byColor[selectedColor]?.includes(selectedSize)) {
@@ -116,8 +136,6 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
   const getVarDescription = () => selectedVariation?.description || '';
   const getVarImage = () => selectedVariation?.image || image;
 
-  const imageSrc: string = getVarImage() || '/file.svg';
-
   return (
     <div className={styles.Productexpanded}>
       <div className={styles.Lessinfobutton} onClick={onCollapse}>
@@ -133,16 +151,50 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
           {/* Product image and info */}
           <div className={styles.PhotoPrice}>
             <div className={styles.Photo}>
-              <Image
-                src={imageSrc}
-                alt={name}
-                width={138}
-                height={138}
-              />
+              {showImage ? (
+                <Image
+                  src={showImage}
+                  alt={name}
+                  width={138}
+                  height={138}
+                />
+              ) : (
+                <img src="/file.svg" alt="No image" width={138} height={138} />
+              )}
             </div>
             {/* Selection Dots */}
             <div className={styles.SelectionDots}>
-              {/* ...SVGs for arrows and dots as in your design... */}
+              {/* Left Arrow */}
+              <div onClick={goLeft} style={{ cursor: totalImages > 1 ? 'pointer' : 'default', opacity: totalImages > 1 ? 1 : 0.3 }}>
+                <svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.5 4.61604C-0.1667 4.23114-0.1667 3.26889 0.5 2.88399L5 0.28591C5.66667-0.0989901 6.5 0.382135 6.5 1.15193V6.34809C6.5 7.11789 5.66667 7.59901 5 7.21411L0.5 4.61604Z" fill="#2DA9E1"/>
+                </svg>
+              </div>
+              {/* Dots - dynamic based on totalImages */}
+              {Array.from({ length: totalImages }).map((_, idx) => (
+                <svg
+                  key={idx}
+                  width="11"
+                  height="11"
+                  viewBox="0 0 11 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ cursor: 'pointer' }}
+                  onClick={e => { e.stopPropagation(); setCurrentIdx(idx); }}
+                >
+                  <path
+                    d="M10.5 5.75C10.5 8.51142 8.26142 10.75 5.5 10.75C2.73858 10.75 0.5 8.51142 0.5 5.75C0.5 2.98858 2.73858 0.75 5.5 0.75C8.26142 0.75 10.5 2.98858 10.5 5.75Z"
+                    fill={idx === currentIdx ? "#2DA9E1" : "#C0282D"}
+                    fillOpacity={idx === currentIdx ? "0.56" : "0.54"}
+                  />
+                </svg>
+              ))}
+              {/* Right Arrow */}
+              <div onClick={goRight} style={{ cursor: totalImages > 1 ? 'pointer' : 'default', opacity: totalImages > 1 ? 1 : 0.3 }}>
+                <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.5 5.61602C8.16666 5.23112 8.16667 4.26887 7.5 3.88397L2 0.708542C1.33334 0.323642 0.5 0.804766 0.5 1.57457V7.92542C0.5 8.69522 1.33333 9.17635 2 8.79144L7.5 5.61602Z" fill="#2DA9E1"/>
+                </svg>
+              </div>
             </div>
             {/* Name and Price */}
             <div className={styles.Productnameandprice}>
