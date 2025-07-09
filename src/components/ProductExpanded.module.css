@@ -37,6 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
 }
 
 .PhotoImg {
@@ -537,18 +538,22 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .Productexpanded {
-    aspect-ratio: 2/3;
+    aspect-ratio: 25/40;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     width: 100%;
+    max-width: 100%;
     height: auto;
     align-items: center;
     justify-content: flex-start;
     padding-bottom: 3vh;
     padding-top: 1vh;
-    /* Remove overflow and max-height */
-    overflow: unset;
+    overflow-x: hidden;
+    overflow-y: auto;
     max-height: unset;
     gap: 0;
+    box-sizing: border-box;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -556,21 +561,25 @@
   .ProductexpandedContent {
     flex-direction: column;
     width: 100%;
+    max-width: 100%;
     height: auto;
-    margin: 3vh;
-    padding: 1vh;
+    margin: 0;
+    padding: 0 2vw;
     align-items: flex-start;
     justify-content: center;
     overflow-y: auto;
+    box-sizing: border-box;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .SizeDesc {
     width: 100%;
+    max-width: 100%;
     height: auto;
     gap: 4px;
-    aspect-ratio: 1/1;
+    aspect-ratio: unset;
+    box-sizing: border-box;
   }
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
@@ -602,9 +611,10 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .PhotoPrice {
-    width: 100%;
+    width: 90%;
     height: auto;
-    aspect-ratio: 200 / 280;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -618,7 +628,11 @@
   .Photo {
     width: 100%;
     height: auto;
-    aspect-ratio: 200 / 280;
+    aspect-ratio: 1/1;
+    background: #fff;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-bottom: 0;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -653,8 +667,8 @@
     margin-bottom: 2px;
   }
   .Sizeselection {
-    width: 100%;
-    max-width: 100vw;
+    width: auto;
+    max-width: 300px;
     gap: 4px;
   }
   .Sizeselectionitem {
@@ -671,11 +685,9 @@
     font-size: clamp(8px, 2vw, 12px);
   }
   .Addtocartbutton {
-    position: bottom;
-    left: unset;
-    right: unset;
-    bottom: unset;
-    width: 100%;  
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: 4vh;
     aspect-ratio: 4/2;
     min-height: 50px;
@@ -686,30 +698,49 @@
     align-items: center;
     box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
     border-radius: 4vh;
+    box-sizing: border-box;
   }
   .Productdetails {
-    aspect-ratio: 3/2;
+    aspect-ratio: unset;
     width: 100%;
+    max-width: 100%;
     height: auto;
     min-height: 200px;
     padding-bottom: 1vh;
     margin-bottom: 4vh;
+    box-sizing: border-box;
   }
   .ContentButton {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     flex-direction: column;
     align-items: stretch;
+    box-sizing: border-box;
   }
   .ColorSelector {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     margin-bottom: 8px;
     align-items: stretch;
   }
   .ColorSelectorLabel {
     font-size: 8px;
     margin-bottom: 2px;
+  }
+  .SelectionDots {
+    position: static;
+    left: unset;
+    top: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .Photo {
+    margin-bottom: 0;
   }
   
 } 

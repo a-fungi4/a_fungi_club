@@ -53,8 +53,8 @@
 }
 
 .ProductCard__pill--name {
-  padding-left: 4px;
-  padding-right: 4px;
+  width: 100%;
+  padding: 1vw;
   background: #2DA9E1;
   border-radius: 100px;
   justify-content: center;
@@ -76,7 +76,7 @@
 
 .ProductCard__pillText {
   color: white;
-  font-size: 0.5em;
+  font-size: 1vw;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
@@ -145,10 +145,22 @@
     width: 100%;
     height: auto;
     aspect-ratio: 200 / 280;
+    padding: 2vh;
   }
   .ProductCard_ProductExpanded {
     width: 100%;
     height: auto;
     aspect-ratio: 200 / 280;
+  }
+  .ProductCard__pillText {
+    font-size: 2.5vh;
+    padding: 1vh;
+  }
+  .ProductCard__moreInfoText {
+    font-size: 2.5vh;
+    padding: 1vh;
+  }
+  .ProductCard__stock {
+    font-size: 12px;
   }
 } 

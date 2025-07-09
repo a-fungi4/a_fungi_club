@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductExpanded from './ProductExpanded';
 import styles from './ProductCarousel.module.css';
@@ -23,6 +23,14 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, categoryNam
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(900);
   const { addToCart } = useCart();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 600);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useLayoutEffect(() => {
     if (containerRef.current) {
@@ -67,10 +75,16 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, categoryNam
 
   // Prepare visible cards (window centered on 'center')
   type ProductWithOffset = Product & { offset: number };
-  const visible: ProductWithOffset[] = [];
-  for (let i = -CENTER_INDEX; i <= CENTER_INDEX; i++) {
-    const index = (center + i + numProducts) % numProducts;
-    visible.push({ ...uniqueProducts[index], offset: i });
+  let visible: ProductWithOffset[] = [];
+  if (isMobile) {
+    // Only show the center card on mobile
+    const index = center % uniqueProducts.length;
+    visible = [{ ...uniqueProducts[index], offset: 0 }];
+  } else {
+    for (let i = -CENTER_INDEX; i <= CENTER_INDEX; i++) {
+      const index = (center + i + numProducts) % numProducts;
+      visible.push({ ...uniqueProducts[index], offset: i });
+    }
   }
 
   // Each product is a parent ITEM. We use its id as the key and pass its variations for selection.

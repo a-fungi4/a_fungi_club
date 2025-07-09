@@ -26,6 +26,7 @@
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
+  padding-left: 2vw;
 }
 
 .Line8 {
@@ -233,5 +234,27 @@
   .GridView {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+  }
+  .ProductCard {
+    max-width: 90vw;
+    width: 90vw;
+    margin: 0 auto;
+    aspect-ratio: 4/5;
+    height: auto;
+    min-width: 180px;
+    max-height: 70vw;
+    border-radius: 16px;
+  }
+  .ProductCard__imageArea {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: auto;
+    max-height: 60vw;
+    margin: 0 auto;
+  }
+  .CarouselRow, .CardsRowOuter {
+    min-height: unset;
+    height: auto;
+    padding: 0;
   }
 } 
