@@ -1,0 +1,168 @@
+.OrderSuccessfulOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(21, 16, 41, 0.85);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Ordersuccessfulouter {
+  width: 60vw;
+  max-width: 340px;
+  min-width: 220px;
+  aspect-ratio: 3/2;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  background: #151029;
+  box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Ordersuccessfulcontent {
+  width: 100%;
+  height: 92%;
+  padding: 16px 21px;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  background: #151029;
+  box-shadow: 0px 0px 4px rgba(192, 40, 45, 0.54);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.Orderdetails {
+  width: 100%;
+  min-height: 54px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.OrderNumber, .OrderSuccessful, .ThankYou {
+  color: white;
+  font-size: 1rem;
+  font-family: 'Hack', monospace;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+}
+.OrderNumber {
+  margin-bottom: 2px;
+}
+.OrderSuccessful {
+  margin-bottom: 2px;
+}
+.ThankYou {
+  margin-bottom: 0;
+}
+
+.Coolbutton {
+  padding: 8px 18px;
+  background: #C0282D;
+  box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
+  overflow: hidden;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+.Coolbutton:hover {
+  background: #a01e24;
+}
+.Cool {
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Moby', 'Hack', monospace, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+  letter-spacing: 0.03em;
+}
+
+.Frame166 {
+  width: 90%;
+  padding: 2px;
+  background: var(--Blue-Drop-Shadow, rgba(45, 169, 225, 0.56));
+  border-radius: 10px;
+  margin-top: 4px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.ExitButton {
+  width: auto;
+  height: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .OrderSuccessfulOverlay {
+    align-items: center;
+    padding-bottom: 0;
+  }
+  .Ordersuccessfulouter {
+    width: 98vw;
+    max-width: 99vw;
+    min-width: 0;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 0;
+  }
+  .Ordersuccessfulcontent {
+    width: 100%;
+    padding: 10px 8px;
+    border-radius: 10px;
+    gap: 16px;
+  }
+  .Orderdetails {
+    min-height: 40px;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+  .OrderNumber, .OrderSuccessful, .ThankYou {
+    font-size: 0.95rem;
+  }
+  .Coolbutton {
+    padding: 6px 14px;
+    border-radius: 80px;
+  }
+  .Cool {
+    font-size: 0.95rem;
+  }
+  .Frame166 {
+    width: 90%;
+    max-width: 99vw;
+    padding: 2px;
+    border-radius: 8px;
+    gap: 6px;
+  }
+  .ExitButton {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1/1;
+  }
+} 
