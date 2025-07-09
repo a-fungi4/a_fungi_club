@@ -1,9 +1,7 @@
 .Minicart {
-  height: 546px;
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  height: 60%;
+  aspect-ratio: 35/55;
+  padding: 1vw;
   background: rgba(21, 16, 41, 0.98); /* High-contrast, nearly opaque background */
   box-shadow: 0 8px 32px 0 rgba(192, 40, 45, 0.54), 0 0 0 2px #2DA9E1;
   border-radius: 32px;
