@@ -134,7 +134,6 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
   const getColor = () => selectedVariation?.color || selectedColor || '';
   const getSize = () => selectedVariation?.size || selectedSize || '';
   const getVarDescription = () => selectedVariation?.description || '';
-  const getVarImage = () => selectedVariation?.image || image;
 
   return (
     <div className={styles.Productexpanded}>
@@ -159,7 +158,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
                   height={138}
                 />
               ) : (
-                <img src="/file.svg" alt="No image" width={138} height={138} />
+                <Image src="/file.svg" alt="No image" width={138} height={138} />
               )}
             </div>
             {/* Selection Dots */}
