@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CartItem.module.css';
+import Image from 'next/image';
 
 interface CartItemProps {
   name: string;
@@ -20,7 +21,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, price, quantity, varia
         </div>
         <div data-layer="PlaceHolderPhoto" className={styles.Placeholderphoto}>
           {image ? (
-            <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+            <Image src={image} alt={name} width={80} height={80} className={styles.Image} />
           ) : (
             <div data-svg-wrapper data-layer="Vector" className={styles.Vector}>
               <svg width="100%" height="100%" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">

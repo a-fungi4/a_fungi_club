@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import styles from './ProductExpanded.module.css';
+import Image from 'next/image';
+import { Variation } from '@/types/Product';
 
 interface SizeOption {
   label: string;
   selected: boolean;
-}
-
-// Define a Variation type for type safety
-interface Variation {
-  id: string;
-  name?: string;
-  price?: number | string;
-  currency?: string;
-  color?: string | null;
-  size?: string | null;
-  description?: string;
-  image?: string;
 }
 
 interface ProductExpandedProps {
@@ -102,13 +92,13 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
     if (!byColor[selectedColor]?.includes(selectedSize)) {
       setSelectedSize(byColor[selectedColor]?.[0] || '');
     }
-  }, [selectedColor]);
+  }, [selectedColor, byColor, selectedSize]);
   // Update color if size changes and current color is not available
   React.useEffect(() => {
     if (!bySize[selectedSize]?.includes(selectedColor)) {
       setSelectedColor(bySize[selectedSize]?.[0] || '');
     }
-  }, [selectedSize]);
+  }, [selectedSize, bySize, selectedColor]);
 
   // Get the selected variation
   const selectedVariation = variationMap[`${selectedColor}|${selectedSize}`] || null;
@@ -126,6 +116,8 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
   const getVarDescription = () => selectedVariation?.description || '';
   const getVarImage = () => selectedVariation?.image || image;
 
+  const imageSrc: string = getVarImage() || '/file.svg';
+
   return (
     <div className={styles.Productexpanded}>
       <div className={styles.Lessinfobutton} onClick={onCollapse}>
@@ -141,16 +133,12 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
           {/* Product image and info */}
           <div className={styles.PhotoPrice}>
             <div className={styles.Photo}>
-              {getVarImage() ? (
-                <img src={getVarImage()} alt={name} className={styles.PhotoImg} />
-              ) : (
-                <div className={styles.DefaultSvg1}>
-                  <svg width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M129.375 0H8.625C3.85753 0 0 3.85753 0 8.625V129.375C0 134.142 3.85753 138 8.625 138H129.375C134.142 138 138 134.142 138 129.375V8.625C138 3.85753 134.142 0 129.375 0ZM17.25 17.25H120.75V87.7335L101.1 68.0836C97.732 64.722 92.2724 64.722 88.9043 68.0836L36.2358 120.75H17.25V17.25Z" fill="white"/>
-                    <path d="M51.75 69C61.2769 69 69 61.2769 69 51.75C69 42.2231 61.2769 34.5 51.75 34.5C42.2231 34.5 34.5 42.2231 34.5 51.75C34.5 61.2769 42.2231 69 51.75 69Z" fill="white"/>
-                  </svg>
-                </div>
-              )}
+              <Image
+                src={imageSrc}
+                alt={name}
+                width={138}
+                height={138}
+              />
             </div>
             {/* Selection Dots */}
             <div className={styles.SelectionDots}>

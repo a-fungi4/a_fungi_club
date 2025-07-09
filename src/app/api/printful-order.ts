@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const PRINTFUL_API_KEY = process.env.PRINTFUL_API_KEY;
 
+interface CartItem {
+  id: number;
+  quantity: number;
+  price: number;
+  name: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { orderNumber, cart, shipping } = await req.json();
@@ -10,7 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Map cart items to Printful line items (assumes cart item id is Printful variant id)
-    const items = cart.map((item: any) => ({
+    const items = (cart as CartItem[]).map((item) => ({
       variant_id: item.id, // Make sure this matches Printful variant_id
       quantity: item.quantity,
       retail_price: item.price.toFixed(2),
@@ -47,7 +54,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data.result || data.error || 'Printful order failed' }, { status: 500 });
     }
     return NextResponse.json({ result: data.result });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Printful order error' }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Printful order error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 } 

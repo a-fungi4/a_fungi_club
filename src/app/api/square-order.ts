@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Client } from 'square';
+import { Client, Environment } from 'square/legacy';
 
 const client = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN!,
-  environment: 'production',
+  environment: Environment.Production,
 });
 
 export async function POST(req: NextRequest) {
@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
     // Extract shipping info from order
     const shipping = order?.fulfillments?.[0]?.shipmentDetails?.recipient || {};
     return NextResponse.json({ shipping });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Failed to fetch Square order' }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch Square order';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 } 

@@ -23,9 +23,6 @@ const OrderStatus: React.FC<OrderStatusProps> = ({ status = 'order status', emai
   const [otpState, setOtpState] = useState(false);
   const [resultState, setResultState] = useState(false);
 
-  // For demo, all ellipses are blue. You can add logic to highlight one if needed.
-  const ellipses = Array(8).fill(0);
-
   return (
     <div className={styles.OrderstatusResultWrapper}>
       {resultState ? (

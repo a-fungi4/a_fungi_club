@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ProductCard.module.css';
+import Image from 'next/image';
+import { Variation } from '@/types/Product';
 
 interface ProductCardProps {
   images?: string[];
@@ -8,7 +10,7 @@ interface ProductCardProps {
   inStock?: boolean;
   onViewDetails?: () => void;
   selected?: boolean;
-  variations?: unknown[];
+  variations?: Variation[];
 }
 
 const defaultImage = (
@@ -20,7 +22,7 @@ const defaultImage = (
   </div>
 );
 
-const ProductCard: React.FC<ProductCardProps> = ({ images = [], title, price, inStock = true, onViewDetails, selected }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock, onViewDetails, selected }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const hasImages = images && images.length > 0;
   const showImage = hasImages ? images[currentIdx] : undefined;
@@ -42,9 +44,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ images = [], title, price, in
         style={{ cursor: hasImages && totalImages > 1 ? 'pointer' : undefined }}
       >
         {showImage ? (
-          <img
+          <Image
             src={showImage}
             alt={title}
+            width={200}
+            height={200}
             className={styles.ProductCard__img}
           />
         ) : (

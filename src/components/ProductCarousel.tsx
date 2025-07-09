@@ -3,32 +3,10 @@ import ProductCard from './ProductCard';
 import ProductExpanded from './ProductExpanded';
 import styles from './ProductCarousel.module.css';
 import { useCart } from './CartContext';
+import { Product } from '@/types/Product';
 
 const VISIBLE_CARDS = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_CARDS / 2);
-
-// Define a Variation type matching Square API
-interface Variation {
-  id: string;
-  name: string;
-  price: number | string;
-  currency?: string;
-  color?: string | null;
-  size?: string | null;
-  description?: string;
-  image?: string;
-}
-
-// Define a Product type for type safety
-interface Product {
-  id: string;
-  name: string;
-  price: string | number;
-  description?: string;
-  image?: string;
-  variations?: Variation[];
-  category?: string | null;
-}
 
 interface ProductCarouselProps {
   products: Product[];

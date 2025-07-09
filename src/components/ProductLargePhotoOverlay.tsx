@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './ProductLargePhotoOverlay.module.css';
+import Image from 'next/image';
 
 interface ProductLargePhotoOverlayProps {
   image?: string;
@@ -28,7 +29,7 @@ const ProductLargePhotoOverlay: React.FC<ProductLargePhotoOverlayProps> = ({ ima
         </div>
         <div className={styles.Placeholder}>
           {image ? (
-            <img src={image} alt={title} className={styles.LargeImg} />
+            <Image src={image} alt={title} width={600} height={600} />
           ) : (
             <div className={styles.VectorPlaceholder}>
               <svg width="432" height="432" viewBox="0 0 432 432" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -7,17 +7,20 @@ import CartAndStatus from '@/components/CartAndStatus';
 import TGLogoCircle from '@/components/icons/TGLogoCircle';
 import OrderSuccessful from '../../components/OrderSuccessful';
 import orderStyles from '../../components/OrderSuccessful.module.css';
-import { CartProvider } from '../../components/CartContext';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { CartProvider, CartItem } from '../../components/CartContext';
+import { useSearchParams } from 'next/navigation';
+import { Product } from '@/types/Product';
 
-interface Product {
-  id: string;
+interface ShippingInfo {
   name: string;
-  price: string | number;
-  description?: string;
-  image?: string;
-  variations?: any[];
-  category?: string | null;
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  country?: string;
+  zip: string;
+  phone?: string;
+  email?: string;
 }
 
 export default function TGPage() {
@@ -25,10 +28,8 @@ export default function TGPage() {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [showOrderError, setShowOrderError] = useState(false);
   const [showPrintfulConfirm, setShowPrintfulConfirm] = useState(false);
-  const [printfulCart, setPrintfulCart] = useState<any[] | null>(null);
-  const [shipping, setShipping] = useState<any>(null);
-  const [shippingLoading, setShippingLoading] = useState(false);
-  const [shippingError, setShippingError] = useState<string | null>(null);
+  const [printfulCart, setPrintfulCart] = useState<CartItem[] | null>(null);
+  const [shipping, setShipping] = useState<ShippingInfo | null>(null);
   const [printfulLoading, setPrintfulLoading] = useState(false);
   const [printfulError, setPrintfulError] = useState<string | null>(null);
   const [printfulSuccess, setPrintfulSuccess] = useState(false);
@@ -45,7 +46,8 @@ export default function TGPage() {
       const cartStr = localStorage.getItem('afungi_cart_checkout');
       if (cartStr) {
         try {
-          setPrintfulCart(JSON.parse(cartStr));
+          const parsedCart: CartItem[] = JSON.parse(cartStr);
+          setPrintfulCart(parsedCart);
         } catch {
           setPrintfulCart(null);
         }
@@ -58,8 +60,8 @@ export default function TGPage() {
   // Fetch shipping info from Square when orderNumber and cart are available
   useEffect(() => {
     if (showOrderSuccess && orderNumber && printfulCart) {
-      setShippingLoading(true);
-      setShippingError(null);
+      setPrintfulLoading(true);
+      setPrintfulError(null);
       fetch('/api/square-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -67,14 +69,14 @@ export default function TGPage() {
       })
         .then(res => res.json())
         .then(data => {
-          if (data.error) setShippingError(data.error);
+          if (data.error) setPrintfulError(data.error);
           else {
             setShipping(data.shipping);
             setShowPrintfulConfirm(true);
           }
         })
-        .catch(e => setShippingError(e.message || 'Failed to fetch shipping info'))
-        .finally(() => setShippingLoading(false));
+        .catch(e => setPrintfulError(e.message || 'Failed to fetch shipping info'))
+        .finally(() => setPrintfulLoading(false));
     }
   }, [showOrderSuccess, orderNumber, printfulCart]);
 
@@ -94,8 +96,12 @@ export default function TGPage() {
       setShowPrintfulConfirm(false);
       // Optionally clear cart from localStorage
       localStorage.removeItem('afungi_cart_checkout');
-    } catch (e: any) {
-      setPrintfulError(e.message || 'Printful order error');
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setPrintfulError(e.message || 'Printful order error');
+      } else {
+        setPrintfulError('Printful order error');
+      }
     } finally {
       setPrintfulLoading(false);
     }
@@ -103,7 +109,7 @@ export default function TGPage() {
 
   // Handler for editing shipping info
   const handleShippingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShipping({ ...shipping, [e.target.name]: e.target.value });
+    setShipping({ ...shipping!, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -150,9 +156,9 @@ export default function TGPage() {
               <input name="address1" value={shipping.address1 || ''} onChange={handleShippingChange} placeholder="Address 1" style={{ margin: 4, padding: 6, width: '90%' }} required />
               <input name="address2" value={shipping.address2 || ''} onChange={handleShippingChange} placeholder="Address 2" style={{ margin: 4, padding: 6, width: '90%' }} />
               <input name="city" value={shipping.city || ''} onChange={handleShippingChange} placeholder="City" style={{ margin: 4, padding: 6, width: '90%' }} required />
-              <input name="state" value={shipping.state_code || shipping.state || ''} onChange={handleShippingChange} placeholder="State" style={{ margin: 4, padding: 6, width: '90%' }} required />
-              <input name="zip" value={shipping.postal_code || shipping.zip || ''} onChange={handleShippingChange} placeholder="ZIP" style={{ margin: 4, padding: 6, width: '90%' }} required />
-              <input name="country" value={shipping.country_code || shipping.country || 'US'} onChange={handleShippingChange} placeholder="Country" style={{ margin: 4, padding: 6, width: '90%' }} required />
+              <input name="state" value={shipping.state || ''} onChange={handleShippingChange} placeholder="State" style={{ margin: 4, padding: 6, width: '90%' }} required />
+              <input name="zip" value={shipping.zip || ''} onChange={handleShippingChange} placeholder="ZIP" style={{ margin: 4, padding: 6, width: '90%' }} required />
+              <input name="country" value={shipping.country || 'US'} onChange={handleShippingChange} placeholder="Country" style={{ margin: 4, padding: 6, width: '90%' }} />
               <input name="email" value={shipping.email || ''} onChange={handleShippingChange} placeholder="Email" style={{ margin: 4, padding: 6, width: '90%' }} />
               <input name="phone" value={shipping.phone || ''} onChange={handleShippingChange} placeholder="Phone" style={{ margin: 4, padding: 6, width: '90%' }} />
               <button type="submit" style={{ background: '#2DA9E1', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 24px', fontSize: 18, cursor: 'pointer', marginTop: 12 }} disabled={printfulLoading}>

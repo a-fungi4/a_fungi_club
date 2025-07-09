@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Client, Environment } from 'square';
+import { Client, Environment } from 'square/legacy';
 
 const client = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN!,
-  environment: 'production',
+  environment: Environment.Production,
 });
 
 export async function POST(req: NextRequest) {
@@ -20,7 +20,8 @@ export async function POST(req: NextRequest) {
       locationId: process.env.SQUARE_LOCATION_ID!,
     });
     return NextResponse.json({ success: true, payment: response.result });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message || 'Payment failed' }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Payment failed';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 } 

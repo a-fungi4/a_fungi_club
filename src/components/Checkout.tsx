@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Checkout.module.css';
-import { useCart } from './CartContext';
+import { useCart, CartItem } from './CartContext';
 
 // Simple US state tax rates (example, not legal advice)
 const STATE_TAX_RATES: Record<string, number> = {
@@ -59,31 +59,25 @@ const US_STATES = Object.keys(STATE_TAX_RATES);
 
 interface CheckoutProps {
   cartItems?: React.ReactNode[];
-  onClose?: () => void;
-  onOrder?: () => void;
 }
-
-const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID || '';
-const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || '';
 
 declare global {
   interface Window {
-    Square?: any;
+    Square?: unknown;
   }
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
+const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
   const { cart } = useCart();
   const [shippingState, setShippingState] = useState('CA');
 
   // Calculate subtotal, tax, discount, and total
-  const subtotalCents = cart.reduce((sum, item) => sum + Math.round(item.price * 100) * item.quantity, 0);
+  const subtotalCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.price * 100) * item.quantity, 0);
   const taxRate = STATE_TAX_RATES[shippingState] || 0;
   const totalTaxCents = Math.round(subtotalCents * taxRate);
-  const totalDiscountCents = cart.reduce((sum, item) => sum + Math.round((item as any).discount ? (item as any).discount * 100 * item.quantity : 0), 0);
+  const totalDiscountCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.discount ? item.discount * 100 * item.quantity : 0), 0);
   const totalCents = subtotalCents + totalTaxCents - totalDiscountCents;
 
   const handlePurchase = async () => {
@@ -99,8 +93,12 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
       window.location.href = data.url;
-    } catch (err: any) {
-      setError(err.message || 'Checkout error');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Checkout error');
+      } else {
+        setError('Checkout error');
+      }
     } finally {
       setLoading(false);
     }
@@ -113,7 +111,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
           type="button"
           aria-label="Close checkout"
           className={styles.XButton}
-          onClick={onClose}
+          onClick={() => {}}
           style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
         >
           <svg width="100%" height="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
@@ -168,7 +166,6 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
         <div className={styles.CheckoutContainer3}>
           <div className={styles.Paymentinfo}>
             {error && <div style={{ color: 'red' }}>{error}</div>}
-            {success && <div style={{ color: 'green' }}>Checkout successful!</div>}
             {/* Order summary display */}
             <div style={{ fontWeight: 'bold', fontSize: 16, color: '#2DA9E1', marginBottom: 12, textAlign: 'right' }}>
               <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Subtotal: ${ (subtotalCents / 100).toFixed(2) }</div>
