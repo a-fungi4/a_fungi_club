@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './MiniCart.module.css';
+import { useCart } from './CartContext';
 
 interface MiniCartProps {
   onClose?: () => void;
@@ -7,7 +8,26 @@ interface MiniCartProps {
   onCheckout?: () => void;
 }
 
-const MiniCart: React.FC<MiniCartProps> = ({ onClose, cartItems, onCheckout }) => {
+const MiniCart: React.FC<MiniCartProps> = ({ onClose, cartItems }) => {
+  const { cart } = useCart();
+
+  const handleCheckout = async () => {
+    try {
+      // Store cart in localStorage for post-checkout use
+      localStorage.setItem('afungi_cart_checkout', JSON.stringify(cart));
+      const res = await fetch('/api/square-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
+      window.location.href = data.url;
+    } catch (err: any) {
+      alert(err.message || 'Checkout error');
+    }
+  };
+
   return (
     <div className={styles.Minicart}>
       <div className={styles.XBar}>
@@ -32,7 +52,7 @@ const MiniCart: React.FC<MiniCartProps> = ({ onClose, cartItems, onCheckout }) =
         <button
           type="button"
           className={styles.CheckOut}
-          onClick={onCheckout}
+          onClick={handleCheckout}
           style={{ background: 'none', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}
         >
           Check Out

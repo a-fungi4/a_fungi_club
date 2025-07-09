@@ -1,0 +1,1138 @@
+{
+  "products": [
+    {
+      "id": "AM4V57D22FBJCLZ4ZZOXQOIQ",
+      "name": "Hola Nalgona",
+      "description": "It's cozy\n\n\n• Unisex fit\n\n• 80% cotton, 20% polyester blend fleece\n\n• 100% cotton face\n\n• Fabric weight: 8.5 oz./yd² (280 g/m²)\n\n• Jersey-lined hood\n\n• Split stitch double-needle sewing on all seams\n\n• Twill neck tape\n\n• 1 × 1 ribbing for cuffs and waistband\n\n• Metal eyelets\n\n• Blank product sourced from Pakistan\n\n\nThis product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!",
+      "price": "66.99",
+      "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg",
+      "variations": [
+        {
+          "id": "WEHV4CH7TG4RWCEP5MUQAAAO",
+          "name": "Black, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg"
+        },
+        {
+          "id": "RAPRE5KIRSV7S4UZGJO45OLA",
+          "name": "Black, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg"
+        },
+        {
+          "id": "PPKA7DS2YRV7YYSTOHEY3OIH",
+          "name": "Black, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg"
+        },
+        {
+          "id": "XGVYCGGWCMVYP6JPMY7HXC2H",
+          "name": "Black, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg"
+        },
+        {
+          "id": "G4VACGFHWKD2V6RPFYPQBFTI",
+          "name": "Black, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7a82f887c09da091bfc80fa9c9a5e7d89930e6d4/original.jpeg"
+        },
+        {
+          "id": "T4YRLDKMZO4RIQVUB4O3R66K",
+          "name": "Purple, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5c104fd8bf1b8032c44688894f4d5343ed3b2c23/original.jpeg"
+        },
+        {
+          "id": "BPXHE4BGHBEUFTTRHDAL4NVH",
+          "name": "Purple, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5c104fd8bf1b8032c44688894f4d5343ed3b2c23/original.jpeg"
+        },
+        {
+          "id": "RM2MTMAVHSJCQW5NPQ2XIEF5",
+          "name": "Purple, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5c104fd8bf1b8032c44688894f4d5343ed3b2c23/original.jpeg"
+        },
+        {
+          "id": "THYZYOWR4AFXFPSS7V36CKR7",
+          "name": "Purple, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5c104fd8bf1b8032c44688894f4d5343ed3b2c23/original.jpeg"
+        },
+        {
+          "id": "MFJBHTMX4U6NBG5CXGARH27Z",
+          "name": "Purple, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5c104fd8bf1b8032c44688894f4d5343ed3b2c23/original.jpeg"
+        },
+        {
+          "id": "YK5QFNMS3HK6JRYY5HWM3SEZ",
+          "name": "Peach, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b2bbe7b97e2ff6bd8596e11e115712a400db0be9/original.jpeg"
+        },
+        {
+          "id": "U2WEFKLLBQ6AXDA6LK6GUR6F",
+          "name": "Peach, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b2bbe7b97e2ff6bd8596e11e115712a400db0be9/original.jpeg"
+        },
+        {
+          "id": "EOZ5LV6IM6UBVOPQU5ICXUIX",
+          "name": "Peach, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b2bbe7b97e2ff6bd8596e11e115712a400db0be9/original.jpeg"
+        },
+        {
+          "id": "LFINAMEKRVC5PT355IDFUFT3",
+          "name": "Peach, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b2bbe7b97e2ff6bd8596e11e115712a400db0be9/original.jpeg"
+        },
+        {
+          "id": "2ZJZTMC3JE3EZE77A4IU7LAN",
+          "name": "Peach, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b2bbe7b97e2ff6bd8596e11e115712a400db0be9/original.jpeg"
+        },
+        {
+          "id": "IG4UDFBWIUIRNXLHDOOGJQ5Q",
+          "name": "Blue Aqua, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/cc5880e3ada3971b40d92720138f553d38cb1890/original.jpeg"
+        },
+        {
+          "id": "DSEOQFHCFEL6MFAS6OGJTMH6",
+          "name": "Blue Aqua, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/cc5880e3ada3971b40d92720138f553d38cb1890/original.jpeg"
+        },
+        {
+          "id": "KU32XSMBSJJTY5V5NB6WYAGQ",
+          "name": "Blue Aqua, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/cc5880e3ada3971b40d92720138f553d38cb1890/original.jpeg"
+        },
+        {
+          "id": "XGNDQRWJNT2HPYFPSDWOYIL6",
+          "name": "Blue Aqua, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/cc5880e3ada3971b40d92720138f553d38cb1890/original.jpeg"
+        },
+        {
+          "id": "JKB2P7X4SDWMG4UYXMMTSA7G",
+          "name": "Blue Aqua, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/cc5880e3ada3971b40d92720138f553d38cb1890/original.jpeg"
+        },
+        {
+          "id": "NLN7SHYP73RHVYHEMLNFIHR3",
+          "name": "Light Pink, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/729c23b55ca23277461bf7ceb8e09dceaf9e10b2/original.jpeg"
+        },
+        {
+          "id": "CW5AYI2KN53Z7MHHNHYVDXJY",
+          "name": "Light Pink, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/729c23b55ca23277461bf7ceb8e09dceaf9e10b2/original.jpeg"
+        },
+        {
+          "id": "R6Y6IAFTW3O5QVOUYCATKIS4",
+          "name": "Light Pink, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/729c23b55ca23277461bf7ceb8e09dceaf9e10b2/original.jpeg"
+        },
+        {
+          "id": "JQSVZMVQ74UNPPKWMGZM7ZLW",
+          "name": "Light Pink, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/729c23b55ca23277461bf7ceb8e09dceaf9e10b2/original.jpeg"
+        },
+        {
+          "id": "A2OZAUHNWJIILH4CPWTAR4UC",
+          "name": "Light Pink, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/729c23b55ca23277461bf7ceb8e09dceaf9e10b2/original.jpeg"
+        },
+        {
+          "id": "34PWR4FHXQJCCN23ANQOIGRN",
+          "name": "Mint, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/220311708cde2b2016730230562f783843653b83/original.jpeg"
+        },
+        {
+          "id": "IAUNF2TFUJL2K5SHVPCAP3DN",
+          "name": "Mint, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/220311708cde2b2016730230562f783843653b83/original.jpeg"
+        },
+        {
+          "id": "UKZYW5ZAJUW4HOD2SRWJTJ3Y",
+          "name": "Mint, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/220311708cde2b2016730230562f783843653b83/original.jpeg"
+        },
+        {
+          "id": "CYDKPTWYLQYIX54BH5VCBOGX",
+          "name": "Mint, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/220311708cde2b2016730230562f783843653b83/original.jpeg"
+        },
+        {
+          "id": "VDWHAJU3MMMGUGURDIKHNRKM",
+          "name": "Mint, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/220311708cde2b2016730230562f783843653b83/original.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "NWE47YRC7ZCVL7KRFW274DIC",
+      "name": "Shae Happens Hoodie",
+      "description": "Cause shae happens\n\n\n• Unisex fit\n\n• 80% cotton, 20% polyester blend fleece\n\n• 100% cotton face\n\n• Fabric weight: 8.5 oz./yd² (280 g/m²)\n\n• Jersey-lined hood\n\n• Split stitch double-needle sewing on all seams\n\n• Twill neck tape\n\n• 1 × 1 ribbing for cuffs and waistband\n\n• Metal eyelets\n\n• Blank product sourced from Pakistan\n\n\nThis product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!",
+      "price": "66.99",
+      "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg",
+      "variations": [
+        {
+          "id": "XHLWM32Z4QRVGKSEIFJO3K4K",
+          "name": "Black, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg"
+        },
+        {
+          "id": "PEVZ3E7RHIN3N4PTTWC4KGVY",
+          "name": "Black, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg"
+        },
+        {
+          "id": "R2DHCAPGUD66K227JN2HSKMO",
+          "name": "Black, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg"
+        },
+        {
+          "id": "WWZRG4JW6AGTACG4ZS2PCWGP",
+          "name": "Black, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg"
+        },
+        {
+          "id": "MDMTLA6BBWHEH6HJGCTJD5TW",
+          "name": "Black, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2dee277e8c6a6a14a72210c40590979a8a2fc01e/original.jpeg"
+        },
+        {
+          "id": "6IVHHLWKST3BGMUQGGG4R4I2",
+          "name": "Purple, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/90b2e22503e524c03f52c2627d90db9746becd61/original.jpeg"
+        },
+        {
+          "id": "S7PGN6NXG2ZG5RTP5IQJ5AU4",
+          "name": "Purple, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/90b2e22503e524c03f52c2627d90db9746becd61/original.jpeg"
+        },
+        {
+          "id": "PWOHAGPR46FBG3USTWNMUPNU",
+          "name": "Purple, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/90b2e22503e524c03f52c2627d90db9746becd61/original.jpeg"
+        },
+        {
+          "id": "KG7JZVCMVQJIVUISPVRN4OAM",
+          "name": "Purple, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/90b2e22503e524c03f52c2627d90db9746becd61/original.jpeg"
+        },
+        {
+          "id": "E532ENL4BZIF6AWC5QR3G4M3",
+          "name": "Purple, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/90b2e22503e524c03f52c2627d90db9746becd61/original.jpeg"
+        },
+        {
+          "id": "IKQBUPV5YYSUHGUJMNDSLLI6",
+          "name": "Peach, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2c150cd58c2671a7faef79d507d7150efb743359/original.jpeg"
+        },
+        {
+          "id": "CMK7MPJP2GBHOZ2P42W55N4Z",
+          "name": "Peach, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2c150cd58c2671a7faef79d507d7150efb743359/original.jpeg"
+        },
+        {
+          "id": "UMRZ3RZRBCYWUH57JDQKQ4LU",
+          "name": "Peach, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2c150cd58c2671a7faef79d507d7150efb743359/original.jpeg"
+        },
+        {
+          "id": "7SGEWLFCNP56F5DC55JLOSHJ",
+          "name": "Peach, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2c150cd58c2671a7faef79d507d7150efb743359/original.jpeg"
+        },
+        {
+          "id": "5GPLOCDNZP7HS7IJUTZDRTDM",
+          "name": "Peach, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/2c150cd58c2671a7faef79d507d7150efb743359/original.jpeg"
+        },
+        {
+          "id": "4UAS5MRDMIJXI7ZHP3IWGEOG",
+          "name": "Blue Aqua, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/26fbbfe7c697aec3fd990ef6e9ffc1275fb155dc/original.jpeg"
+        },
+        {
+          "id": "ZT23LVQTRAUDKDFGTRTK4MVZ",
+          "name": "Blue Aqua, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/26fbbfe7c697aec3fd990ef6e9ffc1275fb155dc/original.jpeg"
+        },
+        {
+          "id": "HDOFGXBKFD5ZBEPD5FYSZ5JF",
+          "name": "Blue Aqua, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/26fbbfe7c697aec3fd990ef6e9ffc1275fb155dc/original.jpeg"
+        },
+        {
+          "id": "OHWGL3KCBZTJVFGGSPWNSXIY",
+          "name": "Blue Aqua, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/26fbbfe7c697aec3fd990ef6e9ffc1275fb155dc/original.jpeg"
+        },
+        {
+          "id": "WIQCEQFMJ7MHX7RA7NN2B7W3",
+          "name": "Blue Aqua, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/26fbbfe7c697aec3fd990ef6e9ffc1275fb155dc/original.jpeg"
+        },
+        {
+          "id": "MP77MHVUXAYL4LXKLYBDKX2Y",
+          "name": "Light Pink, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/6312fc56a635dc1b96536967f1f30413c91c1dd3/original.jpeg"
+        },
+        {
+          "id": "M3JF547KA2NJ7LCROU6LTXAT",
+          "name": "Light Pink, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/6312fc56a635dc1b96536967f1f30413c91c1dd3/original.jpeg"
+        },
+        {
+          "id": "M4YCXNELE6XCE6LCG5HBS7NB",
+          "name": "Light Pink, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/6312fc56a635dc1b96536967f1f30413c91c1dd3/original.jpeg"
+        },
+        {
+          "id": "UXMXSYW27Y6BSAQUGXMO2BDL",
+          "name": "Light Pink, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/6312fc56a635dc1b96536967f1f30413c91c1dd3/original.jpeg"
+        },
+        {
+          "id": "O7QV6RHNTC36222CJPF5CXDC",
+          "name": "Light Pink, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/6312fc56a635dc1b96536967f1f30413c91c1dd3/original.jpeg"
+        },
+        {
+          "id": "LPUBHVXOLK2NPNAMMI4AIJXE",
+          "name": "Mint, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9cdd1dbd4e74e945809e66cc3899f1c303e37bc1/original.jpeg"
+        },
+        {
+          "id": "VVBKMYKQLUJSCMNOYV5FMPX6",
+          "name": "Mint, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9cdd1dbd4e74e945809e66cc3899f1c303e37bc1/original.jpeg"
+        },
+        {
+          "id": "DEKF2JNJAKNH5QBWMEFTT3CR",
+          "name": "Mint, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9cdd1dbd4e74e945809e66cc3899f1c303e37bc1/original.jpeg"
+        },
+        {
+          "id": "DB4DZF5OZ74BVO2IBXO72LP3",
+          "name": "Mint, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9cdd1dbd4e74e945809e66cc3899f1c303e37bc1/original.jpeg"
+        },
+        {
+          "id": "VDIC6GSKJSFOVKDP32NQQUCF",
+          "name": "Mint, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/9cdd1dbd4e74e945809e66cc3899f1c303e37bc1/original.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "WDDHZA6NGCU53PIJ7JGGUKWM",
+      "name": "BadTrip Holo Sticker",
+      "description": "It's not always what you want but sometimes you need it.\n\n\nAdd some sparkle to your life with these holographic stickers. Made from high-quality vinyl, they’re easy to peel and stick, and their adhesive backing ensures long-lasting durability. The unique holographic effect catches the light in a mesmerizing way, making them the ultimate eye-catcher.\n\n\n• Hot-embossed, which creates a deep 3D pattern\n\n• Durable vinyl, perfect for indoor use\n\n• Fast and easy bubble-free application\n\n\nDisclaimer: Please note that this product is suitable for indoor use only.\n\n\nThis product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!",
+      "price": "7.99",
+      "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/52860cefc840c07d1eb5a642cb79990333ef4ed9/original.jpeg",
+      "variations": [
+        {
+          "id": "LLZPQRTIVYZBLNNKP5ETYIN7",
+          "name": "",
+          "price": "7.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/52860cefc840c07d1eb5a642cb79990333ef4ed9/original.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "XJCSP75SYWFUCB2VFQDQDU6V",
+      "name": "BadTrip Hoodie",
+      "description": "It's not always what you want, but it is what you need.\n\n\n• Unisex fit\n\n• 80% cotton, 20% polyester blend fleece\n\n• 100% cotton face\n\n• Fabric weight: 8.5 oz./yd² (280 g/m²)\n\n• Jersey-lined hood\n\n• Split stitch double-needle sewing on all seams\n\n• Twill neck tape\n\n• 1 × 1 ribbing for cuffs and waistband\n\n• Metal eyelets\n\n• Blank product sourced from Pakistan\n\n\nThis product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!",
+      "price": "66.99",
+      "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg",
+      "variations": [
+        {
+          "id": "KS625WG5HX2LCJFKFJ4JJ5S6",
+          "name": "Black, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg"
+        },
+        {
+          "id": "OEN2DAOGVTVEFWXWT4XTXO4B",
+          "name": "Black, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg"
+        },
+        {
+          "id": "ZJDRT4XQWXXFZHRBSAJPDSOA",
+          "name": "Black, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg"
+        },
+        {
+          "id": "VZMKLZ5CQKBK4P4DIBECWGOM",
+          "name": "Black, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg"
+        },
+        {
+          "id": "6EMBHVVHWFTP6A7SIEBJIFVP",
+          "name": "Black, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/ad1d668a25a3a31eb66eab8c27cb89cc85c93a20/original.jpeg"
+        },
+        {
+          "id": "AFFO46HYRGT5BJJ2FV2MJ7IS",
+          "name": "Purple, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b61b817fb60c9a71c48155d9886165201f982058/original.jpeg"
+        },
+        {
+          "id": "RNHQDQ2FZVU6YTJ7NPF7MWKA",
+          "name": "Purple, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b61b817fb60c9a71c48155d9886165201f982058/original.jpeg"
+        },
+        {
+          "id": "5WKMWRJL2A7PDIUX372GK3XU",
+          "name": "Purple, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b61b817fb60c9a71c48155d9886165201f982058/original.jpeg"
+        },
+        {
+          "id": "RJOE76N3AEKH4VQGNW273U4T",
+          "name": "Purple, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b61b817fb60c9a71c48155d9886165201f982058/original.jpeg"
+        },
+        {
+          "id": "MECP6OULGUEZGF24LZBBAVCH",
+          "name": "Purple, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/b61b817fb60c9a71c48155d9886165201f982058/original.jpeg"
+        },
+        {
+          "id": "DEBCWZJSJEEUGXP74FNMTSK5",
+          "name": "Peach, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7fb40b2043998ddd43b1d62024eb63b68cb1f92e/original.jpeg"
+        },
+        {
+          "id": "BKFARB5NYTQ2RGCWBMLBNOLV",
+          "name": "Peach, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7fb40b2043998ddd43b1d62024eb63b68cb1f92e/original.jpeg"
+        },
+        {
+          "id": "QWW5T2IWAO5IOYUOLWSHPWFR",
+          "name": "Peach, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7fb40b2043998ddd43b1d62024eb63b68cb1f92e/original.jpeg"
+        },
+        {
+          "id": "7DXCUBBLGBAIMNRXH42CPGRR",
+          "name": "Peach, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7fb40b2043998ddd43b1d62024eb63b68cb1f92e/original.jpeg"
+        },
+        {
+          "id": "CTK35F2SDMKFLMEGL3RKDNJC",
+          "name": "Peach, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7fb40b2043998ddd43b1d62024eb63b68cb1f92e/original.jpeg"
+        },
+        {
+          "id": "7ZWDMZN7C5TOVNXUDBQGHVT3",
+          "name": "Blue Aqua, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/933a5e6b9751be5c036575829574f4b23f0ad58d/original.jpeg"
+        },
+        {
+          "id": "KV3HBC6KVIRBF2PZLKAZEM77",
+          "name": "Blue Aqua, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/933a5e6b9751be5c036575829574f4b23f0ad58d/original.jpeg"
+        },
+        {
+          "id": "4GVSQHPW2UHAAQ3OP35AMZB3",
+          "name": "Blue Aqua, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/933a5e6b9751be5c036575829574f4b23f0ad58d/original.jpeg"
+        },
+        {
+          "id": "NKTDDI7HOJKBERNH2CTMBVIE",
+          "name": "Blue Aqua, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/933a5e6b9751be5c036575829574f4b23f0ad58d/original.jpeg"
+        },
+        {
+          "id": "MQYEJ7FOFQGNEUCUUFUVBTWR",
+          "name": "Blue Aqua, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/933a5e6b9751be5c036575829574f4b23f0ad58d/original.jpeg"
+        },
+        {
+          "id": "CGLBNHUOJGYF25VZD4MTJEU4",
+          "name": "Light Pink, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/34d81a5ff0671e7dc5412cb0af9cbdcf32c4c7d6/original.jpeg"
+        },
+        {
+          "id": "IE2NCA3GAZCCAFQHP23RAV77",
+          "name": "Light Pink, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/34d81a5ff0671e7dc5412cb0af9cbdcf32c4c7d6/original.jpeg"
+        },
+        {
+          "id": "IRRJI3P3DROUZ5TXKT4X2OUZ",
+          "name": "Light Pink, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/34d81a5ff0671e7dc5412cb0af9cbdcf32c4c7d6/original.jpeg"
+        },
+        {
+          "id": "C74TWJCTJWTSMLQ3Y2OLRZ7F",
+          "name": "Light Pink, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/34d81a5ff0671e7dc5412cb0af9cbdcf32c4c7d6/original.jpeg"
+        },
+        {
+          "id": "7JH6B32AZFN5RSR2PB4RAUMQ",
+          "name": "Light Pink, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/34d81a5ff0671e7dc5412cb0af9cbdcf32c4c7d6/original.jpeg"
+        },
+        {
+          "id": "Q26JYOEQ6YATQS6NH6YKLSRH",
+          "name": "Mint, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c441174d5115bd4ccf0251dee772f294a5984ad1/original.jpeg"
+        },
+        {
+          "id": "VVWIOHLVZMYMHKMF6EVDSWB4",
+          "name": "Mint, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c441174d5115bd4ccf0251dee772f294a5984ad1/original.jpeg"
+        },
+        {
+          "id": "6Z32FP4SM7DYRXXA5EDTZLN4",
+          "name": "Mint, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c441174d5115bd4ccf0251dee772f294a5984ad1/original.jpeg"
+        },
+        {
+          "id": "DMLVQXJ7TVTZVNDXEBWAGF3F",
+          "name": "Mint, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c441174d5115bd4ccf0251dee772f294a5984ad1/original.jpeg"
+        },
+        {
+          "id": "L5N6BDAZZPFOFMB7LIWSQEHF",
+          "name": "Mint, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c441174d5115bd4ccf0251dee772f294a5984ad1/original.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "5FRUMKF4DSLUO4VZV46M2XXN",
+      "name": "Debilify Hoodie",
+      "description": "They hit the same receptors...\n\n\n• Unisex fit\n\n• 80% cotton, 20% polyester blend fleece\n\n• 100% cotton face\n\n• Fabric weight: 8.5 oz./yd² (280 g/m²)\n\n• Jersey-lined hood\n\n• Split stitch double-needle sewing on all seams\n\n• Twill neck tape\n\n• 1 × 1 ribbing for cuffs and waistband\n\n• Metal eyelets\n\n• Blank product sourced from Pakistan\n\n\nThis product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!",
+      "price": "66.99",
+      "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg",
+      "variations": [
+        {
+          "id": "ZPG7WYO5VF7AK7RIMAXKT4WY",
+          "name": "Black, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg"
+        },
+        {
+          "id": "JXJ5ZGEG6NMERVDLCAVZCYG5",
+          "name": "Black, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg"
+        },
+        {
+          "id": "WSMNTJLZBF2B4XR6GO3MLQOG",
+          "name": "Black, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg"
+        },
+        {
+          "id": "GKMGWZC2Y5XMMQZSAZJGKUXV",
+          "name": "Black, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg"
+        },
+        {
+          "id": "S7WH7WT2NLPNS3A3Y63TKFBN",
+          "name": "Black, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/5fdb2020e5b984e4f1b1e5eaba2dab3b5e67e2fb/original.jpeg"
+        },
+        {
+          "id": "KZJ7643SRXQHQ4HSVQNTMBKM",
+          "name": "Purple, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e684ab397ffe4d9df1a59717c602dee596c2bc65/original.jpeg"
+        },
+        {
+          "id": "H6B5G4Q23WYQNM3U4RBZX333",
+          "name": "Purple, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e684ab397ffe4d9df1a59717c602dee596c2bc65/original.jpeg"
+        },
+        {
+          "id": "CTZLUCHYNNPLK7KIWGTF3GBG",
+          "name": "Purple, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e684ab397ffe4d9df1a59717c602dee596c2bc65/original.jpeg"
+        },
+        {
+          "id": "V3AV5YJPGVQR65ID2HYWXOL3",
+          "name": "Purple, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e684ab397ffe4d9df1a59717c602dee596c2bc65/original.jpeg"
+        },
+        {
+          "id": "56MA67QYCMPTB3Z6GXGCS4D7",
+          "name": "Purple, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/e684ab397ffe4d9df1a59717c602dee596c2bc65/original.jpeg"
+        },
+        {
+          "id": "2XZLQJUGQNVOVSK62NE2ZGKO",
+          "name": "Peach, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/8a59d6479b5970bc63c7bd6bb648c58912efe082/original.jpeg"
+        },
+        {
+          "id": "2YFB6OAO5Z4CMPLYUH7CMRWE",
+          "name": "Peach, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/8a59d6479b5970bc63c7bd6bb648c58912efe082/original.jpeg"
+        },
+        {
+          "id": "2GEZTMQ6L3PMMVICNJZK2Z5R",
+          "name": "Peach, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/8a59d6479b5970bc63c7bd6bb648c58912efe082/original.jpeg"
+        },
+        {
+          "id": "DSMOB4EXJAMMF2GHEWA5FBJW",
+          "name": "Peach, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/8a59d6479b5970bc63c7bd6bb648c58912efe082/original.jpeg"
+        },
+        {
+          "id": "KUSW2QJ2O27LUFCU2UVSCH37",
+          "name": "Peach, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/8a59d6479b5970bc63c7bd6bb648c58912efe082/original.jpeg"
+        },
+        {
+          "id": "KDAWW7JR5BNU2SG34LSSP6TM",
+          "name": "Blue Aqua, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/22429d3fb847773c1ac0f77616e96d381967b874/original.jpeg"
+        },
+        {
+          "id": "2CHMQOT5EUZR2T7YDCZCSRWC",
+          "name": "Blue Aqua, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/22429d3fb847773c1ac0f77616e96d381967b874/original.jpeg"
+        },
+        {
+          "id": "NZ7HIORO3DPTSRXMBYBNUW2J",
+          "name": "Blue Aqua, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/22429d3fb847773c1ac0f77616e96d381967b874/original.jpeg"
+        },
+        {
+          "id": "V6WVXRAJEFFEGOXOYWUW725B",
+          "name": "Blue Aqua, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/22429d3fb847773c1ac0f77616e96d381967b874/original.jpeg"
+        },
+        {
+          "id": "MFWWMPEJM3FN3E4IQVE57MDZ",
+          "name": "Blue Aqua, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/22429d3fb847773c1ac0f77616e96d381967b874/original.jpeg"
+        },
+        {
+          "id": "HWQRZWCD3WUGLFCNHYSIFSR7",
+          "name": "Light Pink, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7971e47314e0b09afac133a133245c6fd117d893/original.jpeg"
+        },
+        {
+          "id": "EHXHWDF5NAOIOTFOUHUCMMEW",
+          "name": "Light Pink, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7971e47314e0b09afac133a133245c6fd117d893/original.jpeg"
+        },
+        {
+          "id": "56ONFJN5B4V3EGQ7DZWLRDP6",
+          "name": "Light Pink, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7971e47314e0b09afac133a133245c6fd117d893/original.jpeg"
+        },
+        {
+          "id": "FAIK7EK3YJICNTRLZ4U6ACBR",
+          "name": "Light Pink, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7971e47314e0b09afac133a133245c6fd117d893/original.jpeg"
+        },
+        {
+          "id": "LJ6YLNWDVX37YX6KZSIIYJPH",
+          "name": "Light Pink, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/7971e47314e0b09afac133a133245c6fd117d893/original.jpeg"
+        },
+        {
+          "id": "VUEHDSZV767KJVHRTONHJPIL",
+          "name": "Mint, S",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8bea3f3f71ef3903b80fd12c32a77ffe45b15d7/original.jpeg"
+        },
+        {
+          "id": "XF7APVLYFCOKO2VW734422UX",
+          "name": "Mint, M",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8bea3f3f71ef3903b80fd12c32a77ffe45b15d7/original.jpeg"
+        },
+        {
+          "id": "W6ZJ7ORPSKRT7YSGH27XWT4E",
+          "name": "Mint, L",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8bea3f3f71ef3903b80fd12c32a77ffe45b15d7/original.jpeg"
+        },
+        {
+          "id": "GIDSYN3AB2CNPE2VXKWIOWTC",
+          "name": "Mint, XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8bea3f3f71ef3903b80fd12c32a77ffe45b15d7/original.jpeg"
+        },
+        {
+          "id": "4ZZREYVC4DFOEURY2JXKXKYX",
+          "name": "Mint, 2XL",
+          "price": "66.99",
+          "color": null,
+          "size": null,
+          "description": "",
+          "image": "https://items-images-production.s3.us-west-2.amazonaws.com/files/c8bea3f3f71ef3903b80fd12c32a77ffe45b15d7/original.jpeg"
+        }
+      ]
+    }
+  ]
+}

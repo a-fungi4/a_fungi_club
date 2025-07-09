@@ -1,7 +1,8 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductExpanded from './ProductExpanded';
 import styles from './ProductCarousel.module.css';
+import { useCart } from './CartContext';
 
 const VISIBLE_CARDS = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_CARDS / 2);
@@ -26,32 +27,15 @@ interface Product {
   description?: string;
   image?: string;
   variations?: Variation[];
+  category?: string | null;
 }
 
-// Type for API variation object
-interface APIVariation {
-  id: string;
-  name?: string;
-  price?: number | string;
-  currency?: string;
-  color?: string | null;
-  size?: string | null;
-  description?: string;
-  image?: string;
-}
-// Type for API product object
-interface APIProduct {
-  id: string;
-  name: string;
-  price: string | number;
-  description?: string;
-  image?: string;
-  variations?: APIVariation[];
+interface ProductCarouselProps {
+  products: Product[];
+  categoryName?: string;
 }
 
-const ProductCarousel: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, categoryName }) => {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
@@ -60,36 +44,7 @@ const ProductCarousel: React.FC = () => {
   const numProducts = products.length;
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(900);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch('/api/square-products')
-      .then(res => res.json())
-      .then(data => {
-        const mapped = (data.products || []).map((p: APIProduct) => {
-          return {
-            id: p.id,
-            name: p.name,
-            price: p.price,
-            description: p.description,
-            image: p.image,
-            variations: (p.variations || []).map((v: APIVariation) => ({
-              id: v.id,
-              name: v.name || '',
-              price: v.price || 0,
-              currency: v.currency || 'USD',
-              color: v.color || null,
-              size: v.size || null,
-              description: v.description || '',
-              image: v.image || '',
-            })),
-          };
-        });
-        setProducts(mapped);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+  const { addToCart } = useCart();
 
   useLayoutEffect(() => {
     if (containerRef.current) {
@@ -112,9 +67,6 @@ const ProductCarousel: React.FC = () => {
   console.log('Rendering product IDs:', uniqueProducts.map((p: Product) => p.id));
   console.log('uniqueProducts:', uniqueProducts);
 
-  if (loading) {
-    return <div className={styles.ProductCarousel} ref={containerRef}>Loading products...</div>;
-  }
   if (uniqueProducts.length === 0) {
     return <div className={styles.ProductCarousel} ref={containerRef}>No products found.</div>;
   }
@@ -143,21 +95,54 @@ const ProductCarousel: React.FC = () => {
     visible.push({ ...uniqueProducts[index], offset: i });
   }
 
-  // Handler for clicking the image area
-  const handleImageClick = () => {
-    // setLargePhotoIdx(idx); // This state is no longer used
-  };
-
   // Each product is a parent ITEM. We use its id as the key and pass its variations for selection.
   // uniqueProducts is already deduplicated by id and should only contain ITEMs.
 
   // In grid mode:
   // The main return must be a single parent <div>.
+  // Helper to filter only valid strings
+  const filterValidImages = (arr: (string | undefined)[]) => arr.filter((img): img is string => typeof img === 'string' && !!img);
+  // Helper to get one image per color variation
+  function getImagesForProduct(product: Product): string[] {
+    const images: string[] = [];
+    const colorImageMap = new Map<string, string>();
+    let hasColor = false;
+    if (product.variations && product.variations.length > 0) {
+      for (const v of product.variations) {
+        if (v.color && v.image) {
+          hasColor = true;
+          if (!colorImageMap.has(v.color)) {
+            colorImageMap.set(v.color, v.image);
+          }
+        }
+      }
+    }
+    if (hasColor) {
+      // Add main image first if it exists and is not already in the color images
+      if (product.image && !Array.from(colorImageMap.values()).includes(product.image)) {
+        images.push(product.image);
+      }
+      images.push(...Array.from(colorImageMap.values()));
+    } else {
+      // No color info: use all unique images from variations
+      const uniqueImages = new Set<string>();
+      if (product.variations) {
+        for (const v of product.variations) {
+          if (v.image) uniqueImages.add(v.image);
+        }
+      }
+      if (product.image && !uniqueImages.has(product.image)) {
+        images.push(product.image);
+      }
+      images.push(...Array.from(uniqueImages));
+    }
+    return filterValidImages(images);
+  }
   return (
     <div className={styles.ProductCarousel} ref={containerRef}>
       {/* Category Dropdown */}
       <div className={styles.CategoryDropdown}>
-        <div className={styles.Category}>Category</div>
+        <div className={styles.Category}>{categoryName || 'Category'}</div>
         <div className={styles.Line8}>
           <svg width="100%" height="20" viewBox="0 0 1354 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_975_2603)">
@@ -220,13 +205,12 @@ const ProductCarousel: React.FC = () => {
           {uniqueProducts.map((product: Product, i) => (
             <ProductCard
               key={product.id}
-              image={product.image}
+              images={getImagesForProduct(product)}
               title={product.name}
               price={product.price}
               inStock={true}
               variations={product.variations || []}
               onViewDetails={() => setExpandedIdx(i)}
-              onImageClick={() => handleImageClick()}
               selected={expandedIdx === i}
             />
           ))}
@@ -246,17 +230,14 @@ const ProductCarousel: React.FC = () => {
                   const uniqueIdx = uniqueProducts.findIndex(p => p.id === product.id);
                   return (
                     <div key={product.id + '-' + i} style={{ zIndex: CENTER_INDEX - Math.abs(product.offset) }}>
-                      {expandedIdx === uniqueIdx ? (
-                        <></>
-                      ) : (
+                      {expandedIdx === uniqueIdx ? null : (
                         <ProductCard
-                          image={product.image}
+                          images={getImagesForProduct(product)}
                           title={product.name}
                           price={product.price}
                           inStock={true}
                           variations={product.variations || []}
                           onViewDetails={() => setExpandedIdx(uniqueIdx)}
-                          onImageClick={() => handleImageClick()}
                           selected={expandedIdx === uniqueIdx}
                         />
                       )}
@@ -302,7 +283,17 @@ const ProductCarousel: React.FC = () => {
               onSelectSize={setSelectedSize}
               quantity={quantity}
               onQuantityChange={setQuantity}
-              onAddToCart={() => alert('Added to cart!')}
+              onAddToCart={() => {
+                const product = uniqueProducts[expandedIdx];
+                addToCart({
+                  id: product.id,
+                  name: product.name,
+                  price: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
+                  image: product.image,
+                  variation: selectedSize,
+                }, quantity);
+                setExpandedIdx(null);
+              }}
               onCollapse={() => setExpandedIdx(null)}
             />
           </div>

@@ -170,25 +170,29 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
           </div>
           <div className={styles.SizeDesc}>
             {/* Color Selector */}
-            {colors.length > 0 && (
-              <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 9, display: 'inline-flex', marginBottom: 12}}>
-                <div style={{width: 206, color: 'white', fontSize: 8, fontFamily: 'Moby'}}>COLOR</div>
-                <div className={styles.Colorselection}>
-                  {colors.map(color => (
-                    <div
+            {colors.filter(color => byColor[color] && byColor[color].length > 0).length > 0 && (
+              <div className={styles.ColorSelector}>
+                <div className={styles.ColorSelectorLabel}>COLOR</div>
+                <div className={styles.ColorselectionRow}>
+                  {colors.filter(color => byColor[color] && byColor[color].length > 0).map(color => (
+                    <button
                       key={color}
                       className={
-                        styles.Colorvariation + (selectedColor === color ? ' ' + styles.selected : '')
+                        styles.ColorCircle +
+                        (selectedColor === color ? ' ' + styles.ColorCircleSelected : '')
                       }
-                      style={{
-                        opacity: bySize[selectedSize]?.includes(color) ? 1 : 0.3,
-                      }}
+                      aria-label={color}
+                      type="button"
                       onClick={() => setSelectedColor(color)}
+                      style={{ background: colorToHex(color) }}
                     >
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="10" fill={colorToHex(color)} />
-                      </svg>
-                    </div>
+                      {/* SVG for border effect if selected */}
+                      {selectedColor === color && (
+                        <svg className={styles.ColorCircleBorder} width="100%" height="100%" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="11" stroke="#2DA9E1" strokeWidth="2" fill="none" />
+                        </svg>
+                      )}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -197,23 +201,21 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
             {sizes.length > 0 && (
               <div className={styles.SizeSelector}>
                 <div className={styles.SizeSelectorLabel}>SIZE</div>
-                <div className={styles.Sizeselection}>
+                <div className={styles.SizeSelectionRow}>
                   {sizes.map(size => (
-                    <div
+                    <button
                       key={size}
-                      className={styles.Sizeselectionitem}
-                      style={{
-                        opacity: byColor[selectedColor]?.includes(size) ? 1 : 0.3,
-                      }}
+                      className={
+                        styles.SizeCircle +
+                        (selectedSize === size ? ' ' + styles.SizeCircleSelected : '') +
+                        (!byColor[selectedColor]?.includes(size) ? ' ' + styles.SizeCircleDisabled : '')
+                      }
+                      type="button"
                       onClick={() => setSelectedSize(size)}
+                      disabled={!byColor[selectedColor]?.includes(size)}
                     >
-                      <div className={styles.Ellipse6}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <circle cx="8" cy="8" r="8" fill={selectedSize === size ? '#2DA9E1' : '#C0282D'} fillOpacity={selectedSize === size ? '0.56' : '0.54'} />
-                        </svg>
-                      </div>
-                      <div className={styles.SizeLabel}>{size}</div>
-                    </div>
+                      <span className={styles.SizeCircleLabel}>{size}</span>
+                    </button>
                   ))}
                 </div>
               </div>

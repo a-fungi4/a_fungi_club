@@ -34,6 +34,10 @@ interface CatalogItem {
     imageUrl?: string;
     imageIds?: string[];
     variations?: CatalogItemVariation[];
+    categories?: Array<{
+      id: string;
+      name: string;
+    }>;
   };
 }
 interface CatalogItemOption {
@@ -50,7 +54,14 @@ interface CatalogItemOptionValue {
     name?: string;
   };
 }
-type CatalogObject = CatalogItem | CatalogImage | CatalogItemOption | CatalogItemOptionValue;
+interface CatalogCategory {
+  id: string;
+  type: 'CATEGORY';
+  categoryData?: {
+    name?: string;
+  };
+}
+type CatalogObject = CatalogItem | CatalogImage | CatalogItemOption | CatalogItemOptionValue | CatalogCategory;
 
 function replacer(key: string, value: unknown): unknown {
   return typeof value === 'bigint' ? value.toString() : value;
@@ -59,16 +70,25 @@ function replacer(key: string, value: unknown): unknown {
 export async function GET() {
   console.log('GET /api/square-products: handler start');
   try {
-    // Fetch all ITEM, IMAGE, and ITEM_OPTION objects in one call (ITEM_OPTION_VALUE is not a valid type)
-    const page = await client.catalog.list({ types: 'ITEM,IMAGE,ITEM_OPTION' });
+    // Fetch all ITEM, IMAGE, ITEM_OPTION, and CATEGORY objects in one call
+    const page = await client.catalog.list({ types: 'ITEM,IMAGE,ITEM_OPTION,CATEGORY' });
     const items: CatalogItem[] = [];
     const images: CatalogImage[] = [];
     const itemOptions: CatalogItemOption[] = [];
+    const categories: CatalogCategory[] = [];
     // Square API does not return ITEM_OPTION_VALUE objects directly in list; must retrieve via ITEM_OPTION or other means if needed
     for await (const obj of page as AsyncIterable<CatalogObject>) {
       if (obj.type === 'ITEM') items.push(obj as CatalogItem);
       if (obj.type === 'IMAGE') images.push(obj as CatalogImage);
       if (obj.type === 'ITEM_OPTION') itemOptions.push(obj as CatalogItemOption);
+      if (obj.type === 'CATEGORY') categories.push(obj as CatalogCategory);
+    }
+    // Log raw itemData for debugging categoryId, handling BigInt
+    for (const item of items) {
+      if (item.itemData) {
+        console.log('DEBUG itemData:', JSON.stringify(item.itemData, (key, value) =>
+          typeof value === 'bigint' ? value.toString() : value, 2));
+      }
     }
     // Build image_id -> url map
     const imageMap: Record<string, string> = {};
@@ -82,6 +102,13 @@ export async function GET() {
     for (const opt of itemOptions) {
       if (opt.id && opt.itemOptionData && opt.itemOptionData.name) {
         optionIdToName[opt.id] = opt.itemOptionData.name;
+      }
+    }
+    // Build category_id -> name map
+    const categoryIdToName: Record<string, string> = {};
+    for (const cat of categories) {
+      if (cat.id && cat.categoryData && cat.categoryData.name) {
+        categoryIdToName[cat.id] = cat.categoryData.name;
       }
     }
     // Option values are not available here; color/size will be null unless you fetch them separately
@@ -118,6 +145,12 @@ export async function GET() {
       if (variations.length > 0 && variations[0].price !== 'N/A') {
         price = variations[0].price;
       }
+      // Get category name from categories array
+      let category = null;
+      const catId = item.itemData?.categories?.[0]?.id;
+      if (catId) {
+        category = categoryIdToName[catId] || catId;
+      }
       return {
         id: item.id,
         name: item.itemData?.name || 'Unnamed Product',
@@ -125,6 +158,7 @@ export async function GET() {
         price,
         image,
         variations,
+        category,
       };
     });
     const safeProducts = JSON.parse(JSON.stringify({ products }, replacer));

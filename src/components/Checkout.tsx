@@ -1,12 +1,111 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Checkout.module.css';
+import { useCart } from './CartContext';
+
+// Simple US state tax rates (example, not legal advice)
+const STATE_TAX_RATES: Record<string, number> = {
+  CA: 0.0725,
+  NY: 0.04,
+  TX: 0.0625,
+  FL: 0.06,
+  IL: 0.0625,
+  PA: 0.06,
+  OH: 0.0575,
+  GA: 0.04,
+  NC: 0.0475,
+  MI: 0.06,
+  NJ: 0.06625,
+  VA: 0.053,
+  WA: 0.065,
+  AZ: 0.056,
+  MA: 0.0625,
+  TN: 0.07,
+  IN: 0.07,
+  MO: 0.04225,
+  MD: 0.06,
+  WI: 0.05,
+  CO: 0.029,
+  MN: 0.06875,
+  SC: 0.06,
+  AL: 0.04,
+  LA: 0.0445,
+  KY: 0.06,
+  OR: 0.0,
+  OK: 0.045,
+  CT: 0.0635,
+  IA: 0.06,
+  AR: 0.065,
+  KS: 0.065,
+  NV: 0.0685,
+  UT: 0.0485,
+  MS: 0.07,
+  NE: 0.055,
+  NM: 0.05125,
+  WV: 0.06,
+  ID: 0.06,
+  HI: 0.04,
+  NH: 0.0,
+  ME: 0.055,
+  RI: 0.07,
+  MT: 0.0,
+  DE: 0.0,
+  SD: 0.045,
+  ND: 0.05,
+  AK: 0.0,
+  VT: 0.06,
+  WY: 0.04,
+};
+const US_STATES = Object.keys(STATE_TAX_RATES);
 
 interface CheckoutProps {
   cartItems?: React.ReactNode[];
   onClose?: () => void;
+  onOrder?: () => void;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose }) => {
+const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID || '';
+const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || '';
+
+declare global {
+  interface Window {
+    Square?: any;
+  }
+}
+
+const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const { cart } = useCart();
+  const [shippingState, setShippingState] = useState('CA');
+
+  // Calculate subtotal, tax, discount, and total
+  const subtotalCents = cart.reduce((sum, item) => sum + Math.round(item.price * 100) * item.quantity, 0);
+  const taxRate = STATE_TAX_RATES[shippingState] || 0;
+  const totalTaxCents = Math.round(subtotalCents * taxRate);
+  const totalDiscountCents = cart.reduce((sum, item) => sum + Math.round((item as any).discount ? (item as any).discount * 100 * item.quantity : 0), 0);
+  const totalCents = subtotalCents + totalTaxCents - totalDiscountCents;
+
+  const handlePurchase = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Send cart to backend to get Square checkout URL
+      const res = await fetch('/api/square-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
+      window.location.href = data.url;
+    } catch (err: any) {
+      setError(err.message || 'Checkout error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.Checkout}>
       <div className={styles.XBar}>
@@ -42,6 +141,19 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose }) => {
           <div className={styles.Addressline1input}></div>
           <div className={styles.Addressline2input}></div>
           <div className={styles.Addressline3input}></div>
+          <div style={{ margin: '8px 0' }}>
+            <label htmlFor="shipping-state" style={{ color: '#fff', fontSize: 14, marginRight: 8 }}>State:</label>
+            <select
+              id="shipping-state"
+              value={shippingState}
+              onChange={e => setShippingState(e.target.value)}
+              style={{ fontSize: 14, padding: 4, borderRadius: 6 }}
+            >
+              {US_STATES.map(state => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </select>
+          </div>
           <div className={styles.Signupforemail}>
             <div className={styles.Agreetoterms}>
               <div className={styles.Checkcircle}>
@@ -55,41 +167,19 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose }) => {
         </div>
         <div className={styles.CheckoutContainer3}>
           <div className={styles.Paymentinfo}>
-            <div className={styles.DebitCreditCardOption}>
-              <div className={styles.Checkcircleselection}>
-                <div className={styles.Frame173}>
-                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M10.1074 2.42309C9.58385 1.85897 8.73539 1.85897 8.21187 2.42309L3.47266 7.51752L2.28813 6.2439C1.76461 5.68324 0.915822 5.68324 0.392636 6.2439C-0.130879 6.80802 -0.130879 7.72169 0.392636 8.28235L2.5251 10.5769C3.04861 11.141 3.89706 11.141 4.42057 10.5769L10.1074 4.46155C10.6309 3.89742 10.6309 2.98375 10.1074 2.42309Z" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div className={styles.DebitCreditCard}>DEBIT/CREDIT CARD</div>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
+            {success && <div style={{ color: 'green' }}>Checkout successful!</div>}
+            {/* Order summary display */}
+            <div style={{ fontWeight: 'bold', fontSize: 16, color: '#2DA9E1', marginBottom: 12, textAlign: 'right' }}>
+              <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Subtotal: ${ (subtotalCents / 100).toFixed(2) }</div>
+              {totalTaxCents > 0 && <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Tax: ${ (totalTaxCents / 100).toFixed(2) }</div>}
+              {totalDiscountCents > 0 && <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Discount: -${ (totalDiscountCents / 100).toFixed(2) }</div>}
+              <div style={{ borderTop: '1px solid #2DA9E1', margin: '6px 0' }} />
+              Order Total: ${ (totalCents / 100).toFixed(2) }
             </div>
-            <div className={styles.Nameoncardinput}>
-              <div className={styles.NameOnCard}>Name ON CARD</div>
+            <div className={styles.Addtocartbutton} onClick={handlePurchase} style={{ cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.5 : 1 }}>
+              <div className={styles.Purchase}>{loading ? 'Processing...' : 'Purchase'}</div>
             </div>
-            <div className={styles.CardNumber}>CARD NUMBER</div>
-            <div className={styles.Cardnumber}>
-              <div className={styles.Cardnumber1}><div>0000</div></div>
-              <div className={styles.Cardnumber2}><div>0000</div></div>
-              <div className={styles.Frame184}><div>0000</div></div>
-              <div className={styles.Frame185}><div>0000</div></div>
-            </div>
-            <div className={styles.Expirationdateinput}>
-              <div className={styles.ExpirationDate}>EXPIRATION DATE</div>
-            </div>
-            <div className={styles.CvvInput}>
-              <div className={styles.Cvv}>CVV</div>
-            </div>
-            <div className={styles.Zipinput}>
-              <div className={styles.Zip}>ZIP</div>
-            </div>
-            <div className={styles.Applepayplaceholder}></div>
-            <div className={styles.Googleplaybuttonplaceholder}></div>
-            <div className={styles.TermsAgreement}>TERMS AGREEMENT</div>
-          </div>
-          <div className={styles.Addtocartbutton}>
-            <div className={styles.Purchase}>Purchase</div>
           </div>
         </div>
       </div>

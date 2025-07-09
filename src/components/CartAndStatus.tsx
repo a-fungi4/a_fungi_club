@@ -4,11 +4,13 @@ import MiniCart from './MiniCart';
 import CartItem from './CartItem';
 import Checkout from './Checkout';
 import OrderStatus from './OrderStatus';
+import { useCart } from './CartContext';
 
 export default function CartAndStatus() {
   const [showMiniCart, setShowMiniCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
   const handleCheckout = () => {
     setShowCheckout(true);
@@ -19,6 +21,21 @@ export default function CartAndStatus() {
     setShowCheckout(false);
     setShowOrderStatus(false);
   };
+
+  // Render CartItem for each cart item
+  const cartItemNodes = cart.map(item => (
+    <CartItem
+      key={item.id + (item.variation || '')}
+      id={item.id}
+      name={item.name}
+      image={item.image}
+      price={item.price}
+      quantity={item.quantity}
+      variation={item.variation}
+      onRemove={() => removeFromCart(item.id, item.variation)}
+      onQuantityChange={qty => updateQuantity(item.id, qty, item.variation)}
+    />
+  ));
 
   return (
     <div className={styles.CartandstatusWrapper} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -56,9 +73,9 @@ export default function CartAndStatus() {
           left: '50%',
           top: 'calc(60px + 2vw)',
           transform: 'translateX(-50%)',
-          zIndex: 2000,
+          zIndex: 1000,
         }}>
-          <MiniCart onClose={handleClose} cartItems={[<CartItem key="sample" />]} onCheckout={handleCheckout} />
+          <MiniCart onClose={handleClose} cartItems={cartItemNodes} onCheckout={handleCheckout} />
         </div>
       )}
       {showCheckout && (
@@ -69,7 +86,7 @@ export default function CartAndStatus() {
           transform: 'translateX(-50%)',
           zIndex: 2000,
         }}>
-          <Checkout cartItems={[<CartItem key="sample-checkout" />]} onClose={handleClose} />
+          <Checkout cartItems={cartItemNodes} onClose={handleClose} onOrder={() => { clearCart(); setShowCheckout(false); setShowOrderStatus(true); }} />
         </div>
       )}
       {showOrderStatus && (

@@ -3,9 +3,10 @@ import styles from './OrderSuccessful.module.css';
 
 interface OrderSuccessfulProps {
   onClose?: () => void;
+  orderNumber?: string;
 }
 
-const OrderSuccessful: React.FC<OrderSuccessfulProps> = ({ onClose }) => {
+const OrderSuccessful: React.FC<OrderSuccessfulProps> = ({ onClose, orderNumber }) => {
   return (
     <div data-layer="OrderSuccessfulOuter" className={styles.Ordersuccessfulouter}>
       <div data-layer="Frame166" className={styles.Frame166}>
@@ -18,7 +19,9 @@ const OrderSuccessful: React.FC<OrderSuccessfulProps> = ({ onClose }) => {
       </div>
       <div data-layer="OrderSuccessfulContent" className={styles.Ordersuccessfulcontent}>
         <div data-layer="OrderDetails" className={styles.Orderdetails}>
-          <div data-layer="order number: ########" className={styles.OrderNumber}>order number: ########</div>
+          <div data-layer="order number: ########" className={styles.OrderNumber}>
+            order number: {orderNumber || '########'}
+          </div>
           <div data-layer="order successful!" className={styles.OrderSuccessful}>order successful!</div>
           <div data-layer="thank you!" className={styles.ThankYou}>thank you!</div>
         </div>

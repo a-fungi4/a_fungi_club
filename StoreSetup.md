@@ -3,48 +3,41 @@
 
 
 - [ ] Product Listing / Shop Page
-    - [ ] Grid or list of products (fetched from Printful, filtered as needed)
-    - [ ] Product image, title, price, quick "Add to Cart" or "View Details" button
-    - [ ] Filters (by category, size, color, etc. — optional)
+    - [x] Grid or list of products (fetched from Printful, filtered as needed)
+    - [x] Product image, title, price, quick "Add to Cart" or "View Details" button
+    - [x] Filters (by category, size, color, etc. — optional)
 
 - [ ] Product Detail Page
-    - [ ] Large product images (mockups from Printful)
-    - [ ] Product title, description, price
-    - [ ] Size and color selectors (if applicable)
-    - [ ] "Add to Cart" button
-    - [ ] Stock/availability info (optional)
+    - [x] Large product images (mockups from Printful)
+    - [x] Product title, description, price
+    - [x] Size and color selectors (if applicable)
+    - [x] "Add to Cart" button
+    - [x] Stock/availability info (optional)
     - [ ] Social sharing (optional)
 
 - [ ] Cart / Mini-Cart
-    - [ ] List of items added to cart
-    - [ ] Quantity controls, remove item, subtotal
-    - [ ] "Checkout" button
+    - [x] List of items added to cart
+    - [x] Quantity controls, remove item, subtotal
+    - [x] "Checkout" button
 
 - [ ] Checkout Page
-    - [ ] Customer information (name, email, shipping address)
-    - [ ] Order summary
-    - [ ] Payment section (Square payment form or redirect)
-    - [ ] "Place Order" button
-    - [ ] Error and success messages
+    - [x] Customer information (name, email, shipping address)
+    - [x] Order summary
+    - [x] Payment section (Square payment form or redirect)
+    - [x] "Place Order" button
+    - [x] Error and success messages
 
 - [ ] Order Confirmation Page
-    - [ ] Thank you message
-    - [ ] Order summary and confirmation number
-    - [ ] Next steps (e.g., "You'll receive an email when your order ships")
+    - [x] Thank you message
+    - [x] Order summary and confirmation number
+    - [x] Next steps (e.g., "You'll receive an email when your order ships")
 
 - [ ] Order Status / Tracking Page (optional)
-    - [ ] Allow customers to check the status of their order (if you store Printful order IDs/statuses)
+    - [x] Allow customers to check the status of their order (if you store Printful order IDs/statuses)
+    - [x] Icon
 
-- [ ] Account / Login / Register (optional)
-    - [ ] For repeat customers, order history, etc.
 
-- [ ] Admin Dashboard (optional, for you)
-    - [ ] View/manage orders, sync with Printful, see payment status, etc.
-
-- [ ] Other Pages
-    - [ ] About page
-    - [ ] Contact page (with form)
-    - [ ] FAQ / Help
+- [ ] Other Pages - Add to MISC
     - [ ] Policies (shipping, returns, privacy, etc.)
 
 **Component List:**
@@ -61,12 +54,12 @@
 
 # Store Setup Checklist: Square Payments + Printful Fulfillment (Square-Managed Catalog)
 
-- [ ] **Set up your Square Online Store or Custom Website**
-    - [ ] Build your site or use Square Online Store
-    - [ ] Set up your store branding, domain, and basic settings
+- [x] **Set up your Square Online Store or Custom Website**
+    - [x] Build your site or use Square Online Store
+    - [x] Set up your store branding, domain, and basic settings
 
 - [ ] **Manage Products and Prices in Square**
-    - [ ] Add all products, descriptions, images, and retail prices in your Square dashboard
+    - [x] Add all products, descriptions, images, and retail prices in your Square dashboard
     - [ ] Use Square's API to fetch product catalog and prices for your website (if custom)
     - [ ] Keep product info up to date in Square
 
