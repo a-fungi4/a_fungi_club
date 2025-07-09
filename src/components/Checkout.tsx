@@ -59,6 +59,8 @@ const US_STATES = Object.keys(STATE_TAX_RATES);
 
 interface CheckoutProps {
   cartItems?: React.ReactNode[];
+  onClose?: () => void;
+  onOrder?: () => void;
 }
 
 declare global {
@@ -67,7 +69,7 @@ declare global {
   }
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
+const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { cart } = useCart();
@@ -92,6 +94,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
+      if (onOrder) onOrder();
       window.location.href = data.url;
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -111,7 +114,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
           type="button"
           aria-label="Close checkout"
           className={styles.XButton}
-          onClick={() => {}}
+          onClick={onClose}
           style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
         >
           <svg width="100%" height="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>

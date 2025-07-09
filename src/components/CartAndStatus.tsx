@@ -26,7 +26,6 @@ export default function CartAndStatus() {
   const cartItemNodes = cart.map(item => (
     <CartItem
       key={item.id + (item.variation || '')}
-      id={item.id}
       name={item.name}
       image={item.image}
       price={item.price}
