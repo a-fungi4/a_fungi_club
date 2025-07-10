@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './ProductCard.module.css';
 import Image from 'next/image';
 import { Variation } from '@/types/Product';
+import ProductLargePhotoOverlay from './ProductLargePhotoOverlay';
+import ReactDOM from 'react-dom';
 
 interface ProductCardProps {
   images?: string[];
@@ -14,7 +16,7 @@ interface ProductCardProps {
 }
 
 const defaultImage = (
-  <div className={styles.ProductCard__defaultSvg1}>
+  <div className={styles.ProductCard__imageArea}>
     <svg width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M129.375 0H8.625C3.85753 0 0 3.85753 0 8.625V129.375C0 134.142 3.85753 138 8.625 138H129.375C134.142 138 138 134.142 138 129.375V8.625C138 3.85753 134.142 0 129.375 0ZM17.25 17.25H120.75V87.7335L101.1 68.0836C97.732 64.722 92.2724 64.722 88.9043 68.0836L36.2358 120.75H17.25V17.25Z" fill="white"/>
       <path d="M51.75 69C61.2769 69 69 61.2769 69 51.75C69 42.2231 61.2769 34.5 51.75 34.5C42.2231 34.5 34.5 42.2231 34.5 51.75C34.5 61.2769 42.2231 69 51.75 69Z" fill="white"/>
@@ -24,6 +26,7 @@ const defaultImage = (
 
 const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock, onViewDetails, selected }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [showLargePhoto, setShowLargePhoto] = useState(false);
   const hasImages = images && images.length > 0;
   const showImage = hasImages ? images[currentIdx] : undefined;
   const totalImages = hasImages ? images.length : 1;
@@ -41,20 +44,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock
       {/* Image Section */}
       <div
         className={styles.ProductCard__imageArea}
-        style={{ cursor: hasImages && totalImages > 1 ? 'pointer' : undefined }}
+        style={{ cursor: hasImages ? 'pointer' : undefined }}
+        onClick={() => hasImages && setShowLargePhoto(true)}
       >
         {showImage ? (
-          <Image
-            src={showImage}
-            alt={title}
-            width={200}
-            height={200}
-            className={styles.ProductCard__img}
-          />
+          <div className={styles.ProductCard__imageArea}>
+            <Image
+              src={showImage}
+              alt={title}
+              fill
+              className={styles.ProductCard__img}
+            />
+          </div>
         ) : (
           defaultImage
         )}
       </div>
+      {/* Large Photo Overlay */}
+      {showLargePhoto && showImage &&
+        typeof window !== 'undefined' &&
+        ReactDOM.createPortal(
+          <ProductLargePhotoOverlay
+            image={showImage}
+            title={title}
+            onClose={() => setShowLargePhoto(false)}
+          />, document.body)
+      }
       {/* Selection Dots */}
       <div className={styles.ProductCard__selectionDots}>
         {/* Left Arrow */}

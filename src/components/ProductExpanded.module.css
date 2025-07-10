@@ -185,13 +185,12 @@
 .SizeSelector {
   width: 100%;
   display: flex;
-  max-width: 200px;
   flex-direction: column;
   align-items: flex-start;
 }
 .SizeSelectorLabel {
   color: white;
-  font-size: 1vw;
+  font-size: 1em;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   margin-bottom: 4px;
@@ -229,7 +228,7 @@
 }
 .SizeLabel {
   color: white;
-  font-size: clamp(8px, 1.2vw, 14px);
+  font-size: 1em;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
@@ -387,8 +386,15 @@
   height: 32px;
 }
 .SizeCircle {
-  fill: #C0282D;
-  fill-opacity: 0.54;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.6em;
+  min-width: 3.2em;
+  min-height: 3.2em;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -421,6 +427,7 @@
   gap: clamp(8px, 2vw, 24px);
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 .ColorCircle,
 .SizeCircle {
@@ -468,6 +475,7 @@
   max-height: clamp(24px, 4vw, 40px);
   padding: 0;
   margin: 0;
+  max-width: none;
 }
 .SizeCircle {
   width: clamp(24px, 4vw, 40px);
@@ -502,8 +510,6 @@
   pointer-events: none;
 }
 .SizeCircleLabel {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -511,6 +517,7 @@
   font-size: clamp(10px, 1.5vw, 16px);
   font-family: 'Moby', sans-serif;
   font-weight: 700;
+  font-size: 0.75em;
   text-align: center;
   user-select: none;
   pointer-events: none;
@@ -545,8 +552,6 @@
     width: 100%;
     max-width: 100%;
     height: auto;
-    align-items: center;
-    justify-content: flex-start;
     padding-bottom: 3vh;
     padding-top: 1vh;
     overflow-x: hidden;
@@ -559,14 +564,15 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .ProductexpandedContent {
+    display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 100%;
     height: auto;
     margin: 0;
     padding: 0 2vw;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     overflow-y: auto;
     box-sizing: border-box;
   }
@@ -611,10 +617,17 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .PhotoPrice {
-    width: 90%;
-    height: auto;
-    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    justify-content: center;
+    aspect-ratio: 1/1.2;
     box-sizing: border-box;
+    padding: 0;
+    gap: 2vh;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -657,9 +670,10 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .SizeSelector {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     margin-bottom: 8px;
+    gap: 1vh;
     align-items: stretch;
   }
   .SizeSelectorLabel {
@@ -734,7 +748,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 12px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -742,5 +755,26 @@
   .Photo {
     margin-bottom: 0;
   }
-  
+  .Productnameandprice {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+  }
+  .Productname {
+    font-size: 2.5vh;
+    padding: 0.3vh;
+    width: 100%;
+  }
+  .SizeCircle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25em;
+    min-width: 2em;
+    min-height: 2em;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+  }
 } 

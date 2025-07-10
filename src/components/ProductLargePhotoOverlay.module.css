@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(21, 16, 41, 0.85);
-  z-index: 1000;
+  z-index: 30000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +23,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 31000;
 }
 
 .Frame127 {

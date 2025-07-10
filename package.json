@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
-    "dotenv": "^17.1.0",
     "framer-motion": "^12.22.0",
     "next": "15.3.4",
     "nodemailer": "^7.0.4",
@@ -23,7 +22,6 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.4",
-    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.30.1",
