@@ -14,9 +14,22 @@ interface MiscDropdownProps {
 
 const getStringFromContent = (content: React.ReactNode): string | undefined => {
   if (typeof content === 'string') return content;
-  if (React.isValidElement(content) && typeof content.props.children === 'string') return content.props.children;
+  if (
+    React.isValidElement(content) &&
+    content.props &&
+    typeof (content.props as { children?: unknown }).children === 'string'
+  ) {
+    return (content.props as { children: string }).children;
+  }
   return undefined;
 };
+
+// Helper to check if a React element is a MiscIcon
+function isMiscIcon(element: React.ReactNode): element is React.ReactElement<{ title?: string }> {
+  return React.isValidElement(element) &&
+    typeof element.type === 'function' &&
+    (element.type as React.FunctionComponent).displayName === 'MiscIcon';
+}
 
 const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, title, content, icon, iconTitle }) => {
   const [hovered, setHovered] = useState(false);
@@ -29,7 +42,9 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, tit
         <div className={styles.Miscicon}>
           {icon
             ? React.isValidElement(icon)
-              ? React.cloneElement(icon, { title: altText })
+              ? (isMiscIcon(icon)
+                  ? React.cloneElement(icon, { title: altText })
+                  : icon)
               : icon
             : <MiscIcon width={49} height={48} title={altText} />}
         </div>
@@ -76,7 +91,9 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, tit
             <span className={styles.Miscicon}>
               {icon
                 ? React.isValidElement(icon)
-                  ? React.cloneElement(icon, { title: altText })
+                  ? (isMiscIcon(icon)
+                      ? React.cloneElement(icon, { title: altText })
+                      : icon)
                   : icon
                 : <MiscIcon width={48} height={48} title={altText} />}
             </span>
@@ -94,7 +111,9 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, tit
             <span className={styles.Misicon}>
               {icon
                 ? React.isValidElement(icon)
-                  ? React.cloneElement(icon, { title: altText })
+                  ? (isMiscIcon(icon)
+                      ? React.cloneElement(icon, { title: altText })
+                      : icon)
                   : icon
                 : <MiscIcon width={48} height={48} title={altText} />}
             </span>

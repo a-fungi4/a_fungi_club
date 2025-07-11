@@ -7,4 +7,5 @@ const MiscIcon: React.FC<React.SVGProps<SVGSVGElement> & { title?: string }> = (
   </svg>
 );
 
-export default MiscIcon; 
+export default MiscIcon;
+MiscIcon.displayName = "MiscIcon"; 
