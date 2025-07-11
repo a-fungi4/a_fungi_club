@@ -9,17 +9,29 @@ interface MiscDropdownProps {
   title?: string;
   content?: React.ReactNode;
   icon?: React.ReactNode;
+  iconTitle?: string;
 }
 
-const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, title, content, icon }) => {
+const getStringFromContent = (content: React.ReactNode): string | undefined => {
+  if (typeof content === 'string') return content;
+  if (React.isValidElement(content) && typeof content.props.children === 'string') return content.props.children;
+  return undefined;
+};
+
+const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, title, content, icon, iconTitle }) => {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const altText = iconTitle || getStringFromContent(content);
 
   if (expanded) {
     return (
       <div className={styles.Miscdropdownexpanded}>
         <div className={styles.Miscicon}>
-          {icon || <MiscIcon width={49} height={48} />}
+          {icon
+            ? React.isValidElement(icon)
+              ? React.cloneElement(icon, { title: altText })
+              : icon
+            : <MiscIcon width={49} height={48} title={altText} />}
         </div>
         <div className={styles.MiscTitleExpanded}>{title || hoverText}</div>
         <div className={styles.Contentcontainer}>
@@ -62,7 +74,11 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, tit
         <>
           <div className={styles.Titleicon}>
             <span className={styles.Miscicon}>
-              {icon || <MiscIcon width={48} height={48} />}
+              {icon
+                ? React.isValidElement(icon)
+                  ? React.cloneElement(icon, { title: altText })
+                  : icon
+                : <MiscIcon width={48} height={48} title={altText} />}
             </span>
             <span className={styles.MiscTitle}>{hoverText}</span>
           </div>
@@ -76,7 +92,11 @@ const MiscDropdown: React.FC<MiscDropdownProps> = ({ defaultText, hoverText, tit
         <>
           <div className={styles.MiscdropdowndefaultInner}>
             <span className={styles.Misicon}>
-              {icon || <MiscIcon width={48} height={48} />}
+              {icon
+                ? React.isValidElement(icon)
+                  ? React.cloneElement(icon, { title: altText })
+                  : icon
+                : <MiscIcon width={48} height={48} title={altText} />}
             </span>
           </div>
           <div className={styles.Text}>{defaultText}</div>

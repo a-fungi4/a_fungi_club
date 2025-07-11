@@ -49,6 +49,7 @@
   flex: 1 1 300px;
   min-width: 250px;
   max-width: 400px;
+  aspect-ratio: 404 / 316;
   background: transparent;
   border-radius: 16px;
   padding: 0;
@@ -92,6 +93,7 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  aspect-ratio: 404 / 316;
 }
 
 @media (max-width: 900px) {
@@ -102,9 +104,13 @@
   .projectCard {
     min-width: 0;
     max-width: 100%;
+    aspect-ratio: 404 / 316;
   }
   .iframeWrapper {
     aspect-ratio: 404 / 316;
     max-width: 100vw;
+  }
+  .projectImage {
+    aspect-ratio: 404 / 316;
   }
 } 

@@ -284,6 +284,30 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products, categoryNam
                   image: product.image,
                   variation: selectedSize,
                 }, quantity);
+                // Google Analytics event
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'add_to_cart', {
+                    items: [{
+                      id: product.id,
+                      name: product.name,
+                      price: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
+                      quantity,
+                      variation: selectedSize,
+                    }]
+                  });
+                }
+                // Meta Pixel event
+                if (typeof window !== 'undefined' && window.fbq) {
+                  window.fbq('track', 'AddToCart', {
+                    content_ids: [product.id],
+                    content_name: product.name,
+                    content_type: 'product',
+                    value: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
+                    currency: 'USD',
+                    quantity,
+                    variation: selectedSize,
+                  });
+                }
                 setExpandedIdx(null);
               }}
               onCollapse={() => setExpandedIdx(null)}

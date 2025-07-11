@@ -62,6 +62,27 @@
   text-align: center;
 }
 
+.HowToContainer {
+  width: 100%;
+  background: rgba(132, 96, 132, 0.12);
+  border-radius: 12px;
+  padding: 4vw;
+  color: #fff;
+  font-family: 'Moby', sans-serif;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(45, 169, 225, 0.12);
+  text-align: center;
+}
+
+.HowToDropdownsWrapper {
+  display: flex;
+  padding: 1vw;
+  flex-direction: row;
+  margin-top: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media (max-width: 600px) {
   .TGLogoCircle,
   .CartAndStatusWrapper {
@@ -72,6 +93,20 @@
   .ItSGoodTackyGarbage {
     font-size: 10px;
     max-width: 90vw;
+  }
+  .HowToContainer {
+    padding: 2vw;
+    gap: 4vw;
+    justify-content: center;
+    align-items: center;
+  }
+  .HowToDropdownsWrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    padding: 0vw;
+    min-height: 50vw;
   }
 }
 
