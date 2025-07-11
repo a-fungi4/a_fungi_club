@@ -73,11 +73,20 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { cart } = useCart();
-  const [shippingState, setShippingState] = useState('CA');
+  // New shipping info state
+  const [shipping, setShipping] = useState({
+    name: '',
+    email: '',
+    address1: '',
+    city: '',
+    state_code: 'CA',
+    country_code: 'US',
+    zip: '',
+  });
 
   // Calculate subtotal, tax, discount, and total
   const subtotalCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.price * 100) * item.quantity, 0);
-  const taxRate = STATE_TAX_RATES[shippingState] || 0;
+  const taxRate = STATE_TAX_RATES[shipping.state_code] || 0;
   const totalTaxCents = Math.round(subtotalCents * taxRate);
   const totalDiscountCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.discount ? item.discount * 100 * item.quantity : 0), 0);
   const totalCents = subtotalCents + totalTaxCents - totalDiscountCents;
@@ -86,11 +95,11 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
     setLoading(true);
     setError(null);
     try {
-      // Send cart to backend to get Square checkout URL
+      // Send cart and shipping to backend to get Square checkout URL
       const res = await fetch('/api/square-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart }),
+        body: JSON.stringify({ cart, shipping }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
@@ -130,31 +139,67 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
         <div className={styles.CheckoutContainer2}>
           <div className={styles.Nameinput}>
             <div className={styles.Name}>Name</div>
+            <input
+              type="text"
+              value={shipping.name}
+              onChange={e => setShipping({ ...shipping, name: e.target.value })}
+              placeholder="Full Name"
+              required
+            />
           </div>
           <div className={styles.Emailinput}>
             <div className={styles.Email}>Email</div>
+            <input
+              type="email"
+              value={shipping.email}
+              onChange={e => setShipping({ ...shipping, email: e.target.value })}
+              placeholder="Email"
+              required
+            />
           </div>
           <div className={styles.BillingAddress}>Billing Address</div>
           <div className={styles.Addressline1input}></div>
           <div className={styles.Addressline2input}></div>
           <div className={styles.Addressline3input}></div>
           <div className={styles.ShippingAddress}>Shipping Address</div>
-          <div className={styles.Addressline1input}></div>
-          <div className={styles.Addressline2input}></div>
-          <div className={styles.Addressline3input}></div>
-          <div style={{ margin: '8px 0' }}>
-            <label htmlFor="shipping-state" style={{ color: '#fff', fontSize: 14, marginRight: 8 }}>State:</label>
-            <select
-              id="shipping-state"
-              value={shippingState}
-              onChange={e => setShippingState(e.target.value)}
-              style={{ fontSize: 14, padding: 4, borderRadius: 6 }}
-            >
-              {US_STATES.map(state => (
-                <option key={state} value={state}>{state}</option>
-              ))}
-            </select>
-          </div>
+          <input
+            type="text"
+            value={shipping.address1}
+            onChange={e => setShipping({ ...shipping, address1: e.target.value })}
+            placeholder="Address 1"
+            required
+          />
+          <input
+            type="text"
+            value={shipping.city}
+            onChange={e => setShipping({ ...shipping, city: e.target.value })}
+            placeholder="City"
+            required
+          />
+          <select
+            id="shipping-state"
+            value={shipping.state_code}
+            onChange={e => setShipping({ ...shipping, state_code: e.target.value })}
+            style={{ fontSize: 14, padding: 4, borderRadius: 6 }}
+          >
+            {US_STATES.map(state => (
+              <option key={state} value={state}>{state}</option>
+            ))}
+          </select>
+          <input
+            type="text"
+            value={shipping.zip}
+            onChange={e => setShipping({ ...shipping, zip: e.target.value })}
+            placeholder="ZIP"
+            required
+          />
+          <input
+            type="text"
+            value={shipping.country_code}
+            onChange={e => setShipping({ ...shipping, country_code: e.target.value })}
+            placeholder="Country (e.g. US)"
+            required
+          />
           <div className={styles.Signupforemail}>
             <div className={styles.Agreetoterms}>
               <div className={styles.Checkcircle}>

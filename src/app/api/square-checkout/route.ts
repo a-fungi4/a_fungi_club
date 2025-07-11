@@ -17,7 +17,7 @@ interface CartItem {
 
 export async function POST(req: NextRequest) {
   try {
-    const { cart, redirectUrl } = await req.json();
+    const { cart, shipping, redirectUrl } = await req.json();
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
     }
@@ -37,6 +37,8 @@ export async function POST(req: NextRequest) {
         order: {
           locationId: process.env.SQUARE_LOCATION_ID!,
           lineItems,
+          // @ts-expect-error: Square Order type may not include 'note', but it is supported by the API
+          note: shipping ? JSON.stringify({ recipient: shipping, items: cart }) : undefined,
         },
       },
       askForShippingAddress: true,
