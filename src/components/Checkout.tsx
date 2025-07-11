@@ -78,6 +78,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
     name: '',
     email: '',
     address1: '',
+    address2: '',
     city: '',
     state_code: 'CA',
     country_code: 'US',
@@ -162,44 +163,59 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
           <div className={styles.Addressline2input}></div>
           <div className={styles.Addressline3input}></div>
           <div className={styles.ShippingAddress}>Shipping Address</div>
-          <input
-            type="text"
-            value={shipping.address1}
-            onChange={e => setShipping({ ...shipping, address1: e.target.value })}
-            placeholder="Address 1"
-            required
-          />
-          <input
-            type="text"
-            value={shipping.city}
-            onChange={e => setShipping({ ...shipping, city: e.target.value })}
-            placeholder="City"
-            required
-          />
-          <select
-            id="shipping-state"
-            value={shipping.state_code}
-            onChange={e => setShipping({ ...shipping, state_code: e.target.value })}
-            style={{ fontSize: 14, padding: 4, borderRadius: 6 }}
-          >
-            {US_STATES.map(state => (
-              <option key={state} value={state}>{state}</option>
-            ))}
-          </select>
-          <input
-            type="text"
-            value={shipping.zip}
-            onChange={e => setShipping({ ...shipping, zip: e.target.value })}
-            placeholder="ZIP"
-            required
-          />
-          <input
-            type="text"
-            value={shipping.country_code}
-            onChange={e => setShipping({ ...shipping, country_code: e.target.value })}
-            placeholder="Country (e.g. US)"
-            required
-          />
+          <div className={styles.Addressline1input}>
+            <input
+              type="text"
+              value={shipping.address1}
+              onChange={e => setShipping({ ...shipping, address1: e.target.value })}
+              placeholder="Address 1"
+              required
+            />
+          </div>
+          <div className={styles.Addressline2input}>
+            <input
+              type="text"
+              value={shipping.address2 || ''}
+              onChange={e => setShipping({ ...shipping, address2: e.target.value })}
+              placeholder="Address 2 (optional)"
+            />
+          </div>
+          <div className={styles.Addressline3input}>
+            <input
+              type="text"
+              value={shipping.city}
+              onChange={e => setShipping({ ...shipping, city: e.target.value })}
+              placeholder="City"
+              required
+            />
+            <select
+              id="shipping-state"
+              value={shipping.state_code}
+              onChange={e => setShipping({ ...shipping, state_code: e.target.value })}
+              style={{ fontSize: 14, padding: 4, borderRadius: 6, marginLeft: 8, marginRight: 8 }}
+              required
+            >
+              {US_STATES.map(state => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </select>
+            <input
+              type="text"
+              value={shipping.zip}
+              onChange={e => setShipping({ ...shipping, zip: e.target.value })}
+              placeholder="ZIP"
+              required
+              style={{ marginLeft: 8 }}
+            />
+            <input
+              type="text"
+              value={shipping.country_code}
+              onChange={e => setShipping({ ...shipping, country_code: e.target.value })}
+              placeholder="Country (e.g. US)"
+              required
+              style={{ marginLeft: 8 }}
+            />
+          </div>
           <div className={styles.Signupforemail}>
             <div className={styles.Agreetoterms}>
               <div className={styles.Checkcircle}>
