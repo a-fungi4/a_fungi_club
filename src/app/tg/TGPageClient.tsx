@@ -281,11 +281,11 @@ export default function TGPageClient() {
             {products.length > 0 ? (
               <>
                 {/* All Products Carousel */}
-                <ProductCarousel products={products} categoryName="All Products" />
+                <ProductCarousel products={products} />
                 {/* Category Carousels */}
                 {categories.map(cat => (
                   <div key={cat} style={{ marginTop: '2rem' }}>
-                    <ProductCarousel products={categoryMap[cat]} categoryName={cat} />
+                    <ProductCarousel products={categoryMap[cat]} />
                   </div>
                 ))}
               </>

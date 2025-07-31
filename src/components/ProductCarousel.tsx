@@ -3,6 +3,7 @@ import { useCart } from './CartContext';
 import ProductCard from './ProductCard';
 import ProductExpanded from './ProductExpanded';
 import styles from './ProductCarousel.module.css';
+import { Product } from '../types/Product';
 
 // Toast notification component
 const Toast = ({ message, isVisible, onClose }: { message: string; isVisible: boolean; onClose: () => void }) => {
@@ -29,24 +30,7 @@ const Toast = ({ message, isVisible, onClose }: { message: string; isVisible: bo
   );
 };
 
-interface Product {
-  id: string;
-  name: string;
-  price: string | number;
-  description?: string;
-  image?: string;
-  variations?: Variation[];
-}
 
-interface Variation {
-  id: string;
-  name: string;
-  price?: string | number;
-  color?: string;
-  size?: string;
-  description?: string;
-  image?: string;
-}
 
 interface ProductCarouselProps {
   products: Product[];
