@@ -1,112 +1,81 @@
-.tgPage {
-  /* Add TG page styles here */
-}
-
-.tgPageContentWrapper {
+.container {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: top;
-  justify-content: top;
-  margin-top: 2vw;
-} 
-
-
-.Cartstatuscontainer {
-  width: 100%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: rgba(45, 169, 225, 0.25);
-  overflow: hidden;
-  justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-  display: inline-flex;
-  flex-direction: column;
-}
-
-.TGLogoCircle {
-  width: 7vw;
-  max-width: 90px;
-  min-width: 48px;
-  height: auto !important;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.CartAndStatusWrapper {
-  width: 7vw;
-  max-width: 90px;
-  min-width: 48px;
-  min-height: 24px;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 1000;
+  background: #151029;
+  padding: 20px;
 }
 
-.ItSGoodTackyGarbage {
-  width: 100%;
-  color: white;
-  font-size: 3vw;
-  font-family: 'Moby', sans-serif;
-  font-weight: 400;
-  word-wrap: break-word;
-  margin-left: auto;
-  margin-right: auto;
+.constructionContent {
   text-align: center;
-}
-
-.HowToContainer {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(66, 43, 113, 0.2);
+  backdrop-filter: blur(10px);
+  max-width: 500px;
   width: 100%;
-  background: rgba(132, 96, 132, 0.12);
-  border-radius: 12px;
-  padding: 4vw;
-  color: #fff;
+  border: 2px solid rgba(194, 40, 45, 0.1);
+}
+
+.constructionIcon {
+  font-size: 80px;
+  margin-bottom: 30px;
+  animation: bounce 2s infinite;
+}
+
+.constructionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #422B71;
+  margin-bottom: 20px;
   font-family: 'Moby', sans-serif;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(45, 169, 225, 0.12);
-  text-align: center;
 }
 
-.HowToDropdownsWrapper {
-  display: flex;
-  padding: 1vw;
-  flex-direction: row;
-  margin-top: 12px;
-  justify-content: space-between;
-  align-items: center;
+.constructionMessage {
+  font-size: 1.2rem;
+  color: #2DA9E1;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  font-family: 'Moby', sans-serif;
 }
 
-@media (max-width: 600px) {
-  .TGLogoCircle,
-  .CartAndStatusWrapper {
-    width: 18vw;
-    max-width: 90px;
-    min-width: 32px;
+.constructionSubtext {
+  font-size: 1rem;
+  color: #C0282D;
+  font-style: italic;
+  font-family: 'Moby', sans-serif;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
   }
-  .ItSGoodTackyGarbage {
-    font-size: 10px;
-    max-width: 90vw;
+  40% {
+    transform: translateY(-10px);
   }
-  .HowToContainer {
-    padding: 2vw;
-    gap: 4vw;
-    justify-content: center;
-    align-items: center;
+  60% {
+    transform: translateY(-5px);
   }
-  .HowToDropdownsWrapper {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4vw;
-    padding: 0vw;
-    min-height: 50vw;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .constructionContent {
+    padding: 40px 20px;
+  }
+  
+  .constructionTitle {
+    font-size: 2rem;
+  }
+  
+  .constructionMessage {
+    font-size: 1.1rem;
+  }
+  
+  .constructionIcon {
+    font-size: 60px;
   }
 }
 

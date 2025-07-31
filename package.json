@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test-webhook": "node scripts/test-webhook.js",
+    "sync-printful-to-square": "tsx src/scripts/sync_printful_to_square.ts",
+    "process-orders": "./scripts/process-orders-cron.sh",
+    "test-cron-setup": "node scripts/test-cron-setup.js"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
@@ -16,18 +20,23 @@
     "postcss": "^8.5.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "square": "^43.0.0"
+    "square": "^43.0.0",
+    "zipcodes": "^8.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.4",
+    "@types/node-fetch": "^2.6.12",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/zipcodes": "^8.0.5",
+    "dotenv": "^17.2.0",
     "eslint": "^9.30.1",
     "eslint-config-next": "^15.3.4",
     "imurmurhash": "^0.1.4",
+    "node-fetch": "^3.3.2",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   }

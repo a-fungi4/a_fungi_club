@@ -1,0 +1,5 @@
+# Process Square orders every 2 minutes (faster processing without webhooks)
+*/2 * * * * /Users/khaledmomani/Desktop/Github_Repositories/a_fungi_club/scripts/process-orders-cron.sh >> /Users/khaledmomani/Desktop/Github_Repositories/a_fungi_club/sync_cron.log 2>&1
+
+# Sync Printful products to Square daily at 2 AM
+0 2 * * * /Users/khaledmomani/Desktop/Github_Repositories/a_fungi_club/src/scripts/sync_printful_to_square_cron.sh >> /Users/khaledmomani/Desktop/Github_Repositories/a_fungi_club/sync_cron.log 2>&1 

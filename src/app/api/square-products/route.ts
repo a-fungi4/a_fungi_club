@@ -14,6 +14,7 @@ interface CatalogImage {
 }
 interface CatalogItemVariation {
   id: string;
+  type: 'ITEM_VARIATION';
   itemVariationData?: {
     name?: string;
     description?: string;
@@ -23,6 +24,9 @@ interface CatalogItemVariation {
       itemOptionId: string;
       itemOptionValueId: string;
     }>;
+    metadata?: {
+      printful_variant_id?: string;
+    };
   };
 }
 interface CatalogItem {
@@ -47,13 +51,6 @@ interface CatalogItemOption {
     name?: string;
   };
 }
-interface CatalogItemOptionValue {
-  id: string;
-  type: 'ITEM_OPTION_VALUE';
-  itemOptionValueData?: {
-    name?: string;
-  };
-}
 interface CatalogCategory {
   id: string;
   type: 'CATEGORY';
@@ -61,7 +58,7 @@ interface CatalogCategory {
     name?: string;
   };
 }
-type CatalogObject = CatalogItem | CatalogImage | CatalogItemOption | CatalogItemOptionValue | CatalogCategory;
+type CatalogObject = CatalogItem | CatalogImage | CatalogItemOption | CatalogCategory | CatalogItemVariation;
 
 function replacer(key: string, value: unknown): unknown {
   return typeof value === 'bigint' ? value.toString() : value;
@@ -76,20 +73,48 @@ export async function GET() {
     const images: CatalogImage[] = [];
     const itemOptions: CatalogItemOption[] = [];
     const categories: CatalogCategory[] = [];
-    // Square API does not return ITEM_OPTION_VALUE objects directly in list; must retrieve via ITEM_OPTION or other means if needed
+    const variationToPrintful: Record<string, string> = {};
     for await (const obj of page as AsyncIterable<CatalogObject>) {
       if (obj.type === 'ITEM') items.push(obj as CatalogItem);
       if (obj.type === 'IMAGE') images.push(obj as CatalogImage);
       if (obj.type === 'ITEM_OPTION') itemOptions.push(obj as CatalogItemOption);
       if (obj.type === 'CATEGORY') categories.push(obj as CatalogCategory);
-    }
-    // Log raw itemData for debugging categoryId, handling BigInt
-    for (const item of items) {
-      if (item.itemData) {
-        console.log('DEBUG itemData:', JSON.stringify(item.itemData, (key, value) =>
-          typeof value === 'bigint' ? value.toString() : value, 2));
+      if (obj.type === 'ITEM_VARIATION' && obj.itemVariationData?.metadata?.printful_variant_id) {
+        variationToPrintful[obj.id] = obj.itemVariationData.metadata.printful_variant_id;
       }
     }
+    
+    // Add test mappings for development
+    if (process.env.NODE_ENV === 'development') {
+      // Black shirt variations
+      variationToPrintful['73EEL43L7XF2ZXDJ6C75VSKZ'] = '401'; // Black, S
+      variationToPrintful['EISZI2RLUEUET22KDHJUS2U5'] = '402'; // Black, M
+      variationToPrintful['QVOT6I4QFAWNV5B4UGUN3MWP'] = '403'; // Black, L
+      variationToPrintful['BVOEG4PKXLFXU4CFQLEFEZ7I'] = '404'; // Black, XL
+      variationToPrintful['QXJ63Q2FAIYQOQILJSB62OJN'] = '405'; // Black, 2XL
+      variationToPrintful['VOSHZWLX46BP5FCYOZHCUYBQ'] = '407'; // Black, 3XL
+      variationToPrintful['QZIW6YY2SG2L35C3PVVXW5N7'] = '408'; // Black, 4XL
+      
+      // White shirt variations
+      variationToPrintful['QYRZLKZJKL5GCCIC4ZAJYQJ3'] = '409'; // White, S
+      variationToPrintful['OVOL4MIWRV7FWVJNQOWYUOV6'] = '410'; // White, M
+      variationToPrintful['ZPR7LZ6NLKYM4E45RDGDIDXM'] = '411'; // White, L
+      variationToPrintful['6OB4C4SPRDQWDFBG2HGI3DLW'] = '412'; // White, XL
+      variationToPrintful['BDBSU4ZNOXRDV46YME3WO4V6'] = '413'; // White, 2XL
+      variationToPrintful['D545AA67F3EMT44YH2ILM6VD'] = '414'; // White, 3XL
+      variationToPrintful['VUGRQDZDK3ZVFKPZOUGTA5R7'] = '415'; // White, 4XL
+      
+      // Sticker variation
+      variationToPrintful['ERVVBT47XM6JKJA5ESIN7XMQ'] = '406'; // Bad Trip Holo Sticker
+      console.log('Added test variant mappings:', Object.keys(variationToPrintful).length);
+    }
+    // Log raw itemData for debugging categoryId, handling BigInt
+   // for (const item of items) {
+   //   if (item.itemData) {
+   //     console.log('DEBUG itemData:', JSON.stringify(item.itemData, (key, value) =>
+   //       typeof value === 'bigint' ? value.toString() : value, 2));
+   //   }
+   // }
     // Build image_id -> url map
     const imageMap: Record<string, string> = {};
     for (const img of images) {
@@ -111,7 +136,6 @@ export async function GET() {
         categoryIdToName[cat.id] = cat.categoryData.name;
       }
     }
-    // Option values are not available here; color/size will be null unless you fetch them separately
     // Map products to include image URL and resolved variation options
     const products = items.map(item => {
       let image = '';
@@ -124,9 +148,22 @@ export async function GET() {
       let price = 'N/A';
       const variations = (item.itemData?.variations || []).map(variation => {
         const v = variation.itemVariationData || {};
-        // Option values not available; color/size will be null
-        const color = null;
-        const size = null;
+        
+        // For now, try to parse color and size from variation name
+        let color: string | null = null;
+        let size: string | null = null;
+        
+        if (v.name) {
+          const nameParts = v.name.split(',').map(str => str.trim());
+          if (nameParts.length >= 2) {
+            color = nameParts[0];
+            size = nameParts[1];
+          } else if (nameParts.length === 1) {
+            // If only one part, assume it's a color or size
+            color = nameParts[0];
+          }
+        }
+        
         return {
           id: variation.id,
           name: v.name || '',
@@ -161,7 +198,7 @@ export async function GET() {
         category,
       };
     });
-    const safeProducts = JSON.parse(JSON.stringify({ products }, replacer));
+    const safeProducts = JSON.parse(JSON.stringify({ products, variationToPrintful }, replacer));
     console.log('GET /api/square-products: success, returning products:', Array.isArray(safeProducts.products) ? safeProducts.products.length : 0);
     return NextResponse.json(safeProducts);
   } catch (error: unknown) {

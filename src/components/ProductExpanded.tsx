@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import styles from './ProductExpanded.module.css';
 import Image from 'next/image';
 import { Variation } from '@/types/Product';
@@ -15,13 +15,17 @@ interface ProductExpandedProps {
   name: string;
   price: string | number;
   details: string;
-  sizes: SizeOption[];
+  sizes?: SizeOption[];
   onSelectSize: (size: string) => void;
   quantity: number;
   onQuantityChange: (qty: number) => void;
   onAddToCart: () => void;
   onCollapse: () => void;
   variations?: Variation[];
+  selectedColor: string;
+  setSelectedColor: (color: string) => void;
+  selectedSize: string;
+  setSelectedSize: (size: string) => void;
 }
 
 // Add parsing utility and color mapping helper
@@ -36,12 +40,19 @@ function parseVariations(variations: Variation[]) {
     // Prefer explicit color/size fields, fallback to name split
     let color = variation.color || '';
     let size = variation.size || '';
+    
+    // If color or size is missing, try to parse from name
     if ((!color || !size) && variation.name) {
-      const [c, s] = variation.name.split(',').map(str => str.trim());
-      color = color || c;
-      size = size || s;
+      const nameParts = variation.name.split(',').map(str => str.trim());
+      if (nameParts.length >= 2) {
+        color = color || nameParts[0];
+        size = size || nameParts[1];
+      }
     }
+    
+    // Skip if we still don't have both color and size
     if (!color || !size) continue;
+    
     colors.add(color);
     sizes.add(size);
     if (!byColor[color]) byColor[color] = [];
@@ -50,6 +61,7 @@ function parseVariations(variations: Variation[]) {
     if (!bySize[size].includes(color)) bySize[size].push(color);
     variationMap[`${color}|${size}`] = variation;
   }
+  
   return {
     colors: Array.from(colors),
     sizes: Array.from(sizes),
@@ -229,12 +241,13 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
   onAddToCart,
   onCollapse,
   variations = [],
+  selectedColor,
+  setSelectedColor,
+  selectedSize,
+  setSelectedSize,
 }) => {
-  // Parse variations
-  const { colors, sizes, byColor, bySize, variationMap } = parseVariations(variations);
-  // State for color and size
-  const [selectedColor, setSelectedColor] = useState(colors[0] || '');
-  const [selectedSize, setSelectedSize] = useState((byColor[colors[0]] && byColor[colors[0]][0]) || sizes[0] || '');
+  // Parse variations with useMemo to prevent recalculation on every render
+  const { colors, sizes, byColor, variationMap } = useMemo(() => parseVariations(variations), [variations]);
   const [showLargePhoto, setShowLargePhoto] = useState(false);
 
   // Gather all unique images: main image + all variation images
@@ -257,21 +270,66 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
     setCurrentIdx(idx => (idx + 1) % totalImages);
   };
 
-  // Update size if color changes and current size is not available
-  React.useEffect(() => {
-    if (!byColor[selectedColor]?.includes(selectedSize)) {
-      setSelectedSize(byColor[selectedColor]?.[0] || '');
+  // Get the selected variation with useMemo
+  const selectedVariation = useMemo(() => {
+    // If no variations exist, return a default variation object
+    if (variations.length === 0) {
+      return {
+        id: 'default',
+        name: name,
+        price: price,
+        color: 'Default',
+        size: 'Default',
+        description: details,
+        image: image
+      };
     }
-  }, [selectedColor, byColor, selectedSize]);
-  // Update color if size changes and current color is not available
-  React.useEffect(() => {
-    if (!bySize[selectedSize]?.includes(selectedColor)) {
-      setSelectedColor(bySize[selectedSize]?.[0] || '');
+    
+    // If there's only one variation and it has no color/size, treat it as a simple product
+    if (variations.length === 1 && (!variations[0].color && !variations[0].size)) {
+      return {
+        id: variations[0].id,
+        name: variations[0].name || name,
+        price: variations[0].price,
+        color: 'Default',
+        size: 'Default',
+        description: variations[0].description || details,
+        image: variations[0].image || image
+      };
     }
-  }, [selectedSize, bySize, selectedColor]);
+    
+    // For products with multiple variations, require both color and size selection
+    return variationMap[`${selectedColor}|${selectedSize}`] || null;
+  }, [variationMap, selectedColor, selectedSize, variations, name, price, details, image]);
 
-  // Get the selected variation
-  const selectedVariation = variationMap[`${selectedColor}|${selectedSize}`] || null;
+  // Memoize click handlers to prevent unnecessary re-renders
+  const handleColorClick = useCallback((color: string) => {
+    // Prevent rapid state changes that could cause flickering
+    if (color !== selectedColor) {
+      setSelectedColor(color);
+    }
+  }, [setSelectedColor, selectedColor]);
+
+  const handleSizeClick = useCallback((size: string) => {
+    if (byColor[selectedColor]?.includes(size) && size !== selectedSize) {
+      setSelectedSize(size);
+    }
+  }, [byColor, selectedColor, setSelectedSize, selectedSize]);
+
+  // Memoize available sizes to prevent recalculation
+  const availableSizes = useMemo(() => {
+    return byColor[selectedColor] || [];
+  }, [byColor, selectedColor]);
+
+  // Memoize the disabled state for each size to prevent flickering
+  const sizeDisabledStates = useMemo(() => {
+    const disabledStates: Record<string, boolean> = {};
+    const availableSizesSet = new Set(availableSizes);
+    sizes.forEach(size => {
+      disabledStates[size] = !availableSizesSet.has(size);
+    });
+    return disabledStates;
+  }, [sizes, availableSizes]);
 
   // Helper to get price from selected variation, fallback to parent price
   const getPrice = () => {
@@ -368,7 +426,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
           </div>
           <div className={styles.SizeDesc}>
             {/* Color Selector */}
-            {colors.filter(color => byColor[color] && byColor[color].length > 0).length > 0 && (
+            {variations.length > 1 && colors.filter(color => byColor[color] && byColor[color].length > 0).length > 0 && (
               <div className={styles.ColorSelector}>
                 <div className={styles.ColorSelectorLabel}>COLOR</div>
                 <div className={styles.ColorselectionRow}>
@@ -381,7 +439,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
                       }
                       aria-label={color}
                       type="button"
-                      onClick={() => setSelectedColor(color)}
+                      onClick={() => handleColorClick(color)}
                       style={{ background: colorToHex(color) }}
                     >
                       {/* SVG for border effect if selected */}
@@ -396,7 +454,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
               </div>
             )}
             {/* Size Selector */}
-            {sizes.length > 0 && (
+            {variations.length > 1 && sizes.length > 0 && (
               <div className={styles.SizeSelector}>
                 <div className={styles.SizeSelectorLabel}>SIZE</div>
                 <div className={styles.SizeSelectionRow}>
@@ -406,11 +464,11 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
                       className={
                         styles.SizeCircle +
                         (selectedSize === size ? ' ' + styles.SizeCircleSelected : '') +
-                        (!byColor[selectedColor]?.includes(size) ? ' ' + styles.SizeCircleDisabled : '')
+                        (sizeDisabledStates[size] ? ' ' + styles.SizeCircleDisabled : '')
                       }
                       type="button"
-                      onClick={() => setSelectedSize(size)}
-                      disabled={!byColor[selectedColor]?.includes(size)}
+                      onClick={() => handleSizeClick(size)}
+                      disabled={sizeDisabledStates[size]}
                     >
                       <span className={styles.SizeCircleLabel}>{size}</span>
                     </button>
@@ -418,32 +476,47 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
                 </div>
               </div>
             )}
-            {/* Show selected variation details */}
-            {selectedVariation && (
+            {/* Show selected variation details or invalid combination warning */}
+            {selectedVariation ? (
               <div style={{ margin: '12px 0', color: '#fff', fontSize: 14 }}>
-                {getColor() && <div><b>Color:</b> {getColor()}</div>}
-                {getSize() && <div><b>Size:</b> {getSize()}</div>}
-                {getVarDescription() && <div><b>Description:</b> {getVarDescription()}</div>}
+                {variations.length === 0 ? (
+                  <div>No variations available for this product.</div>
+                ) : (
+                  <>
+                    {getColor() && <div><b>Color:</b> {getColor()}</div>}
+                    {getSize() && <div><b>Size:</b> {getSize()}</div>}
+                    {getVarDescription() && <div><b>Description:</b> {getVarDescription()}</div>}
+                  </>
+                )}
               </div>
+            ) : (
+              // Show warning if current color/size combination is invalid
+              selectedColor && selectedSize && !byColor[selectedColor]?.includes(selectedSize) && (
+                <div style={{ margin: '12px 0', color: '#ff6b6b', fontSize: 12, fontStyle: 'italic' }}>
+                  ⚠️ {selectedSize} not available in {selectedColor}. Please select a different size.
+                </div>
+              )
             )}
             {/* Quantity Controls */}
             <div className={styles.QtyWrapper}>
-              <div className={styles.Minus} onClick={() => onQuantityChange(Math.max(1, quantity - 1))}>
+              <div className={styles.Minus} onClick={() => {
+                onQuantityChange(Math.max(1, quantity - 1));
+              }}>
                 {/* Minus SVG */}
                 <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="0.5" width="22" height="22.499" rx="11" fill="#2DA9E1"/>
                   <path d="M14.346 11.953C14.346 12.317 14.157 12.499 13.779 12.499H8.067C7.689 12.499 7.5 12.317 7.5 11.953V10.567C7.5 10.189 7.689 10 8.067 10H13.779C14.157 10 14.346 10.189 14.346 10.567V11.953Z" fill="white"/>
                 </svg>
               </div>
-              <div className={styles.QtyBox}>
-                <span className={styles.QtyLabel}>QTY</span>
-                <span className={styles.QtyValue}>{quantity}</span>
-              </div>
-              <div className={styles.Plus} onClick={() => onQuantityChange(quantity + 1)}>
+              <div className={styles.Qty}>{quantity}</div>
+              <div className={styles.Plus} onClick={() => {
+                onQuantityChange(quantity + 1);
+              }}>
                 {/* Plus SVG */}
-                <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0.5" width="22" height="20.86" rx="10.43" fill="#C0282D"/>
-                  <path d="M15.86 11.12C15.86 11.4667 15.6867 11.64 15.34 11.64H12.5V14.32C12.5 14.68 12.32 14.86 11.96 14.86H10.38C10.02 14.86 9.84 14.68 9.84 14.32V11.64H7.04C6.68 11.64 6.5 11.4667 6.5 11.12V9.8C6.5 9.44 6.68 9.26 7.04 9.26H9.84V6.54C9.84 6.18 10.02 6 10.38 6H11.96C12.32 6 12.5 6.18 12.5 6.54V9.26H15.34C15.6867 9.26 15.86 9.44 15.86 9.8V11.12Z" fill="white"/>
+                <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.5" width="22" height="22.499" rx="11" fill="#2DA9E1"/>
+                  <path d="M14.346 11.953C14.346 12.317 14.157 12.499 13.779 12.499H8.067C7.689 12.499 7.5 12.317 7.5 11.953V10.567C7.5 10.189 7.689 10 8.067 10H13.779C14.157 10 14.346 10.189 14.346 10.567V11.953Z" fill="white"/>
+                  <path d="M14.346 11.953C14.346 12.317 14.157 12.499 13.779 12.499H8.067C7.689 12.499 7.5 12.317 7.5 11.953V10.567C7.5 10.189 7.689 10 8.067 10H13.779C14.157 10 14.346 10.189 14.346 10.567V11.953Z" fill="white" transform="rotate(90 11.423 11.249)"/>
                 </svg>
               </div>
             </div>
@@ -454,8 +527,21 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
           </div>
         </div>
         {/* Add to Cart Button outside content for positioning */}
-        <div className={styles.Addtocartbutton} onClick={onAddToCart}>
-          <div className={styles.AddToCart}>Add to Cart</div>
+        <div 
+          className={`${styles.Addtocartbutton} ${!selectedVariation ? styles.AddtocartbuttonDisabled : ''}`} 
+          onClick={() => { 
+            if (selectedVariation) {
+              onAddToCart(); 
+            }
+          }}
+          style={{ 
+            cursor: selectedVariation ? 'pointer' : 'not-allowed',
+            opacity: selectedVariation ? 1 : 0.5
+          }}
+        >
+          <div className={styles.AddToCart}>
+            {selectedVariation ? 'Add to Cart' : 'Select Valid Options'}
+          </div>
         </div>
       </div>
     </div>

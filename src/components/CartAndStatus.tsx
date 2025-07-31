@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import styles from './CartAndStatus.module.css';
 import MiniCart from './MiniCart';
-import CartItem from './CartItem';
-import Checkout from './Checkout';
 import OrderStatus from './OrderStatus';
 import { useCart } from './CartContext';
 
 export default function CartAndStatus() {
   const [showMiniCart, setShowMiniCart] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
-  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { cart, clearCart } = useCart();
+  console.log('CartAndStatus cart:', cart);
 
-  const handleCheckout = () => {
-    setShowCheckout(true);
+  const handleCheckout = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/square-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
+      clearCart();
+      window.location.href = data.url;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Checkout error');
+      } else {
+        setError('Checkout error');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {
     setShowMiniCart(false);
-    setShowCheckout(false);
     setShowOrderStatus(false);
+    setError(null);
+    setLoading(false);
   };
-
-  // Render CartItem for each cart item
-  const cartItemNodes = cart.map(item => (
-    <CartItem
-      key={item.id + (item.variation || '')}
-      name={item.name}
-      image={item.image}
-      price={item.price}
-      quantity={item.quantity}
-      variation={item.variation}
-      onRemove={() => removeFromCart(item.id, item.variation)}
-      onQuantityChange={qty => updateQuantity(item.id, qty, item.variation)}
-    />
-  ));
 
   return (
     <div className={styles.CartandstatusWrapper} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -44,13 +51,13 @@ export default function CartAndStatus() {
           aria-label="Open cart"
           className={styles.ShoppingCartSvgrepoCom}
           style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-          onClick={() => { setShowMiniCart((v) => !v); setShowCheckout(false); }}
+          onClick={() => { setShowMiniCart((v) => !v); }}
         >
           <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M2 1C1.44772 1 1 1.44772 1 2C1 2.55228 1.44772 3 2 3H3.21922L6.78345 17.2569C5.73276 17.7236 5 18.7762 5 20C5 21.6569 6.34315 23 8 23C9.65685 23 11 21.6569 11 20C11 19.6494 10.9398 19.3128 10.8293 19H15.1707C15.0602 19.3128 15 19.6494 15 20C15 21.6569 16.3431 23 18 23C19.6569 23 21 21.6569 21 20C21 18.3431 19.6569 17 18 17H8.78078L8.28078 15H18C20.0642 15 21.3019 13.6959 21.9887 12.2559C22.6599 10.8487 22.8935 9.16692 22.975 7.94368C23.0884 6.24014 21.6803 5 20.1211 5H5.78078L5.15951 2.51493C4.93692 1.62459 4.13696 1 3.21922 1H2ZM18 13H7.78078L6.28078 7H20.1211C20.6742 7 21.0063 7.40675 20.9794 7.81078C20.9034 8.9522 20.6906 10.3318 20.1836 11.3949C19.6922 12.4251 19.0201 13 18 13ZM18 20.9938C17.4511 20.9938 17.0062 20.5489 17.0062 20C17.0062 19.4511 17.4511 19.0062 18 19.0062C18.5489 19.0062 18.9938 19.4511 18.9938 20C18.9938 20.5489 18.5489 20.9938 18 20.9938ZM7.00617 20C7.00617 20.5489 7.45112 20.9938 8 20.9938C8.54888 20.9938 8.99383 20.5489 8.99383 20C8.99383 19.4511 8.54888 19.0062 8 19.0062C7.45112 19.0062 7.00617 19.4511 7.00617 20Z" fill="#C0282D"/>
           </svg>
         </button>
-        <div data-svg-wrapper data-layer="Layer_1" className={styles.Layer1} onClick={() => { setShowOrderStatus(true); setShowMiniCart(false); setShowCheckout(false); }} style={{ cursor: 'pointer' }}>
+        <div data-svg-wrapper data-layer="Layer_1" className={styles.Layer1} onClick={() => { setShowOrderStatus(true); setShowMiniCart(false); }} style={{ cursor: 'pointer' }}>
           <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_976_3186)">
               <path d="M13.2173 1.14548C13.2639 0.954068 13.3476 0.773698 13.4639 0.614667C13.5801 0.455635 13.7265 0.321057 13.8948 0.218614C14.063 0.116172 14.2498 0.0478733 14.4445 0.0176168C14.6391 -0.0126396 14.8378 -0.00426091 15.0292 0.0422746C17.1918 0.571193 19.1678 1.68332 20.7421 3.25756C22.3164 4.8318 23.4286 6.80779 23.9575 8.97037C24.0515 9.35694 23.988 9.76501 23.7811 10.1048C23.5742 10.4446 23.2408 10.6883 22.8542 10.7823C22.4677 10.8762 22.0596 10.8128 21.7198 10.6059C21.38 10.399 21.1363 10.0656 21.0424 9.67898C20.2437 6.39435 17.6053 3.75599 14.3205 2.95767C14.1291 2.91113 13.9487 2.82735 13.7896 2.71109C13.6306 2.59483 13.496 2.44837 13.3935 2.28009C13.2911 2.11181 13.2228 1.92499 13.1926 1.73031C13.1623 1.53563 13.1708 1.33691 13.2173 1.14548Z" fill="#2DA9E1"/>
@@ -66,7 +73,7 @@ export default function CartAndStatus() {
           </svg>
         </div>
       </div>
-      {showMiniCart && !showCheckout && (
+      {showMiniCart && (
         <div style={{
           position: 'fixed',
           left: '50%',
@@ -74,18 +81,9 @@ export default function CartAndStatus() {
           transform: 'translateX(-50%)',
           zIndex: 1000,
         }}>
-          <MiniCart onClose={handleClose} cartItems={cartItemNodes} onCheckout={handleCheckout} />
-        </div>
-      )}
-      {showCheckout && (
-        <div style={{
-          position: 'fixed',
-          left: '50%',
-          top: 'calc(60px + 2vw)',
-          transform: 'translateX(-50%)',
-          zIndex: 2000,
-        }}>
-          <Checkout cartItems={cartItemNodes} onClose={handleClose} onOrder={() => { clearCart(); setShowCheckout(false); setShowOrderStatus(true); }} />
+          <MiniCart onClose={handleClose} onCheckout={handleCheckout} />
+          {loading && <div style={{ color: '#fff', marginTop: 8 }}>Redirecting to payment...</div>}
+          {error && <div style={{ color: 'red', marginTop: 8 }}>{error}</div>}
         </div>
       )}
       {showOrderStatus && (
@@ -101,5 +99,4 @@ export default function CartAndStatus() {
       )}
     </div>
   );
-  /*filler*/
 } 

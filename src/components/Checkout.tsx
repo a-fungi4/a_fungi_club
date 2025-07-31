@@ -84,6 +84,16 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
     country_code: 'US',
     zip: '',
   });
+  const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
+  const [billing, setBilling] = useState({
+    address1: '',
+    address2: '',
+    city: '',
+    state_code: 'CA',
+    country_code: 'US',
+    zip: '',
+  });
+  const [emailOptIn, setEmailOptIn] = useState(false);
 
   // Calculate subtotal, tax, discount, and total
   const subtotalCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.price * 100) * item.quantity, 0);
@@ -96,11 +106,15 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
     setLoading(true);
     setError(null);
     try {
-      // Send cart and shipping to backend to get Square checkout URL
+      // Send cart, shipping, and billing to backend
       const res = await fetch('/api/square-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart, shipping }),
+        body: JSON.stringify({
+          cart,
+          shipping,
+          billing: billingSameAsShipping ? shipping : billing,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
@@ -139,7 +153,6 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
         </div>
         <div className={styles.CheckoutContainer2}>
           <div className={styles.Nameinput}>
-            <div className={styles.Name}>Name</div>
             <input
               type="text"
               value={shipping.name}
@@ -149,7 +162,6 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
             />
           </div>
           <div className={styles.Emailinput}>
-            <div className={styles.Email}>Email</div>
             <input
               type="email"
               value={shipping.email}
@@ -159,9 +171,93 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
             />
           </div>
           <div className={styles.BillingAddress}>Billing Address</div>
-          <div className={styles.Addressline1input}></div>
-          <div className={styles.Addressline2input}></div>
-          <div className={styles.Addressline3input}></div>
+          <div className={styles.Signupforemail} style={{ marginBottom: 8 }}>
+            <div
+              className={styles.Agreetoterms}
+              onClick={() => setBillingSameAsShipping(v => !v)}
+              tabIndex={0}
+              role="checkbox"
+              aria-checked={billingSameAsShipping}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className={styles.Checkcircle}>
+                <input
+                  type="checkbox"
+                  checked={billingSameAsShipping}
+                  onChange={e => setBillingSameAsShipping(e.target.checked)}
+                  style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}
+                  id="billing-same"
+                  tabIndex={-1}
+                />
+                {billingSameAsShipping && (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M13.4765 1.7294C12.7785 0.977243 11.6472 0.977243 10.9492 1.7294L4.63022 8.52197L3.05084 6.82382C2.35282 6.07627 1.2211 6.07627 0.523514 6.82382C-0.174505 7.57598 -0.174505 8.79421 0.523514 9.54176L3.3668 12.6012C4.06482 13.3533 5.19607 13.3533 5.89409 12.6012L13.4765 4.44734C14.1745 3.69518 14.1745 2.47695 13.4765 1.7294Z" fill="white"/>
+                  </svg>
+                )}
+              </div>
+            </div>
+            <label htmlFor="billing-same" style={{ color: 'white', fontSize: 14, fontFamily: 'Hack, monospace', marginLeft: 8, cursor: 'pointer' }}>
+              Billing address is the same as shipping address
+            </label>
+          </div>
+          {!billingSameAsShipping && (
+            <>
+              <div className={styles.Addressline1input}>
+                <input
+                  type="text"
+                  value={billing.address1}
+                  onChange={e => setBilling({ ...billing, address1: e.target.value })}
+                  placeholder="Billing Address 1"
+                  required
+                />
+              </div>
+              <div className={styles.Addressline2input}>
+                <input
+                  type="text"
+                  value={billing.address2 || ''}
+                  onChange={e => setBilling({ ...billing, address2: e.target.value })}
+                  placeholder="Billing Address 2 (optional)"
+                />
+              </div>
+              <div className={styles.Addressline3input} style={{ display: 'flex', gap: 8, alignItems: 'center', minHeight: 0 }}>
+                <input
+                  type="text"
+                  value={billing.city}
+                  onChange={e => setBilling({ ...billing, city: e.target.value })}
+                  placeholder="Billing City"
+                  required
+                  style={{ flex: 2, minWidth: 0 }}
+                />
+                <select
+                  id="billing-state"
+                  value={billing.state_code}
+                  onChange={e => setBilling({ ...billing, state_code: e.target.value })}
+                  required
+                  style={{ flex: 1, minWidth: 0 }}
+                >
+                  {US_STATES.map(state => (
+                    <option key={state} value={state}>{state}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  value={billing.zip}
+                  onChange={e => setBilling({ ...billing, zip: e.target.value })}
+                  placeholder="Billing ZIP"
+                  required
+                  style={{ flex: 1, minWidth: 0 }}
+                />
+                <input
+                  type="text"
+                  value={billing.country_code}
+                  onChange={e => setBilling({ ...billing, country_code: e.target.value })}
+                  placeholder="Billing Country (e.g. US)"
+                  required
+                  style={{ flex: 1, minWidth: 0 }}
+                />
+              </div>
+            </>
+          )}
           <div className={styles.ShippingAddress}>Shipping Address</div>
           <div className={styles.Addressline1input}>
             <input
@@ -180,20 +276,21 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
               placeholder="Address 2 (optional)"
             />
           </div>
-          <div className={styles.Addressline3input}>
+          <div className={styles.Addressline3input} style={{ display: 'flex', gap: 8, alignItems: 'center', minHeight: 0 }}>
             <input
               type="text"
               value={shipping.city}
               onChange={e => setShipping({ ...shipping, city: e.target.value })}
               placeholder="City"
               required
+              style={{ flex: 2, minWidth: 0 }}
             />
             <select
               id="shipping-state"
               value={shipping.state_code}
               onChange={e => setShipping({ ...shipping, state_code: e.target.value })}
-              style={{ fontSize: 14, padding: 4, borderRadius: 6, marginLeft: 8, marginRight: 8 }}
               required
+              style={{ flex: 1, minWidth: 0 }}
             >
               {US_STATES.map(state => (
                 <option key={state} value={state}>{state}</option>
@@ -205,7 +302,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
               onChange={e => setShipping({ ...shipping, zip: e.target.value })}
               placeholder="ZIP"
               required
-              style={{ marginLeft: 8 }}
+              style={{ flex: 1, minWidth: 0 }}
             />
             <input
               type="text"
@@ -213,18 +310,39 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
               onChange={e => setShipping({ ...shipping, country_code: e.target.value })}
               placeholder="Country (e.g. US)"
               required
-              style={{ marginLeft: 8 }}
+              style={{ flex: 1, minWidth: 0 }}
             />
           </div>
           <div className={styles.Signupforemail}>
-            <div className={styles.Agreetoterms}>
+            <div
+              className={styles.Agreetoterms}
+              onClick={() => setEmailOptIn(v => !v)}
+              tabIndex={0}
+              role="checkbox"
+              aria-checked={emailOptIn}
+              style={{ cursor: 'pointer' }}
+            >
               <div className={styles.Checkcircle}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M13.4765 1.7294C12.7785 0.977243 11.6472 0.977243 10.9492 1.7294L4.63022 8.52197L3.05084 6.82382C2.35282 6.07627 1.2211 6.07627 0.523514 6.82382C-0.174505 7.57598 -0.174505 8.79421 0.523514 9.54176L3.3668 12.6012C4.06482 13.3533 5.19607 13.3533 5.89409 12.6012L13.4765 4.44734C14.1745 3.69518 14.1745 2.47695 13.4765 1.7294Z" fill="white"/>
-                </svg>
+                <input
+                  type="checkbox"
+                  checked={emailOptIn}
+                  onChange={e => setEmailOptIn(e.target.checked)}
+                  style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}
+                  id="email-opt-in"
+                  tabIndex={-1}
+                />
+                {emailOptIn && (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M13.4765 1.7294C12.7785 0.977243 11.6472 0.977243 10.9492 1.7294L4.63022 8.52197L3.05084 6.82382C2.35282 6.07627 1.2211 6.07627 0.523514 6.82382C-0.174505 7.57598 -0.174505 8.79421 0.523514 9.54176L3.3668 12.6012C4.06482 13.3533 5.19607 13.3533 5.89409 12.6012L13.4765 4.44734C14.1745 3.69518 14.1745 2.47695 13.4765 1.7294Z" fill="white"/>
+                  </svg>
+                )}
               </div>
             </div>
-            <div className={styles.SignUpForEmailMarketingUpdates}>Sign Up for Email marketing updates</div>
+            <div className={styles.SignUpForEmailMarketingUpdates}>
+              <label htmlFor="email-opt-in" style={{ color: 'white', fontSize: 14, fontFamily: 'Hack, monospace', marginLeft: 8, cursor: 'pointer' }}>
+                Sign Up for Email marketing updates
+              </label>
+            </div>
           </div>
         </div>
         <div className={styles.CheckoutContainer3}>

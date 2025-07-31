@@ -117,13 +117,44 @@ export default function TGPageClient() {
   };
 
   useEffect(() => {
+    console.log('Fetching products from /api/square-products...');
+    setLoading(true);
+    
+    // Add a timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      console.log('Fetch timeout - forcing loading to false');
+      setLoading(false);
+    }, 10000);
+    
     fetch('/api/square-products')
-      .then(res => res.json())
+      .then(res => {
+        console.log('Response status:', res.status);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
-        setProducts(data.products || []);
+        clearTimeout(timeoutId);
+        console.log('Received data:', data);
+        console.log('Data type:', typeof data);
+        console.log('Data keys:', Object.keys(data));
+        if (data.products && Array.isArray(data.products)) {
+          console.log('Setting products:', data.products.length);
+          setProducts(data.products);
+        } else {
+          console.log('No products found in data');
+          console.log('Data.products:', data.products);
+          setProducts([]);
+        }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((error) => {
+        clearTimeout(timeoutId);
+        console.error('Error fetching products:', error);
+        setProducts([]);
+        setLoading(false);
+      });
   }, []);
 
   // Group products by category
@@ -217,18 +248,50 @@ export default function TGPageClient() {
         </div>
       </div>
       <div className={styles.tgPageContentWrapper}>
+        <div style={{ color: 'white', padding: '20px', background: '#333', margin: '20px', borderRadius: '8px' }}>
+          <h3>Debug Information:</h3>
+          <div>Loading state: {loading ? 'true' : 'false'}</div>
+          <div>Products loaded: {products.length}</div>
+          <div>Categories: {categories.join(', ')}</div>
+          <div>First product: {products[0]?.name || 'None'}</div>
+          <div>First product variations: {products[0]?.variations?.length || 0}</div>
+          <button 
+            onClick={() => {
+              console.log('Manual fetch test');
+              fetch('/api/square-products')
+                .then(res => res.json())
+                .then(data => {
+                  console.log('Manual fetch result:', data);
+                  alert('Check console for manual fetch result');
+                })
+                .catch(err => {
+                  console.error('Manual fetch error:', err);
+                  alert('Manual fetch error: ' + err.message);
+                });
+            }}
+            style={{ background: '#2DA9E1', color: 'white', border: 'none', padding: '10px', borderRadius: '5px', cursor: 'pointer' }}
+          >
+            Test API Manually
+          </button>
+        </div>
         {loading ? (
-          <div>Loading products...</div>
+          <div>Loading products... (Products: {products.length})</div>
         ) : (
           <>
-            {/* All Products Carousel */}
-            <ProductCarousel products={products} categoryName="All Products" />
-            {/* Category Carousels */}
-            {categories.map(cat => (
-              <div key={cat} style={{ marginTop: '2rem' }}>
-                <ProductCarousel products={categoryMap[cat]} categoryName={cat} />
-              </div>
-            ))}
+            {products.length > 0 ? (
+              <>
+                {/* All Products Carousel */}
+                <ProductCarousel products={products} categoryName="All Products" />
+                {/* Category Carousels */}
+                {categories.map(cat => (
+                  <div key={cat} style={{ marginTop: '2rem' }}>
+                    <ProductCarousel products={categoryMap[cat]} categoryName={cat} />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div>No products found</div>
+            )}
           </>
         )}
       </div>

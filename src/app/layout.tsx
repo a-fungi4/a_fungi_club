@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Script from "next/script";
+import Image from "next/image";
+import { CartProvider } from "@/components/CartContext";
 
 export const metadata: Metadata = {
   title: "A-Fungi Club Khaled Momani",
@@ -41,14 +43,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
         <noscript>
-          <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=3536806596455673&ev=PageView&noscript=1" alt="" />
+          <Image
+            src="https://www.facebook.com/tr?id=3536806596455673&ev=PageView&noscript=1"
+            alt=""
+            width={1}
+            height={1}
+            style={{ display: 'none' }}
+          />
         </noscript>
       </head>
       <body>
+        <CartProvider>
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', zIndex: 100, paddingTop: 12 }}>
           <NavBar />
         </div>
         {children}
+        </CartProvider>
       </body>
     </html>
   );

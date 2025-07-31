@@ -13,6 +13,11 @@ interface CartItem {
   quantity: number;
   price: number;
   variation?: string;
+  id: string; // Square variation ID
+}
+
+interface CartItemWithPrintful extends CartItem {
+  printfulVariantId?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -21,7 +26,33 @@ export async function POST(req: NextRequest) {
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
     }
-    const lineItems = (cart as CartItem[]).map((item) => ({
+
+    // Fetch the variant mapping to get Printful variant IDs
+    let variantMap: Record<string, string> = {};
+    try {
+      const productsResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/square-products`);
+      if (productsResponse.ok) {
+        const productsData = await productsResponse.json();
+        variantMap = productsData.variationToPrintful || {};
+      }
+    } catch (error) {
+      console.warn('Failed to fetch variant mapping:', error);
+    }
+
+    // Enhance cart items with Printful variant IDs
+    const enhancedCart: CartItemWithPrintful[] = (cart as CartItem[]).map((item) => {
+      const printfulVariantId = variantMap[item.id];
+      if (!printfulVariantId) {
+        console.warn(`No Printful variant ID found for Square variation: ${item.id}`);
+      }
+      
+      return {
+        ...item,
+        printfulVariantId,
+      };
+    });
+
+    const lineItems = enhancedCart.map((item) => ({
       name: item.name,
       quantity: item.quantity.toString(),
       basePriceMoney: {
@@ -30,6 +61,7 @@ export async function POST(req: NextRequest) {
       },
       variationName: item.variation || undefined,
     }));
+
     const checkoutApi = client.checkoutApi;
     const response = await checkoutApi.createCheckout(process.env.SQUARE_LOCATION_ID!, {
       idempotencyKey: Math.random().toString(36).substring(2),
@@ -37,8 +69,11 @@ export async function POST(req: NextRequest) {
         order: {
           locationId: process.env.SQUARE_LOCATION_ID!,
           lineItems,
+          pricingOptions: {
+            autoApplyTaxes: true
+          },
           // @ts-expect-error: Square Order type may not include 'note', but it is supported by the API
-          note: shipping ? JSON.stringify({ recipient: shipping, items: cart }) : undefined,
+          note: shipping ? JSON.stringify({ recipient: shipping, items: enhancedCart }) : undefined,
         },
       },
       askForShippingAddress: true,

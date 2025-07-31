@@ -124,6 +124,13 @@
   cursor: pointer;
   position: relative;
   align-self: flex-start;
+  transition: opacity 0.2s, cursor 0.2s;
+}
+
+.AddtocartbuttonDisabled {
+  background: #666;
+  box-shadow: none;
+  cursor: not-allowed;
 }
 .AddToCart {
   width: 100%;
@@ -495,7 +502,7 @@
   justify-content: center;
   position: relative;
   cursor: pointer;
-  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+  transition: none;
   box-shadow: none;
   padding: 0;
   margin: 0;
@@ -508,6 +515,10 @@
 .SizeCircleDisabled {
   opacity: 0.3;
   pointer-events: none;
+  transition: none !important;
+  filter: grayscale(100%);
+  transform: scale(0.95);
+  background: #666 !important;
 }
 .SizeCircleLabel {
   display: flex;
