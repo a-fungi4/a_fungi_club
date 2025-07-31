@@ -29,7 +29,7 @@ export default function HeirloomPage() {
     <div className={styles.heirloomMain}>
       <Banner title="Heirloom" variant="general">
         <HPTextbox text={`Your mental health companion`} />
-        <SkillPillCont skills={["Wireframing", "Prototyping", "Design", "Market Research", "User Testing", "Vite", "JavaScriipt", "Branding"]} projectType="UI Development" />
+        <SkillPillCont skills={["Wireframing", "Prototyping", "Design", "Market Research", "User Testing", "Vite", "JavaScript", "Branding"]} projectType="UI Development" />
       </Banner>
       <div className={styles.heirloomRow}>
         <Prototype src="https://embed.figma.com/proto/vgGDjqXkQcfBDkveawmprF/Heirloom---Redesign?page-id=0%3A1&node-id=3-17&p=f&viewport=-648%2C519%2C0.46&t=zGWQJj1mIqFuTWqc-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=8%3A252&embed-host=share&hide-ui=1" />
