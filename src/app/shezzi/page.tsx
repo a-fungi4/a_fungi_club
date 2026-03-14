@@ -3,7 +3,7 @@ import React from "react";
 import Banner from "@/components/Banner";
 import HPTextbox from "@/components/HPTextbox";
 import ShezziProjectPageLogo from "@/components/icons/ShezziProjectPageLogo";
-import ShezziDropdownWrapper from "./ShezziDropdownWrapper";
+import Dropdown1 from "@/components/Dropdown1";
 import styles from "./page.module.css";
 
 const SHEZZI_BLURB = `Shezzi
@@ -76,7 +76,8 @@ export default async function ShezziPage() {
         </div>
         
         <div className={styles.dropdownContainer}>
-          <ShezziDropdownWrapper 
+          <Dropdown1 
+            title="Capability Profile"
             content={
               <div className={styles.readmeContainer}>
                 {readmeHtml ? (
@@ -91,6 +92,7 @@ export default async function ShezziPage() {
                 )}
               </div>
             }
+            hugContentHeight={true}
           />
         </div>
       </div>
