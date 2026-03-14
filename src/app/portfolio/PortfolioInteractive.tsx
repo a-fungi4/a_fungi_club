@@ -18,27 +18,30 @@ function trackPortfolioClick(project: string, type: 'button' | 'photo') {
 export default function PortfolioInteractive() {
   return (
     <>
-      {/* Research Section */}
-      <section className={`${styles.section} ${styles.centeredSection}`}>
-        <h2 className={styles.sectionTitle}>Research</h2>
-        <div className={styles.projectGrid}>
-          <div className={styles.projectCard}>
-            <Link href="/shezzi" onClick={() => trackPortfolioClick('ShezziResearch', 'photo')}>
-              <div className={styles.iframeWrapper}>
-                <Image 
-                  src="/ProjectThumbnails/shezzi-thumb.webp" 
-                  alt="Shezzi — Locally-sovereign AI system built on consumer hardware. Multi-model architecture, custom database layer, and agent IDE. In progress." 
-                  className={styles.projectImage} 
-                  width={400} 
-                  height={300} 
-                />
-              </div>
-            </Link>
+      <div className={styles.contentWrapper}>
+        <div className={styles.headlineRow}>
+          <div className={styles.highlightedProjectWrapper} style={{ width: '100%', flex: 'none' }}>
+            <HighlightedProject 
+              variant="projectShezzi" 
+              thumbnailBackgroundColor="#71ccd4"
+              button={
+                <Link href="/shezzi" onClick={() => trackPortfolioClick('Shezzi', 'button')}>
+                  <HPButton label="Progress Report" />
+                </Link>
+              }
+              text={`Shezzi
+Most AI systems are built to run on infrastructure you don't own. Shezzi was built on the assumption that intelligence shouldn't require it.
+
+Shezzi is a locally-run, multi-model AI system designed around a single constraint: do more with less. Rather than scaling up compute, it scales up efficiency — using a custom architecture that routes intelligence dynamically, fires compute only where it's needed, and coordinates between specialized models through a proprietary low-latency communication protocol.
+
+The result is a system that thinks in layers. Different problems get routed to different experts. Specialists are promoted, demoted, or swapped based on what the task demands. The whole system maintains awareness of what it knows, what it doesn't, and what it's worth finding out — scoring feasibility before committing resources.
+
+What's novel isn't any single component. It's the premise: that a personally-owned AI system, running on consumer hardware, can develop genuine intelligence over time — not by getting bigger, but by getting better at knowing what to do with what it has.
+
+Shezzi is ongoing. It's both a technical project and a philosophical one.`}
+            />
           </div>
         </div>
-      </section>
-
-      <div className={styles.contentWrapper}>
         <div className={styles.flexProjects}>
           <div className={styles.highlightedProjectWrapper}>
             <HighlightedProject 
