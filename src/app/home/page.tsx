@@ -18,14 +18,14 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: 'Home',
   description:
-    'I build things that don\'t exist yet. AI systems engineer, designer, and developer building a locally-sovereign AI system on consumer hardware.',
+    'I build things that don\'t exist yet. AI systems engineer designer and developer building a locally-sovereign AI system on consumer hardware.',
   alternates: {
     canonical: 'https://www.b8momani.com',
   },
   openGraph: {
     title: 'Home | A Fungi Club',
     description:
-      'I build things that don\'t exist yet. AI systems engineer, designer, and developer building a locally-sovereign AI system on consumer hardware.',
+      'I build things that don\'t exist yet. AI systems engineer designer and developer building a locally-sovereign AI system on consumer hardware.',
     url: 'https://www.b8momani.com',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club — Khaled Momani Portfolio' }],
   },
