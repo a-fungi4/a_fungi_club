@@ -13,19 +13,20 @@
     "test-cron-setup": "node scripts/test-cron-setup.js"
   },
   "dependencies": {
+    "asynckit": "^0.5.0",
     "autoprefixer": "^10.4.21",
-    "framer-motion": "^12.22.0",
-    "next": "^16.1.1",
+    "framer-motion": "^12.23.0",
+    "next": "^16.1.6",
     "nodemailer": "^7.0.4",
     "postcss": "^8.5.6",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "square": "^43.0.0",
     "zipcodes": "^8.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "^20.19.4",
     "@types/node-fetch": "^2.6.12",
     "@types/nodemailer": "^6.4.17",
@@ -34,10 +35,10 @@
     "@types/zipcodes": "^8.0.5",
     "dotenv": "^17.2.0",
     "eslint": "^9.30.1",
-    "eslint-config-next": "^16.1.1",
+    "eslint-config-next": "^16.1.6",
     "imurmurhash": "^0.1.4",
     "node-fetch": "^3.3.2",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5.8.3"
   }
 }

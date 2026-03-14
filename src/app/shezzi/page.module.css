@@ -1,0 +1,87 @@
+.shezziMain {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+}
+
+.contentRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  align-items: center;
+}
+
+.logoWrapper {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.readmeContainer {
+  width: 100%;
+  background: #151029;
+  border-radius: 40px;
+  padding: 3rem;
+  box-shadow: 0 0 32px 0 #71ccd4;
+  color: white;
+  font-family: 'Hack', monospace;
+  overflow-x: hidden;
+}
+
+.readmeContainer :global(.markdown-body) {
+  background-color: transparent !important;
+  color: #e6edf3 !important;
+}
+
+.readmeContainer :global(a) {
+  color: #4493f8 !important;
+}
+
+.readmeContainer :global(pre) {
+  background-color: #0d1117 !important;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.readmeContainer :global(code) {
+  background-color: rgba(110, 118, 129, 0.4);
+  border-radius: 6px;
+  padding: 0.2em 0.4em;
+}
+
+.readmeContainer :global(h1),
+.readmeContainer :global(h2),
+.readmeContainer :global(h3) {
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 0.3em;
+}
+
+.loading {
+  color: #71ccd4;
+  font-family: 'Hack', monospace;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #ff7b72;
+  font-family: 'Hack', monospace;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 900px) {
+  .readmeContainer {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+}

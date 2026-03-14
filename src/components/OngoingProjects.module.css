@@ -1,0 +1,382 @@
+.ongoingProjects {
+  /* Base styles for the ongoing projects container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.container {
+  width: min(828px, 90vw);
+  height: min(749px, 85vh);
+  position: relative;
+  background: linear-gradient(0deg, rgba(132.96, 132.96, 132.96, 0.12) 0%, rgba(132.96, 132.96, 132.96, 0.12) 100%), #151029;
+  overflow: hidden;
+  border-radius: 8px;
+  outline: 4px #C0282D solid;
+  outline-offset: -4px;
+}
+
+.title {
+  left: 12.3%;
+  top: 7.3%;
+  position: absolute;
+  color: white;
+  font-size: clamp(24px, 5.2vw, 43px);
+  font-family: Moby;
+  font-weight: 0;
+  word-wrap: break-word;
+}
+
+.svgWrapper1 {
+  right: 15.5%;
+  top: 15%;
+  position: absolute;
+}
+
+.svgWrapper2 {
+  right: 15.4%;
+  top: 15.1%;
+  position: absolute;
+}
+
+.svgWrapper3 {
+  right: 19%;
+  top: 15%;
+  position: absolute;
+}
+
+.svgWrapper4 {
+  right: 18.9%;
+  top: 15.1%;
+  position: absolute;
+}
+
+.mainLogoSvg {
+  right: 12.2%;
+  top: 9.7%;
+  position: absolute;
+}
+
+.mainLogoSvgOverlay {
+  right: 12.1%;
+  top: 9.8%;
+  position: absolute;
+}
+
+.ongoingProjectsTitle {
+  left: 12.8%;
+  top: 15.6%;
+  position: absolute;
+  color: white;
+  font-size: clamp(16px, 2.9vw, 24px);
+  font-family: Hack;
+  font-weight: 400;
+  letter-spacing: clamp(8px, 1.9vw, 16.08px);
+  word-wrap: break-word;
+}
+
+.divider {
+  width: 85%;
+  height: 0px;
+  left: 7.5%;
+  top: 24.4%;
+  position: absolute;
+  outline: 4px #C0282D solid;
+  outline-offset: -2px;
+}
+
+.nameLabel {
+  left: 11.1%;
+  top: 29.4%;
+  position: absolute;
+  color: white;
+  font-size: clamp(12px, 1.9vw, 16px);
+  font-family: Moby;
+  font-weight: 0;
+  word-wrap: break-word;
+}
+
+.nameUnderline {
+  width: 68.4%;
+  height: 0px;
+  left: 20.5%;
+  top: 32.6%;
+  position: absolute;
+  outline: 1px white solid;
+  outline-offset: -0.50px;
+}
+
+.projectName {
+  left: 21.9%;
+  top: 28.4%;
+  position: absolute;
+  color: white;
+  font-size: clamp(18px, 2.9vw, 24px);
+  font-family: Hack;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.diagnosisContainer {
+  width: 77.8%;
+  height: 30.6%;
+  left: 11.1%;
+  top: 34%;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 8px;
+  outline: 4px #C0282D solid;
+  outline-offset: -4px;
+}
+
+.diagnosisLabel {
+  left: 3.1%;
+  top: 3.5%;
+  position: absolute;
+  color: white;
+  font-size: clamp(12px, 1.9vw, 16px);
+  font-family: Moby;
+  font-weight: 0;
+  word-wrap: break-word;
+}
+
+.diagnosisText {
+  width: 92.5%;
+  height: 79%;
+  left: 4%;
+  top: 17.5%;
+  position: absolute;
+  color: white;
+  font-size: clamp(12px, 1.9vw, 16px);
+  font-family: Hack;
+  font-weight: 400;
+  word-wrap: break-word;
+  overflow-y: auto;
+  line-height: 1.4;
+}
+
+.automationText {
+  left: 34.2%;
+  top: 74%;
+  position: absolute;
+  transform: rotate(-3deg);
+  transform-origin: top left;
+  color: white;
+  font-size: clamp(40px, 9.3vw, 70px);
+  font-family: Hack;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.automationSvg {
+  left: 11.1%;
+  top: 69.7%;
+  position: absolute;
+  width: clamp(60px, 11.5vw, 95px);
+  height: clamp(85px, 17.6vw, 132px);
+}
+
+.automationSvg svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pillButton {
+  position: absolute;
+  bottom: 2.7%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #C0282D;
+  color: white;
+  border: none;
+  padding: clamp(8px, 1.6vw, 12px) clamp(16px, 2.9vw, 24px);
+  border-radius: 25px;
+  font-family: Hack;
+  font-size: clamp(10px, 1.7vw, 14px);
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: 2px solid #C0282D;
+  outline-offset: 2px;
+}
+
+.pillButton:hover {
+  background: #2DA9E1;
+  outline-color: #2DA9E1;
+  transform: translateX(-50%) scale(1.05);
+}
+
+.pillButton:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+/* Media Queries for different screen sizes */
+@media (max-width: 768px) {
+  .container {
+    width: 95vw;
+    height: min(600px, 80vh);
+  }
+  
+  .title {
+    left: 8%;
+    top: 5%;
+    font-size: clamp(20px, 6vw, 32px);
+  }
+  
+  .ongoingProjectsTitle {
+    left: 8%;
+    top: 12%;
+    font-size: clamp(14px, 4vw, 20px);
+    letter-spacing: clamp(4px, 2vw, 12px);
+  }
+  
+  .divider {
+    width: 90%;
+    left: 5%;
+    top: 20%;
+  }
+  
+  .nameLabel {
+    left: 8%;
+    top: 25%;
+    font-size: clamp(10px, 3vw, 14px);
+  }
+  
+  .nameUnderline {
+    width: 75%;
+    left: 15%;
+    top: 28%;
+  }
+  
+  .projectName {
+    left: 15%;
+    top: 24%;
+    font-size: clamp(16px, 4vw, 20px);
+  }
+  
+  .diagnosisContainer {
+    width: 85%;
+    height: 35%;
+    left: 7.5%;
+    top: 32%;
+  }
+  
+  .diagnosisLabel {
+    left: 4%;
+    top: 3%;
+    font-size: clamp(10px, 3vw, 14px);
+  }
+  
+  .diagnosisText {
+    width: 90%;
+    height: 75%;
+    left: 5%;
+    top: 15%;
+    font-size: clamp(10px, 3vw, 14px);
+  }
+  
+  .automationText {
+    left: 25%;
+    top: 70%;
+    font-size: clamp(30px, 12vw, 50px);
+  }
+  
+  .automationSvg {
+    left: 8%;
+    top: 65%;
+    width: clamp(50px, 15vw, 80px);
+    height: clamp(70px, 20vw, 110px);
+  }
+  
+  .pillButton {
+    bottom: 3%;
+    padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 18px);
+    font-size: clamp(8px, 2.5vw, 12px);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 98vw;
+    height: min(500px, 75vh);
+  }
+  
+  .title {
+    left: 5%;
+    top: 3%;
+    font-size: clamp(18px, 7vw, 28px);
+  }
+  
+  .ongoingProjectsTitle {
+    left: 5%;
+    top: 10%;
+    font-size: clamp(12px, 5vw, 18px);
+    letter-spacing: clamp(2px, 2.5vw, 8px);
+  }
+  
+  .divider {
+    width: 95%;
+    left: 2.5%;
+    top: 18%;
+  }
+  
+  .nameLabel {
+    left: 5%;
+    top: 22%;
+    font-size: clamp(8px, 3.5vw, 12px);
+  }
+  
+  .nameUnderline {
+    width: 80%;
+    left: 12%;
+    top: 25%;
+  }
+  
+  .projectName {
+    left: 12%;
+    top: 21%;
+    font-size: clamp(14px, 5vw, 18px);
+  }
+  
+  .diagnosisContainer {
+    width: 90%;
+    height: 40%;
+    left: 5%;
+    top: 30%;
+  }
+  
+  .diagnosisLabel {
+    left: 5%;
+    top: 2%;
+    font-size: clamp(8px, 3.5vw, 12px);
+  }
+  
+  .diagnosisText {
+    width: 85%;
+    height: 70%;
+    left: 7.5%;
+    top: 12%;
+    font-size: clamp(8px, 3.5vw, 12px);
+  }
+  
+  .automationText {
+    left: 20%;
+    top: 65%;
+    font-size: clamp(24px, 15vw, 40px);
+  }
+  
+  .automationSvg {
+    left: 5%;
+    top: 60%;
+    width: clamp(40px, 20vw, 70px);
+    height: clamp(55px, 25vw, 90px);
+  }
+  
+  .pillButton {
+    bottom: 4%;
+    padding: clamp(4px, 2.5vw, 8px) clamp(8px, 5vw, 14px);
+    font-size: clamp(6px, 3vw, 10px);
+  }
+} 

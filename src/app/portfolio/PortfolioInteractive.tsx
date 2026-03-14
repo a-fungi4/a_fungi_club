@@ -18,15 +18,40 @@ function trackPortfolioClick(project: string, type: 'button' | 'photo') {
 export default function PortfolioInteractive() {
   return (
     <>
-      <div className={styles.highlightedProjectWrapper}>
-        <HighlightedProject 
-          variant="project1" 
-          button={
-            <Link href="/heirloom" onClick={() => trackPortfolioClick('Heirloom', 'button')}>
-              <HPButton label="Go To Project" />
-            </Link>
-          }
-          text={`Heirloom is a web app created by the developers at PRJCT Lazrus. We are a team of dedicated developers, specializing in work management software. This project was the vision of Marcus Workman and Zachary Hendon.
+      <div className={styles.contentWrapper}>
+        <div className={styles.headlineRow}>
+          <div className={styles.highlightedProjectWrapper} style={{ width: '100%', flex: 'none' }}>
+            <HighlightedProject 
+              variant="projectShezzi" 
+              thumbnailBackgroundColor="#71ccd4"
+              button={
+                <Link href="/shezzi" onClick={() => trackPortfolioClick('Shezzi', 'button')}>
+                  <HPButton label="Progress Report" />
+                </Link>
+              }
+              text={`Shezzi
+Most AI systems are built to run on infrastructure you don't own. Shezzi was built on the assumption that intelligence shouldn't require it.
+
+Shezzi is a locally-run, multi-model AI system designed around a single constraint: do more with less. Rather than scaling up compute, it scales up efficiency — using a custom architecture that routes intelligence dynamically, fires compute only where it's needed, and coordinates between specialized models through a proprietary low-latency communication protocol.
+
+The result is a system that thinks in layers. Different problems get routed to different experts. Specialists are promoted, demoted, or swapped based on what the task demands. The whole system maintains awareness of what it knows, what it doesn't, and what it's worth finding out — scoring feasibility before committing resources.
+
+What's novel isn't any single component. It's the premise: that a personally-owned AI system, running on consumer hardware, can develop genuine intelligence over time — not by getting bigger, but by getting better at knowing what to do with what it has.
+
+Shezzi is ongoing. It's both a technical project and a philosophical one.`}
+            />
+          </div>
+        </div>
+        <div className={styles.flexProjects}>
+          <div className={styles.highlightedProjectWrapper}>
+            <HighlightedProject 
+              variant="project1" 
+              button={
+                <Link href="/heirloom" onClick={() => trackPortfolioClick('Heirloom', 'button')}>
+                  <HPButton label="Go To Project" />
+                </Link>
+              }
+              text={`Heirloom is a web app created by the developers at PRJCT Lazrus. We are a team of dedicated developers, specializing in work management software. This project was the vision of Marcus Workman and Zachary Hendon.
 
 I met Marcus at an art show in Austin. I had just finished designing my first CRM. I was just about to start learning development and he was about to graduate college. This project was his Capstone project. An app that worked hand in tandem with the users therapist to document mood fluctuation and provide resources for mental health. This project integrated several AI tools and showed a lot of potential for future improvements.
 
@@ -35,18 +60,20 @@ I met with Marcus a few times and showed him my work. As a designer with a passi
 The backend for the app was incredible. It featured various AI integrations, and an incredible amount of potential to be the future of psychiatric diagnostics.
 
 I was tasked with creating the visual identity of the app. The initial design I was given was a series of basic buttons and logic to display various backend calculations. It was up to me to bring it to life and make it intuitive to the user's needs.`}
-        />
-      </div>
-      <div className={styles.highlightedProjectWrapper}>
-        <HighlightedProject 
-          variant="project2" 
-          button={
-            <Link href="/designtocode" onClick={() => trackPortfolioClick('DesignToCode', 'button')}>
-              <HPButton label="Go To Project" />
-            </Link>
-          }
-          text={`After learning about vibe coding and testing the limits of Cursor AI, I was able to explore implementing my projects. As a designer I wanted my portfolio to be a demonstration of my skills. Prior to this website I was using Adobe Portfolio. It was fast and already included in my creative cloud package. Instead, I wanted to bring one of my Figma creations to life.`}
-        />
+            />
+          </div>
+          <div className={styles.highlightedProjectWrapper}>
+            <HighlightedProject 
+              variant="project2" 
+              button={
+                <Link href="/designtocode" onClick={() => trackPortfolioClick('DesignToCode', 'button')}>
+                  <HPButton label="Go To Project" />
+                </Link>
+              }
+              text={`After learning about vibe coding and testing the limits of Cursor AI, I was able to explore implementing my projects. As a designer I wanted my portfolio to be a demonstration of my skills. Prior to this website I was using Adobe Portfolio. It was fast and already included in my creative cloud package. Instead, I wanted to bring one of my Figma creations to life.`}
+            />
+          </div>
+        </div>
       </div>
 
       {/* UI Section */}

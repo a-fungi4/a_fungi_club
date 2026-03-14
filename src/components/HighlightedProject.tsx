@@ -4,10 +4,11 @@ import styles from "./HighlightedProject.module.css";
 import HPThumbnail from "./HPThumbnail";
 import HeirloomThumbnail from "./icons/HeirloomThumbnail";
 import DesignToCodeThumbnail from "./icons/DesignToCodeThumbnail";
+import ShezziThumbnail from "./icons/ShezziThumbnail";
 import HPTextbox from "./HPTextbox";
 
 interface HighlightedProjectProps {
-  variant: "project1" | "project2" | "mobile";
+  variant: "project1" | "project2" | "projectShezzi" | "mobile";
   className?: string;
   thumbnailBackgroundColor?: string;
   button?: React.ReactNode;
@@ -39,6 +40,23 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
           </div>
           <div data-layer="Project Description" className={styles.projectDescriptionSection}>
             <HPTextbox text={text || "Project DescriptionProject Description"} />
+            <div className={styles.buttonWrapper}>
+              {button}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (effectiveVariant === "projectShezzi") {
+    return (
+      <div className={styles.desktopAspectRatioBox}>
+        <div data-layer="HighlightedProjectShezzi" className={`${styles.highlightedProjectContainer} ${className}`}>
+          <div data-layer="Project Thumbnail" className={styles.projectThumbnailSection} style={{ background: thumbnailBackgroundColor }}>
+            <HPThumbnail svg={<ShezziThumbnail />} backgroundColor={thumbnailBackgroundColor} />
+          </div>
+          <div data-layer="Project Description" className={styles.projectDescriptionSection}>
+            <HPTextbox text={text || "Shezzi Project Description"} />
             <div className={styles.buttonWrapper}>
               {button}
             </div>
@@ -83,9 +101,11 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
             svg={
               variant === "project2"
                 ? <DesignToCodeThumbnail backgroundColor="#000" />
+                : variant === "projectShezzi"
+                ? <ShezziThumbnail />
                 : <HeirloomThumbnail />
             }
-            backgroundColor={variant === "project2" ? "#000" : thumbnailBackgroundColor}
+            backgroundColor={variant === "project2" ? "#000" : variant === "projectShezzi" ? "#ffd700" : thumbnailBackgroundColor}
           />
         </div>
         <div data-layer="Project Description" className={styles.projectDescriptionSection} style={{borderTopLeftRadius: 0, borderTopRightRadius: 0, borderBottomLeftRadius: 100, borderBottomRightRadius: 100}}>

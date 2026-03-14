@@ -1,0 +1,62 @@
+import React from "react";
+import Banner from "@/components/Banner";
+import styles from "./page.module.css";
+
+export default function AutomationWorkshopPage() {
+  return (
+    <>
+      <Banner
+        title="Automation Workshop"
+        variant="general"
+        className="fullBleed"
+      >
+        <div className={styles.bannerProjectEmbed}>
+          <div className={styles.bannerTextBox}>
+            <p>Automation tools and solutions for print shops and production facilities. Streamlining manual tasks and increasing efficiency through custom development.</p>
+          </div>
+        </div>
+      </Banner>
+      <div className={styles.content}>
+        <div className={styles.projectOverview}>
+          <h2>Project Overview</h2>
+          <p>
+            I'm working in print again and I need to keep my brain on coding. While I'm working I take note of system inefficiencies and potential development solutions. I go home and I work on them as a way to keep myself stimulated. It was something I was doing on my own time so I made the tools publicly available through AWS's free tier. This project will consist of multiple tools that automate and increase efficiency of various manual tasks carried out in print shops as well as other production facilities.
+          </p>
+        </div>
+        
+        <div className={styles.projectDetails}>
+          <h2>Project Details</h2>
+          <div className={styles.detailsGrid}>
+            <div className={styles.detailItem}>
+              <h3>Platform</h3>
+              <p>AWS Free Tier</p>
+            </div>
+            <div className={styles.detailItem}>
+              <h3>Focus</h3>
+              <p>Print Shop Automation</p>
+            </div>
+            <div className={styles.detailItem}>
+              <h3>Status</h3>
+              <p>In Development</p>
+            </div>
+            <div className={styles.detailItem}>
+              <h3>Tools</h3>
+              <p>Multiple Automation Solutions</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className={styles.features}>
+          <h2>Key Features</h2>
+          <ul>
+            <li>Task automation for manual processes</li>
+            <li>Efficiency optimization tools</li>
+            <li>Production facility integration</li>
+            <li>Custom development solutions</li>
+            <li>Public availability through AWS</li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+} 

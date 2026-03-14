@@ -31,17 +31,22 @@ if [ -z "$SQUARE_POLL_KEY" ]; then
 fi
 
 if [ -z "$NEXT_PUBLIC_BASE_URL" ]; then
-    log_message "WARNING: NEXT_PUBLIC_BASE_URL not set, using localhost"
+    log_message "WARNING: NEXT_PUBLIC_BASE_URL not set, using http://localhost:3000"
     export NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 fi
 
+# Ensure URL has protocol
+if [[ ! "$NEXT_PUBLIC_BASE_URL" =~ ^http ]]; then
+    NEXT_PUBLIC_BASE_URL="http://$NEXT_PUBLIC_BASE_URL"
+fi
+
 # Start processing
-log_message "Starting Square order processing..."
+log_message "Starting Square order processing at $NEXT_PUBLIC_BASE_URL..."
 
 # Call the poll-square API endpoint
-RESPONSE=$(curl -s -w "\n%{http_code}" \
+RESPONSE=$(curl -s -v -w "\n%{http_code}" \
     -H "Content-Type: application/json" \
-    "$NEXT_PUBLIC_BASE_URL/api/poll-square?token=$SQUARE_POLL_KEY")
+    "$NEXT_PUBLIC_BASE_URL/api/poll-square?token=$SQUARE_POLL_KEY" 2>&1)
 
 # Extract HTTP status code and response body
 HTTP_CODE=$(echo "$RESPONSE" | tail -n1)

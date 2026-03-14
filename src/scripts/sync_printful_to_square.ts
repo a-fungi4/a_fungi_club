@@ -61,7 +61,8 @@ async function fetchPrintfulVariants(productId: number) {
 }
 
 async function fetchSquareProducts() {
-  const res = await fetch('http://localhost:3000/api/square-products');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/square-products`);
   const data = await res.json() as SquareResponse;
   if (!res.ok) throw new Error('Square API error: ' + JSON.stringify(data));
   return data.products;

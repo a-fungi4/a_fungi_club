@@ -1,5 +1,7 @@
-.portfolioPage {
-  /* Add Portfolio page styles here */
+.contentWrapper {
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .bannerProjectEmbed {
@@ -17,10 +19,28 @@
   color: white;
 }
 
+.flexProjects {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.headlineRow {
+  width: 100%;
+  margin: 2vw 0;
+  display: flex;
+  justify-content: center;
+}
+
 .highlightedProjectWrapper {
   height: auto;
-  width: 80%;
-  margin: 4vw auto;
+  flex: 1;
+  min-width: 400px;
+  margin: 2vw 0;
   display: flex;
   align-items: center;
   justify-content: center;
