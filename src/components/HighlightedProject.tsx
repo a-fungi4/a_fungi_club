@@ -105,7 +105,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
                 ? <ShezziThumbnail />
                 : <HeirloomThumbnail />
             }
-            backgroundColor={variant === "project2" ? "#000" : variant === "projectShezzi" ? "#ffd700" : thumbnailBackgroundColor}
+            backgroundColor={variant === "project2" ? "#000" : thumbnailBackgroundColor}
           />
         </div>
         <div data-layer="Project Description" className={styles.projectDescriptionSection} style={{borderTopLeftRadius: 0, borderTopRightRadius: 0, borderBottomLeftRadius: 100, borderBottomRightRadius: 100}}>
