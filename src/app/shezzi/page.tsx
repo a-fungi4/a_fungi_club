@@ -96,6 +96,29 @@ export default async function ShezziPage() {
           />
         </div>
       </div>
+
+      <section className={styles.goalSection}>
+        <div className={styles.goalContainer}>
+          <h2 className={styles.goalTitle}>The Goal</h2>
+          
+          <div className={styles.goalContent}>
+            <p>
+              Shezzi was built with a specific end in mind: an IDE that runs entirely without cloud computing.
+            </p>
+            <p>
+              Most AI-assisted development tools are cloud-dependent by design. They send your code, your context, your intellectual property to a remote server to think. The IDE Shezzi is being built to power doesn&apos;t do that. Every suggestion, every code generation, every agent action happens locally — on hardware you own, in an environment you control. The IDE itself combines block-based visual coding, vector-to-code translation, and an interactive context management system that lets users observe and adjust AI agent processes in real time. It is not a wrapper around someone else&apos;s cloud API. It is a locally-sovereign development environment — the first of its kind designed around the assumption that your tools should belong to you.
+            </p>
+            
+            <p>
+              <strong>DomIno</strong> is the database layer that makes this possible. Standard vector databases carry too much computational overhead to run responsively on consumer hardware. DomIno was designed from scratch to replace that layer — reducing computing requirements by 80–400x compared to standard approaches, with no loss in routing intelligence. It exists because Shezzi needed it to exist.
+            </p>
+            
+            <p className={styles.goalSummary}>
+              Shezzi is the intelligence. DomIno is the infrastructure. The IDE is the reason both exist.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
