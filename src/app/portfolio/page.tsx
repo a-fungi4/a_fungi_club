@@ -5,17 +5,15 @@ import PortfolioInteractive from "./PortfolioInteractive";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description:
-    'Selected work by Khaled Momani — UI/UX design, branding, marketing, and front-end development projects including Shezzi, Heirloom, and Design to Code.',
+  title: "Portfolio | Khaled Momani — AI Systems Engineer & Designer",
+  description: "AI systems research, UI design, branding, and marketing work by Khaled Momani. Includes Shezzi, a locally-sovereign AI system built on consumer hardware.",
   alternates: {
-    canonical: 'https://a-fungi.club/portfolio',
+    canonical: 'https://www.b8momani.com/portfolio',
   },
   openGraph: {
-    title: 'Portfolio | A Fungi Club',
-    description:
-      'Selected work in UI/UX design, branding, marketing, and front-end development.',
-    url: 'https://a-fungi.club/portfolio',
+    title: "Portfolio | Khaled Momani — AI Systems Engineer & Designer",
+    description: "AI systems research, UI design, branding, and marketing work by Khaled Momani. Includes Shezzi, a locally-sovereign AI system built on consumer hardware.",
+    url: 'https://www.b8momani.com/portfolio',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club Portfolio' }],
   },
 };
@@ -30,11 +28,12 @@ export default function PortfolioPage() {
       >
         <div className={styles.bannerProjectEmbed}>
           <div className={styles.bannerTextBox}>
-            <p>The tools I know how to use don&apos;t matter! What matters is that I listen to the clients&apos; needs. I empathize with their frustrations. And I find the right solution. The skills will come. Needless to say, I can do a lot of stuff.</p>
+            <p>AI systems, interfaces, and brands. Independent research in AI architecture, locally-sovereign systems, and agent tooling — alongside client work in UI, branding, and marketing.</p>
           </div>
         </div>
       </Banner>
       <PortfolioInteractive />
     </>
   );
-} 
+}
+ 

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { CartProvider } from "@/components/CartContext";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://a-fungi.club'),
+  metadataBase: new URL('https://www.b8momani.com'),
   title: {
     default: 'Khaled Momani — Design, Development & Creative Direction',
     template: '%s | A Fungi Club',
@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     'brand identity',
     'A Fungi Club',
   ],
-  authors: [{ name: 'Khaled Momani', url: 'https://a-fungi.club' }],
+  authors: [{ name: 'Khaled Momani', url: 'https://www.b8momani.com' }],
   creator: 'Khaled Momani',
   publisher: 'A Fungi Club',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://a-fungi.club',
+    url: 'https://www.b8momani.com',
     siteName: 'A Fungi Club',
     title: 'Khaled Momani — Design, Development & Creative Direction',
     description:
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://a-fungi.club',
+    canonical: 'https://www.b8momani.com',
   },
 };
 
@@ -118,12 +118,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Khaled Momani',
-              url: 'https://a-fungi.club',
+              url: 'https://www.b8momani.com',
               jobTitle: 'UI/UX Designer & Front-End Developer',
               worksFor: {
                 '@type': 'Organization',
                 name: 'A Fungi Club',
-                url: 'https://a-fungi.club',
+                url: 'https://www.b8momani.com',
               },
             }),
           }}

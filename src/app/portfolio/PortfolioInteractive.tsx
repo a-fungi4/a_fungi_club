@@ -76,6 +76,26 @@ I was tasked with creating the visual identity of the app. The initial design I 
         </div>
       </div>
 
+      {/* Research Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Research</h2>
+        <div className={styles.projectGrid}>
+          <div className={styles.projectCard}>
+            <Link href="/shezzi" onClick={() => trackPortfolioClick('ShezziResearch', 'photo')}>
+              <div className={styles.iframeWrapper}>
+                <Image 
+                  src="/ProjectThumbnails/shezzi-thumb.webp" 
+                  alt="Shezzi — Locally-sovereign AI system built on consumer hardware. Multi-model architecture, custom database layer, and agent IDE. In progress." 
+                  className={styles.projectImage} 
+                  width={400} 
+                  height={300} 
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* UI Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>UI</h2>

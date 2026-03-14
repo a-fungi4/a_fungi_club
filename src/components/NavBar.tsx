@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { label: "Portfolio", icon: <PortfolioIcon />, key: "portfolio", href: "/portfolio" },
   { label: "About", icon: <AboutIcon />, key: "about", href: "/about" },
   { label: "Art", icon: <ArtIcon />, key: "art", href: "/art" },
-  { label: "TG", icon: <TGIcon />, key: "tg", href: "/tg" },
+  { label: "Shop", icon: <TGIcon />, key: "tg", href: "/tg" },
   { label: "Misc", icon: <MiscIcon />, key: "misc", href: "/misc" },
 ];
 

@@ -1,7 +1,7 @@
 # SEO Improvement Plan — a-fungi.club
 
 **Last Updated:** March 13, 2026
-**Domain:** https://a-fungi.club
+**Domain:** https://www.b8momani.com
 **Framework:** Next.js 16, App Router, TypeScript
 **Root source directory:** `src/app/`
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 Replace it entirely with:
 ```tsx
 export const metadata: Metadata = {
-  metadataBase: new URL('https://a-fungi.club'),
+  metadataBase: new URL('https://www.b8momani.com'),
   title: {
     default: 'Khaled Momani — Design, Development & Creative Direction',
     template: '%s | A Fungi Club',
@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     'brand identity',
     'A Fungi Club',
   ],
-  authors: [{ name: 'Khaled Momani', url: 'https://a-fungi.club' }],
+  authors: [{ name: 'Khaled Momani', url: 'https://www.b8momani.com' }],
   creator: 'Khaled Momani',
   publisher: 'A Fungi Club',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://a-fungi.club',
+    url: 'https://www.b8momani.com',
     siteName: 'A Fungi Club',
     title: 'Khaled Momani — Design, Development & Creative Direction',
     description:
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://a-fungi.club',
+    canonical: 'https://www.b8momani.com',
   },
 };
 ```
@@ -112,12 +112,12 @@ Replace it with:
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Khaled Momani',
-              url: 'https://a-fungi.club',
+              url: 'https://www.b8momani.com',
               jobTitle: 'UI/UX Designer & Front-End Developer',
               worksFor: {
                 '@type': 'Organization',
                 name: 'A Fungi Club',
-                url: 'https://a-fungi.club',
+                url: 'https://www.b8momani.com',
               },
             }),
           }}
@@ -141,7 +141,7 @@ Disallow: /api/
 Disallow: /component-gallery/
 Disallow: /tg/
 
-Sitemap: https://a-fungi.club/sitemap.xml
+Sitemap: https://www.b8momani.com/sitemap.xml
 ```
 
 ---
@@ -155,7 +155,7 @@ This file does not exist yet. Create it with exactly this content:
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://a-fungi.club';
+  const base = 'https://www.b8momani.com';
 
   return [
     {
@@ -240,13 +240,13 @@ export const metadata: Metadata = {
   description:
     'Welcome to A Fungi Club — the portfolio and creative practice of Khaled Momani, UI/UX designer and front-end developer.',
   alternates: {
-    canonical: 'https://a-fungi.club',
+    canonical: 'https://www.b8momani.com',
   },
   openGraph: {
     title: 'Home | A Fungi Club',
     description:
       'Portfolio and creative practice of Khaled Momani — design, development, and creative direction.',
-    url: 'https://a-fungi.club',
+    url: 'https://www.b8momani.com',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club — Khaled Momani Portfolio' }],
   },
 };
@@ -270,13 +270,13 @@ export const metadata: Metadata = {
   description:
     'Selected work by Khaled Momani — UI/UX design, branding, marketing, and front-end development projects including Shezzi, Heirloom, and Design to Code.',
   alternates: {
-    canonical: 'https://a-fungi.club/portfolio',
+    canonical: 'https://www.b8momani.com/portfolio',
   },
   openGraph: {
     title: 'Portfolio | A Fungi Club',
     description:
       'Selected work in UI/UX design, branding, marketing, and front-end development.',
-    url: 'https://a-fungi.club/portfolio',
+    url: 'https://www.b8momani.com/portfolio',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club Portfolio' }],
   },
 };
@@ -309,13 +309,13 @@ export const metadata: Metadata = {
   description:
     'Learn about Khaled Momani — designer and developer behind A Fungi Club. Process methodologies: Plasticity, InsideOut, and Automation.',
   alternates: {
-    canonical: 'https://a-fungi.club/about',
+    canonical: 'https://www.b8momani.com/about',
   },
   openGraph: {
     title: 'About | A Fungi Club',
     description:
       'Designer, developer, and creative director Khaled Momani — process and background.',
-    url: 'https://a-fungi.club/about',
+    url: 'https://www.b8momani.com/about',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'About Khaled Momani — A Fungi Club' }],
   },
 };
@@ -331,13 +331,13 @@ export const metadata: Metadata = {
   description:
     'Learn about Khaled Momani — designer and developer behind A Fungi Club. Process methodologies: Plasticity, InsideOut, and Automation.',
   alternates: {
-    canonical: 'https://a-fungi.club/about',
+    canonical: 'https://www.b8momani.com/about',
   },
   openGraph: {
     title: 'About | A Fungi Club',
     description:
       'Designer, developer, and creative director Khaled Momani — process and background.',
-    url: 'https://a-fungi.club/about',
+    url: 'https://www.b8momani.com/about',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'About Khaled Momani — A Fungi Club' }],
   },
 };
@@ -367,12 +367,12 @@ export const metadata: Metadata = {
   description:
     'Art and creative experiments by Khaled Momani — digital art, music, merchandise, and gallery works available on OpenSea and beyond.',
   alternates: {
-    canonical: 'https://a-fungi.club/art',
+    canonical: 'https://www.b8momani.com/art',
   },
   openGraph: {
     title: 'Art | A Fungi Club',
     description: 'Digital art, music, and creative experiments by Khaled Momani.',
-    url: 'https://a-fungi.club/art',
+    url: 'https://www.b8momani.com/art',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Art by Khaled Momani — A Fungi Club' }],
   },
 };
@@ -395,12 +395,12 @@ export const metadata: Metadata = {
   description:
     'Heirloom is a mental health journaling app — UI/UX case study by Khaled Momani. Designed in Figma with AI integrations and a focus on emotional well-being.',
   alternates: {
-    canonical: 'https://a-fungi.club/heirloom',
+    canonical: 'https://www.b8momani.com/heirloom',
   },
   openGraph: {
     title: 'Heirloom — Mental Health App | A Fungi Club',
     description: 'Mental health journaling app — UI/UX design case study.',
-    url: 'https://a-fungi.club/heirloom',
+    url: 'https://www.b8momani.com/heirloom',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Heirloom App — A Fungi Club' }],
   },
 };
@@ -417,7 +417,7 @@ Also add this JSON-LD block inside the page JSX, as the first child inside the o
       name: 'Heirloom',
       description: 'Mental health journaling app — UI/UX case study.',
       creator: { '@type': 'Person', name: 'Khaled Momani' },
-      url: 'https://a-fungi.club/heirloom',
+      url: 'https://www.b8momani.com/heirloom',
       keywords: 'UI/UX, Figma, mental health, mobile app, design, AI',
     }),
   }}
@@ -439,12 +439,12 @@ export const metadata: Metadata = {
   description:
     'A case study on translating Figma designs to production-ready front-end code — design systems, component architecture, and developer handoff by Khaled Momani.',
   alternates: {
-    canonical: 'https://a-fungi.club/designtocode',
+    canonical: 'https://www.b8momani.com/designtocode',
   },
   openGraph: {
     title: 'Design to Code | A Fungi Club',
     description: 'From Figma to production: a front-end development case study.',
-    url: 'https://a-fungi.club/designtocode',
+    url: 'https://www.b8momani.com/designtocode',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Design to Code — A Fungi Club' }],
   },
 };
@@ -461,7 +461,7 @@ Also add this JSON-LD block inside the page JSX, as the first child inside the o
       name: 'Design to Code',
       description: 'Figma to production front-end development case study.',
       creator: { '@type': 'Person', name: 'Khaled Momani' },
-      url: 'https://a-fungi.club/designtocode',
+      url: 'https://www.b8momani.com/designtocode',
       keywords: 'Figma, Next.js, front-end development, design systems, React',
     }),
   }}
@@ -483,12 +483,12 @@ export const metadata: Metadata = {
   description:
     'Print shop automation tools and workflow design by Khaled Momani — process automation for creative production.',
   alternates: {
-    canonical: 'https://a-fungi.club/automationworkshop',
+    canonical: 'https://www.b8momani.com/automationworkshop',
   },
   openGraph: {
     title: 'Automation Workshop | A Fungi Club',
     description: 'Print shop automation tools and workflow design.',
-    url: 'https://a-fungi.club/automationworkshop',
+    url: 'https://www.b8momani.com/automationworkshop',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Automation Workshop — A Fungi Club' }],
   },
 };
@@ -509,12 +509,12 @@ export const metadata: Metadata = {
   description:
     'Sideline projects by Khaled Momani — print services, marketing portfolio, and contact.',
   alternates: {
-    canonical: 'https://a-fungi.club/misc',
+    canonical: 'https://www.b8momani.com/misc',
   },
   openGraph: {
     title: 'Misc | A Fungi Club',
     description: 'Print services, marketing portfolio, and contact.',
-    url: 'https://a-fungi.club/misc',
+    url: 'https://www.b8momani.com/misc',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Misc — A Fungi Club' }],
   },
 };
@@ -725,16 +725,16 @@ After completing all tasks above, verify each item:
 
 ### Automated checks (run in browser or CLI)
 
-- [ ] Visit `https://a-fungi.club/sitemap.xml` — should return an XML list of all public URLs
-- [ ] Visit `https://a-fungi.club/robots.txt` — should show the robots rules with the sitemap URL
+- [ ] Visit `https://www.b8momani.com/sitemap.xml` — should return an XML list of all public URLs
+- [ ] Visit `https://www.b8momani.com/robots.txt` — should show the robots rules with the sitemap URL
 - [ ] Run Lighthouse (Chrome DevTools → Lighthouse tab) on `/`, `/portfolio`, `/shezzi` — SEO score should be 90+
 - [ ] Run `npx next build` locally — confirm no TypeScript or build errors from metadata changes
 
 ### Manual checks
 
-- [ ] Paste `https://a-fungi.club` into https://developers.facebook.com/tools/debug/ — verify OG image and title appear
-- [ ] Paste `https://a-fungi.club` into https://search.google.com/test/rich-results — verify Person schema is detected
-- [ ] Paste `https://a-fungi.club/shezzi` into https://search.google.com/test/rich-results — verify CreativeWork schema
+- [ ] Paste `https://www.b8momani.com` into https://developers.facebook.com/tools/debug/ — verify OG image and title appear
+- [ ] Paste `https://www.b8momani.com` into https://search.google.com/test/rich-results — verify Person schema is detected
+- [ ] Paste `https://www.b8momani.com/shezzi` into https://search.google.com/test/rich-results — verify CreativeWork schema
 - [ ] Open page source of any page and confirm `<title>` contains the page title + "| A Fungi Club"
 - [ ] Open page source of any page and confirm `<meta name="description">` is present and not the old placeholder
 
@@ -742,7 +742,7 @@ After completing all tasks above, verify each item:
 
 - [ ] Log in to https://search.google.com/search-console
 - [ ] Add property for `a-fungi.club` if not already added
-- [ ] Submit `https://a-fungi.club/sitemap.xml` under Sitemaps
+- [ ] Submit `https://www.b8momani.com/sitemap.xml` under Sitemaps
 - [ ] Request indexing for the homepage via URL Inspection
 
 ---

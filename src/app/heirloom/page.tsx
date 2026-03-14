@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   description:
     'Heirloom — A mental health companion project by Khaled Momani. UI/UX design, prototyping, and companion character development.',
   alternates: {
-    canonical: 'https://a-fungi.club/heirloom',
+    canonical: 'https://www.b8momani.com/heirloom',
   },
   openGraph: {
     title: 'Heirloom | A Fungi Club',
     description:
       'A mental health companion project featuring UI/UX design and character development.',
-    url: 'https://a-fungi.club/heirloom',
+    url: 'https://www.b8momani.com/heirloom',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Heirloom Project — A Fungi Club' }],
   },
 };

@@ -16,16 +16,16 @@ import FNextVercel from '@/components/icons/FNextVercel';
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'Khaled Momani — AI Systems Engineer & Designer',
   description:
-    'I build things that don\'t exist yet. AI Systems Engineer, designer and developer building a locally-sovereign AI system on consumer hardware.',
+    'Khaled Momani — AI Systems Engineer and Designer based in San Antonio, TX. Building Shezzi, a locally-sovereign multi-model AI system on consumer hardware. Available for hire.',
   alternates: {
     canonical: 'https://www.b8momani.com',
   },
   openGraph: {
-    title: 'Home | A Fungi Club',
+    title: 'Khaled Momani — AI Systems Engineer & Designer',
     description:
-      'I build things that don\'t exist yet. AI Systems Engineer, designer and developer building a locally-sovereign AI system on consumer hardware.',
+      'Khaled Momani — AI Systems Engineer and Designer based in San Antonio, TX. Building Shezzi, a locally-sovereign multi-model AI system on consumer hardware. Available for hire.',
     url: 'https://www.b8momani.com',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club — Khaled Momani Portfolio' }],
   },

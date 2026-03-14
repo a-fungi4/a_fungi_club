@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   description:
     'Automation tools and solutions for print shops by Khaled Momani. Streamlining manual tasks and increasing efficiency through custom development.',
   alternates: {
-    canonical: 'https://a-fungi.club/automationworkshop',
+    canonical: 'https://www.b8momani.com/automationworkshop',
   },
   openGraph: {
     title: 'Automation Workshop | A Fungi Club',
     description:
       'Custom automation solutions for print shops and production facilities.',
-    url: 'https://a-fungi.club/automationworkshop',
+    url: 'https://www.b8momani.com/automationworkshop',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Automation Workshop — A Fungi Club' }],
   },
 };

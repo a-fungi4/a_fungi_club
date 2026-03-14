@@ -17,13 +17,13 @@ export const metadata: Metadata = {
   description:
     'Old work, side projects, and compliance documents by Khaled Momani. Side hustles, marketing projects, and contact information.',
   alternates: {
-    canonical: 'https://a-fungi.club/misc',
+    canonical: 'https://www.b8momani.com/misc',
   },
   openGraph: {
     title: 'Misc | A Fungi Club',
     description:
       'Side projects, old work, and contact information.',
-    url: 'https://a-fungi.club/misc',
+    url: 'https://www.b8momani.com/misc',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Misc — A Fungi Club' }],
   },
 };
