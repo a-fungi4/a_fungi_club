@@ -4,6 +4,7 @@ import styles from "./Dropdown1.module.css";
 
 interface Dropdown1Props {
   title?: string;
+  leftIcon?: ReactNode;
   content?: ReactNode;
   chevronIcon?: ReactNode;
   placeholder?: ReactNode;
@@ -19,6 +20,7 @@ const DefaultChevron = (
 
 const Dropdown1: React.FC<Dropdown1Props> = ({
   title = "Default",
+  leftIcon,
   content = "Content",
   chevronIcon,
   placeholder,
@@ -40,6 +42,7 @@ const Dropdown1: React.FC<Dropdown1Props> = ({
       <div className={styles.dropdown}>
         {placeholder ? placeholder : <div className={styles.Placeholder} />}
         <div className={styles.Title}>
+          {leftIcon && <div className={styles.LeftIcon}>{leftIcon}</div>}
           <div className={styles.Default}>{title}</div>
         </div>
         <div data-svg-wrapper data-layer="Button" className={styles.Button} onClick={() => setExpanded(true)}>

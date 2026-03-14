@@ -3,6 +3,7 @@ import React from "react";
 import Banner from "@/components/Banner";
 import HPTextbox from "@/components/HPTextbox";
 import ShezziProjectPageLogo from "@/components/icons/ShezziProjectPageLogo";
+import ShezziBrandmarkIcon from "@/components/icons/ShezziBrandmarkIcon";
 import Dropdown1 from "@/components/Dropdown1";
 import styles from "./page.module.css";
 
@@ -78,6 +79,7 @@ export default async function ShezziPage() {
         <div className={styles.dropdownContainer}>
           <Dropdown1 
             title="Capability Profile"
+            leftIcon={<ShezziBrandmarkIcon width={80} height={80} />}
             content={
               <div className={styles.readmeContainer}>
                 {readmeHtml ? (
