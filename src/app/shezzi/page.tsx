@@ -3,6 +3,7 @@ import React from "react";
 import Banner from "@/components/Banner";
 import HPTextbox from "@/components/HPTextbox";
 import ShezziProjectPageLogo from "@/components/icons/ShezziProjectPageLogo";
+import ShezziDropdownWrapper from "./ShezziDropdownWrapper";
 import styles from "./page.module.css";
 
 const SHEZZI_BLURB = `Shezzi
@@ -74,17 +75,23 @@ export default async function ShezziPage() {
           <ShezziProjectPageLogo />
         </div>
         
-        <div className={styles.readmeContainer}>
-          {readmeHtml ? (
-            <div 
-              className="markdown-body" 
-              dangerouslySetInnerHTML={{ __html: readmeHtml }} 
-            />
-          ) : (
-            <div className={styles.error}>
-              Failed to load project technical details. Please check back later.
-            </div>
-          )}
+        <div className={styles.dropdownContainer}>
+          <ShezziDropdownWrapper 
+            content={
+              <div className={styles.readmeContainer}>
+                {readmeHtml ? (
+                  <div 
+                    className="markdown-body" 
+                    dangerouslySetInnerHTML={{ __html: readmeHtml }} 
+                  />
+                ) : (
+                  <div className={styles.error}>
+                    Failed to load project technical details. Please check back later.
+                  </div>
+                )}
+              </div>
+            }
+          />
         </div>
       </div>
     </div>

@@ -26,12 +26,16 @@
   align-items: center;
 }
 
+.dropdownContainer {
+  width: 100%;
+}
+
 .readmeContainer {
   width: 100%;
   background: #151029;
   border-radius: 40px;
   padding: 3rem;
-  box-shadow: 0 0 32px 0 #71ccd4;
+  box-shadow: none; /* Shadow handled by parent or omitted for embedded look */
   color: white;
   font-family: 'Hack', monospace;
   overflow-x: hidden;
