@@ -19,9 +19,9 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  mainText = <p className={styles.mainText}>DESIGN - DEVELOPMENT - MARKETING</p>,
-  middleText = <p className={styles.middleText}>Khaled Momani</p>,
-  secondaryText = <p className={styles.secondaryText}>Designer based in San Antonio TX, driven by curiosity, creating thoughtful, adaptable, and innovative design solutions.</p>,
+  mainText = <p className={styles.mainText}>I build things that don&apos;t exist yet.</p>,
+  middleText = <p className={styles.middleText}>AI systems engineer – Designer – Developer</p>,
+  secondaryText = <p className={styles.secondaryText}>Building a locally-sovereign AI system <br /> on consumer hardware.</p>,
   className,
   style,
 }) => (
