@@ -79,7 +79,7 @@ export default async function ShezziPage() {
         <div className={styles.dropdownContainer}>
           <Dropdown1 
             title="Capability Profile"
-            leftIcon={<ShezziBrandmarkIcon width={80} height={80} />}
+            placeholder={<ShezziBrandmarkIcon width="100%" height="100%" />}
             content={
               <div className={styles.readmeContainer}>
                 {readmeHtml ? (

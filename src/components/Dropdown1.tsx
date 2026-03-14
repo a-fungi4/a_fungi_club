@@ -40,7 +40,9 @@ const Dropdown1: React.FC<Dropdown1Props> = ({
   if (!expanded) {
     return (
       <div className={styles.dropdown}>
-        {placeholder ? placeholder : <div className={styles.Placeholder} />}
+        <div className={styles.Placeholder}>
+          {placeholder}
+        </div>
         <div className={styles.Title}>
           {leftIcon && <div className={styles.LeftIcon}>{leftIcon}</div>}
           <div className={styles.Default}>{title}</div>

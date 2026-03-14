@@ -110,6 +110,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.Placeholder:not(:empty) {
+  background: transparent;
+  border-radius: 0;
 }
 
 .Default {
