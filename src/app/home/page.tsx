@@ -18,7 +18,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: 'Home',
   description:
-    'I build things that don\'t exist yet. AI systems engineer designer and developer building a locally-sovereign AI system on consumer hardware.',
+    'I build things that don\'t exist yet. AI Systems Engineer, designer and developer building a locally-sovereign AI system on consumer hardware.',
   alternates: {
     canonical: 'https://www.b8momani.com',
   },
