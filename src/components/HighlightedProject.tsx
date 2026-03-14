@@ -4,7 +4,7 @@ import styles from "./HighlightedProject.module.css";
 import HPThumbnail from "./HPThumbnail";
 import HeirloomThumbnail from "./icons/HeirloomThumbnail";
 import DesignToCodeThumbnail from "./icons/DesignToCodeThumbnail";
-import ShezziBrandmarkIcon from "./icons/ShezziBrandmarkIcon";
+import ShezziLogoIcon from "./icons/ShezziLogoIcon";
 import HPTextbox from "./HPTextbox";
 
 interface HighlightedProjectProps {
@@ -53,7 +53,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
       <div className={styles.desktopAspectRatioBox}>
         <div data-layer="HighlightedProjectShezzi" className={`${styles.highlightedProjectContainer} ${className}`}>
           <div data-layer="Project Thumbnail" className={styles.projectThumbnailSection} style={{ background: thumbnailBackgroundColor }}>
-            <HPThumbnail svg={<ShezziBrandmarkIcon width="100%" height="100%" />} backgroundColor={thumbnailBackgroundColor} />
+            <HPThumbnail svg={<ShezziLogoIcon width="100%" height="100%" />} backgroundColor={thumbnailBackgroundColor} />
           </div>
           <div data-layer="Project Description" className={styles.projectDescriptionSection}>
             <HPTextbox text={text || "Shezzi Project Description"} />
@@ -102,7 +102,7 @@ const HighlightedProject: React.FC<HighlightedProjectProps> = ({ variant, classN
               variant === "project2"
                 ? <DesignToCodeThumbnail backgroundColor="#000" />
                 : variant === "projectShezzi"
-                ? <ShezziBrandmarkIcon width="100%" height="100%" />
+                ? <ShezziLogoIcon width="100%" height="100%" />
                 : <HeirloomThumbnail />
             }
             backgroundColor={variant === "project2" ? "#000" : thumbnailBackgroundColor}
