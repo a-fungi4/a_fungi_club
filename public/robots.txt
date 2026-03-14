@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /component-gallery/
+Disallow: /tg/
+
+Sitemap: https://a-fungi.club/sitemap.xml

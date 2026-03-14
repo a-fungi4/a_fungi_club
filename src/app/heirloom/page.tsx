@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Banner from "@/components/Banner";
 import HPTextbox from "@/components/HPTextbox";
 import SkillPillCont from "@/components/SkillPillCont";
@@ -6,6 +7,22 @@ import Prototype from "@/components/Prototype";
 import CompanionViewer from "@/components/CompanionViewer";
 import Carousel from "@/components/Carousel";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: 'Heirloom',
+  description:
+    'Heirloom — A mental health companion project by Khaled Momani. UI/UX design, prototyping, and companion character development.',
+  alternates: {
+    canonical: 'https://a-fungi.club/heirloom',
+  },
+  openGraph: {
+    title: 'Heirloom | A Fungi Club',
+    description:
+      'A mental health companion project featuring UI/UX design and character development.',
+    url: 'https://a-fungi.club/heirloom',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Heirloom Project — A Fungi Club' }],
+  },
+};
 
 const HEIRLOOM_CAROUSEL_PHOTOS = [
   "/heirloom-carousel-photos/1.png",

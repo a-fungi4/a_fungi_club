@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import Banner from "@/components/Banner";
 import MyceliumAnimation from "@/components/MyceliumAnimation";
@@ -14,6 +15,22 @@ import FCursor from '@/components/icons/FCursor';
 import FNextVercel from '@/components/icons/FNextVercel';
 import Image from "next/image";
 
+export const metadata: Metadata = {
+  title: 'Home',
+  description:
+    'Welcome to A Fungi Club — the portfolio and creative practice of Khaled Momani, UI/UX designer and front-end developer.',
+  alternates: {
+    canonical: 'https://a-fungi.club',
+  },
+  openGraph: {
+    title: 'Home | A Fungi Club',
+    description:
+      'Portfolio and creative practice of Khaled Momani — design, development, and creative direction.',
+    url: 'https://a-fungi.club',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'A Fungi Club — Khaled Momani Portfolio' }],
+  },
+};
+
 export default function HomePage() {
   return (
     <div style={{ minHeight: '200dvh', width: '100vw', position: 'relative' }}>
@@ -27,10 +44,10 @@ export default function HomePage() {
         <Banner title="I Made this UI" variant="home" className="parallaxBanner">
           <div className={styles.bannerProjectsRow}>
             <a href="https://www.behance.net/gallery/220356837/Project-Name" target="_blank" rel="noopener noreferrer" className={styles.bannerProjectCard}>
-              <Image src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.bannerProjectImage} width={400} height={300} />
+              <Image src="/ProjectThumbnails/2-UIWireFramingCram.webp" alt="UI Project 2 - Wireframing CRM" className={styles.bannerProjectImage} width={400} height={300} priority />
             </a>
             <a href="https://www.behance.net/gallery/222677953/Project-Name" target="_blank" rel="noopener noreferrer" className={styles.bannerProjectCard}>
-              <Image src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.bannerProjectImage} width={400} height={300} />
+              <Image src="/ProjectThumbnails/3-UIPrototypingAndAnimation.webp" alt="UI Project 3 - Prototyping and Animation" className={styles.bannerProjectImage} width={400} height={300} priority />
             </a>
           </div>
           <a href="/designtocode" className={styles.goToProjectButton}>

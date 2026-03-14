@@ -1,5 +1,18 @@
 import React from "react";
+import type { Metadata } from 'next';
 import NavItem from "@/components/NavItem";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 import ArtIcon from "@/components/icons/ArtIcon";
 import AboutIcon from "@/components/icons/AboutIcon";
 

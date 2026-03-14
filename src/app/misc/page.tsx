@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Banner from "@/components/Banner";
 import MiscDropdown from "@/components/MiscDropdown";
 import MiscPrint from "@/components/icons/MiscPrint";
@@ -10,6 +11,22 @@ import MarketingIcon1 from "@/components/icons/MarketingIcon1";
 import MarketingIcon2 from "@/components/icons/MarketingIcon2";
 import MarketingIcon3 from "@/components/icons/MarketingIcon3";
 import ContactForm from "@/components/ContactForm";
+
+export const metadata: Metadata = {
+  title: 'Misc',
+  description:
+    'Old work, side projects, and compliance documents by Khaled Momani. Side hustles, marketing projects, and contact information.',
+  alternates: {
+    canonical: 'https://a-fungi.club/misc',
+  },
+  openGraph: {
+    title: 'Misc | A Fungi Club',
+    description:
+      'Side projects, old work, and contact information.',
+    url: 'https://a-fungi.club/misc',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Misc — A Fungi Club' }],
+  },
+};
 
 export default function MiscPage() {
   return (

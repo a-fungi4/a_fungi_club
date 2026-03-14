@@ -1,6 +1,23 @@
 import React from "react";
+import type { Metadata } from "next";
 import Banner from "@/components/Banner";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: 'Automation Workshop',
+  description:
+    'Automation tools and solutions for print shops by Khaled Momani. Streamlining manual tasks and increasing efficiency through custom development.',
+  alternates: {
+    canonical: 'https://a-fungi.club/automationworkshop',
+  },
+  openGraph: {
+    title: 'Automation Workshop | A Fungi Club',
+    description:
+      'Custom automation solutions for print shops and production facilities.',
+    url: 'https://a-fungi.club/automationworkshop',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Automation Workshop — A Fungi Club' }],
+  },
+};
 
 export default function AutomationWorkshopPage() {
   return (
