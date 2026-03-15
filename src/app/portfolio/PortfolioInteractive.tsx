@@ -22,15 +22,15 @@ export default function PortfolioInteractive() {
         <h2 className={styles.researchLabel}>Research</h2>
         <div className={styles.headlineRow}>
           <div className={styles.highlightedProjectWrapper} style={{ width: '100%', flex: 'none' }}>
-            <HighlightedProject 
-              variant="projectShezzi" 
+            <HighlightedProject
+              variant="projectShezzi"
               thumbnailBackgroundColor="#71ccd4"
               button={
                 <Link href="/shezzi" onClick={() => trackPortfolioClick('Shezzi', 'button')}>
                   <HPButton label="Progress Report" />
                 </Link>
               }
-              text={`Shezzi
+              text={`
 Most AI systems are built to run on infrastructure you don't own. Shezzi was built on the assumption that intelligence shouldn't require it.
 
 Shezzi is a locally-run, multi-model AI system designed around a single constraint: do more with less. Rather than scaling up compute, it scales up efficiency — using a custom architecture that routes intelligence dynamically, fires compute only where it's needed, and coordinates between specialized models through a proprietary low-latency communication protocol.
@@ -45,8 +45,8 @@ Shezzi is ongoing. It's both a technical project and a philosophical one.`}
         </div>
         <div className={styles.flexProjects}>
           <div className={styles.highlightedProjectWrapper}>
-            <HighlightedProject 
-              variant="project1" 
+            <HighlightedProject
+              variant="project1"
               button={
                 <Link href="/heirloom" onClick={() => trackPortfolioClick('Heirloom', 'button')}>
                   <HPButton label="Go To Project" />
@@ -60,8 +60,8 @@ I was tasked with creating the visual identity of the app. The initial design I 
             />
           </div>
           <div className={styles.highlightedProjectWrapper}>
-            <HighlightedProject 
-              variant="project2" 
+            <HighlightedProject
+              variant="project2"
               button={
                 <Link href="/designtocode" onClick={() => trackPortfolioClick('DesignToCode', 'button')}>
                   <HPButton label="Go To Project" />

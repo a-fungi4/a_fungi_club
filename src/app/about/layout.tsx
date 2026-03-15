@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About | Khaled Momani — AI Systems Engineer & Designer',
   description:
-    'Learn about Khaled Momani — designer and developer behind A Fungi Club. Process methodologies: Plasticity, InsideOut, and Automation.',
+    'Learn about Khaled Momani — AI Systems Engineer & Designer behind A Fungi Club. Bridging the gap between intelligent systems and human-centric design through Plasticity, InsideOut, and Automation.',
   alternates: {
     canonical: 'https://www.b8momani.com/about',
   },
   openGraph: {
-    title: 'About | A Fungi Club',
+    title: 'About | Khaled Momani — AI Systems Engineer & Designer',
     description:
-      'Designer, developer, and creative director Khaled Momani — process and background.',
+      'AI Systems Engineer & Designer Khaled Momani — research, process, and creative background.',
     url: 'https://www.b8momani.com/about',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'About Khaled Momani — A Fungi Club' }],
   },

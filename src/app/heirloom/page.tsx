@@ -9,7 +9,7 @@ import Carousel from "@/components/Carousel";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: 'Heirloom',
+  title: 'Heirloom | Khaled Momani — AI Systems Engineer & Designer',
   description:
     'Heirloom — A mental health companion project by Khaled Momani. UI/UX design, prototyping, and companion character development.',
   alternates: {

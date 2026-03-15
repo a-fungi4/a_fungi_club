@@ -41,7 +41,7 @@ export const metadata = {
 
 **Find:** The paragraph block that currently reads:
 ```
-The tools I know how to use don't matter! What matters is that I listen to the clients' needs. I empathize with their frustrations. And I find the right solution. The skills will come. Needless to say, I can do a lot of stuff.
+You know that old Lady That swallows a fly, and it leads to swallowing a hrose and dying. I think I'm at my cow to catch the dog part. Really close to the horse that kills me. When I'm designing I listen to the clients' needs. I empathize with their frustrations. Sometimes their frustrations are their budget, and outsourcing is not an option. I didn't quit my job in retail and starve for three months, learnning to become a designer, so I could do projects I don't care about. But I've got bills to pay and sometimes that means putting udders on a food truck. It's not exactly the life changing stuff I wanted to do, but somebody needed it and I made it better. If the project itself doesn't appeal to me I usually find fullfillment in learning new skills to accomplish the task. If the task is  interesting enough, I'll learn to do it and not charge them because it's my first try. When people trust me, and throw me at a problem, they usually end up having to hire a cleaning service– to pick their jaws up off the floor.
 ```
 
 **Replace with:**

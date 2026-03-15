@@ -4,7 +4,7 @@ import Banner from "@/components/Banner";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: 'Automation Workshop',
+  title: 'Automation Workshop | Khaled Momani — AI Systems Engineer & Designer',
   description:
     'Automation tools and solutions for print shops by Khaled Momani. Streamlining manual tasks and increasing efficiency through custom development.',
   alternates: {

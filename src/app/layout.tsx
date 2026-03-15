@@ -8,11 +8,11 @@ import { CartProvider } from "@/components/CartContext";
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.b8momani.com'),
   title: {
-    default: 'Khaled Momani — Design, Development & Creative Direction',
+    default: 'Khaled Momani — AI Systems Engineer & Designer',
     template: '%s | A Fungi Club',
   },
   description:
-    'A Fungi Club is the creative practice of Khaled Momani — UI/UX designer, front-end developer, and creative director. Portfolio spanning product design, brand identity, automation, and digital art.',
+    'Portfolio of Khaled Momani — AI Systems Engineer & Designer. Building Shezzi, a locally-sovereign multi-model AI system, alongside UI/UX and creative research.',
   keywords: [
     'UI/UX designer',
     'front-end developer',
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://www.b8momani.com',
     siteName: 'A Fungi Club',
-    title: 'Khaled Momani — Design, Development & Creative Direction',
+    title: 'Khaled Momani — AI Systems Engineer & Designer',
     description:
-      'Portfolio of Khaled Momani: UI/UX design, front-end development, and creative direction.',
+      'Portfolio of Khaled Momani: AI systems engineering, UI/UX design, and creative research.',
     images: [
       {
         url: '/og-default.png',
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Khaled Momani — Design, Development & Creative Direction',
+    title: 'Khaled Momani — AI Systems Engineer & Designer',
     description:
-      'Portfolio of Khaled Momani: UI/UX design, front-end development, and creative direction.',
+      'Portfolio of Khaled Momani: AI systems engineering, UI/UX design, and creative research.',
     images: ['/og-default.png'],
   },
   robots: {
@@ -119,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'Person',
               name: 'Khaled Momani',
               url: 'https://www.b8momani.com',
-              jobTitle: 'UI/UX Designer & Front-End Developer',
+              jobTitle: 'AI Systems Engineer & Designer',
               worksFor: {
                 '@type': 'Organization',
                 name: 'A Fungi Club',

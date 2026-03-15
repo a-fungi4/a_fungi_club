@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'DesignToCode',
+  title: 'Design to Code | Khaled Momani — AI Systems Engineer & Designer',
   description:
     'Design to Code project by Khaled Momani. Exploring the transition from Figma to live code using Cursor AI and the Unpacking Figma process.',
   alternates: {

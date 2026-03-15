@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Art',
+  title: 'Art | Khaled Momani — AI Systems Engineer & Designer',
   description:
-    'Art by Khaled Momani — Free Therapy, 8th and Lucas, Lil Biscoff, and the Tacky Garbage collection. Explorations in emotion, context, and rule-breaking.',
+    'Art by Khaled Momani — Free Therapy, 8th and Lucas, and the Tacky Garbage collection. Explorations in emotion, context, and rule-breaking within creative systems.',
   alternates: {
     canonical: 'https://www.b8momani.com/art',
   },

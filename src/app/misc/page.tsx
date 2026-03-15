@@ -13,7 +13,7 @@ import MarketingIcon3 from "@/components/icons/MarketingIcon3";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: 'Misc',
+  title: 'Misc | Khaled Momani — AI Systems Engineer & Designer',
   description:
     'Old work, side projects, and compliance documents by Khaled Momani. Side hustles, marketing projects, and contact information.',
   alternates: {
