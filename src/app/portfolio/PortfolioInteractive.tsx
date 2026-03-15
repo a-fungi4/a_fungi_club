@@ -19,6 +19,7 @@ export default function PortfolioInteractive() {
   return (
     <>
       <div className={styles.contentWrapper}>
+        <h2 className={styles.researchLabel}>Research</h2>
         <div className={styles.headlineRow}>
           <div className={styles.highlightedProjectWrapper} style={{ width: '100%', flex: 'none' }}>
             <HighlightedProject 
