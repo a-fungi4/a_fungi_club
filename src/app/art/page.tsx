@@ -10,6 +10,10 @@ import TackyGarbageBig from "@/components/icons/TackyGarbageBig";
 export default function ArtPage() {
   return (
     <>
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: Art</h2>
+        <p>Emotions don’t always present themselves as organized layers, style sheets, and file trees. They still lay the groundwork for everything we do. I spent a lot of time figuring out when it was okay to share emotions. 10 years ago interacting with me was like an entire dependency was missing. Everyone lays everything between the lines and expects you to know. There was a world of context missing. Then on top of that everyone just expects you not to say exactly what’s on your mind and they call it being polite. They set a bunch of unspoken rules for how to act and what to do. This page is the only acceptable place that I found out it was okay to break all of those rules. It’s glorified and appreciated when you break the rules here. I don’t care if my art ever sells. It would be nice and validating if other people felt it was relatable enough to spend money on. But it’s messy. It’s where I dig my fingers in and learn like we do as babies. It’s more important than anything else I create.</p>
+      </div>
       <Banner title="Art" variant="general" className="fullBleed">
         <div className="Bannerprojectembed1">
           <div className="BannerTextBox" style={{ background: '#151029', borderRadius: 16, padding: 10 }}>

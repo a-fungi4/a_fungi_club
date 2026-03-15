@@ -44,6 +44,19 @@ const HEIRLOOM_CAROUSEL_PHOTOS = [
 export default function HeirloomPage() {
   return (
     <div className={styles.heirloomMain}>
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: Heirloom</h2>
+        <p>Your mental health companion</p>
+        
+        <h2>Figma Prototype Preview</h2>
+        <p>The embed is a figma prototype. Preview the app and look through all the features. I created this in a speed run before we had an interview with some press members. I went back in and refined it as I developed the front end of the app. First I created the prototype, and then I copied the html from Figma one component at a time into the Cursor AI assistant. Cursor AI can't really see the animations in order to develop it. Adding the animations into the figma prototype was just a redundant step. I ended up needing to describe the animation behavior and creating the end state of each animation step for the AI assistant to create it. The most efficient workflow was to use Figma only for layouts and lo-fi wire frames. A lot of the animation I created in figma were impractical during development. Using cursor was like having a developer that worked right next to me and needed step by step directions for each component.</p>
+        
+        <h2>Impact and Branding</h2>
+        <p>The purpose of the redesign was to make the app more engaging. The first thing I did was create the basic branding necessary to make the app feel more complete. I started with a logo, color pallette, and fonts. The impact I made was taking this from being analytical buttons to a cohesive app with character and personality. The redesign brought Heirloom to life, giving the backend an interface that did it justice.</p>
+        <p>The most notable contribution to the app was creating the companion. I created a character that would make the user more engaged. Instead of just a voice, they have a face to look at. From the time I spent managing social media, I found that people were more engaed by faces than anything else. You can dress up a chicken sandwich as pretty as it'll ever be, but if it doesn't have eyes and a face and talk to you, people don't care for it.</p>
+        <p>I started by creating a tomato and giving the users multiple options for customization. After that I created multiple fruits for the user to pick from. Prior to implementing I tested the companions with various audiences. Different age groups and genders. I got an overwhelmingly positive response.</p>
+        <p>After attempting to open the originally developed app in browser, we found a bug in the code. The developers were going back and forth in a dependency incompatibilty loop. They handed it to me to see if there was anything I could do. After thorough research, I found that the error was a need to update the firebase dependency to the newest version. Unnfortunately, it was code breaking. After looking through the code changes that would need to be done, I do some research on cursor AI to see how it could be done efficiently. I found that the user could set rules for the AI Assitant. This along with the ability for the assistant to silently work while I continued design allowed me to refactor the whole app, effortlessly, for the new dependencies. I watched the AI do the first few files, corrected its mistakes, and then adjusted the rules as needed. The refactoring process took around four hours, and while it was happening I was able to continue designing. I used this same process to refactor hardcoded styles and create style sheets.</p>
+      </div>
       <Banner title="Heirloom" variant="general">
         <HPTextbox text={`Your mental health companion`} />
         <SkillPillCont skills={["Wireframing", "Prototyping", "Design", "Market Research", "User Testing", "Vite", "JavaScript", "Branding"]} projectType="UI Development" />

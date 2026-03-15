@@ -39,8 +39,24 @@ export default function MiscPage() {
         </div>
       </Banner>
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: 32, marginTop: 48, marginBottom: 48 }}>
-        <MiscDropdown
-          defaultText="Sidehustles"
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: Misc</h2>
+        <p>Old work, side projects, and compliance.</p>
+
+        <h2>Sidehustles - Print N Stuff</h2>
+        <p>For print solutions please call: 832-899-9703. Prices will be quoted upon order.</p>
+        <p>Services include: Large Format prints, Wraps, Business Cards, Fliers, Posters, Art Photography, and more.</p>
+        
+        <h2>Old Projects - Marketing</h2>
+        <p>I WORKED ON THESE BEFORE MARCH 2025</p>
+        <ul>
+          <li>AJs Hot Chicken</li>
+          <li>Vochos Tacos</li>
+          <li>Flounder Fish Chicken</li>
+        </ul>
+      </div>
+      <MiscDropdown
+        defaultText="Sidehustles"
           hoverText="Print N Stuff"
           icon={<MiscPrint />}
           content={

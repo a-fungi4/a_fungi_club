@@ -22,6 +22,21 @@ export const metadata: Metadata = {
 export default function AutomationWorkshopPage() {
   return (
     <>
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: Automation Workshop</h2>
+        <p>Automation tools and solutions for print shops and production facilities. Streamlining manual tasks and increasing efficiency through custom development.</p>
+        
+        <h2>Project Overview</h2>
+        <p>The Automation Workshop is a dedicated project focused on building tools that simplify complex workflows. From automated quoting systems to production tracking, we build solutions that let businesses focus on creating, not managing.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+          <li>Custom Quoting Engines</li>
+          <li>Production Workflow Automation</li>
+          <li>Inventory Management Integration</li>
+          <li>Real-time Progress Tracking</li>
+        </ul>
+      </div>
       <Banner
         title="Automation Workshop"
         variant="general"

@@ -24,6 +24,15 @@ export default function AboutPage() {
       </Banner>
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>About Page</h1>
+        <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+          <h2>Banner: About</h2>
+          <p>It’s not all there. There’s a lot in the middle that I can’t put into a portfolio. My doctor questions how I’m alive every time I visit. I pop up on my friends sporadically and make their day interesting. If you decide to work with me you might get the details. For now, just know: I’m really living... and allergic to avocado. Please for the love of god keep the avocado away from the potluck.</p>
+          
+          <h2>BIO</h2>
+          I started my higher education in psychology, where I learned that the biggest stressor for people struggling with mental illness wasn't just their condition—it was their socioeconomic status. The main roadblock to getting help wasn't treatment; it was survival. I switched to civil engineering because I wanted to make a real difference, and psychology's existing tools didn't feel like enough. If I could create accessible, affordable housing with features that helped people manage tasks they struggled with—whether due to physical or mental disabilities—I could do more for them than I ever could as a psychiatrist.
+          But engineering had its own roadblocks. I failed calculus five times, and it kept me from moving forward in the major. Instead, I filled my schedule with design and art classes—and I had the time of my life. My professors saw it too, encouraging me to change fields, telling me engineering didn't seem like the right fit. That made me rethink everything. I needed a career where I could help people while doing what I loved. That's when I found UI design. If I could make work and daily life easier for the most disadvantaged, I could make just as much of an impact as I would have designing accessible housing.
+          After finally passing calculus with an A. I left college and took an alternative route, learning UI design on my own. I worked in construction for a while, doing CAD design and managing teams, which gave me the confidence to grow as a creator. Then I moved into freelance work, creating branding and marketing assets for food trucks across Houston. That led me to H-Town Social, where I took on every role the company needed—graphic design, social media strategy, video production—until I was leading a team. But I realized I enjoyed setting up the operation more than the daily work. I loved taking employee feedback, implementing productivity tools, and automating managerial tasks. That's what pushed me to transition from marketing to software development. I wanted to build the systems that make work easier, experience different industries, and help the most disadvantaged people live better lives. I eventually got to the point where I wanted to create the ultimate DIY workspace. A lot of people couldn't afford my services as a web designer and app developer. I decided to make app development as easy as WYSWG web design. This eventually led to a deep dive in system architecture and AI governance structures. I wanted to build something that anyone could use, regardless of their means.
+        </div>
         <Dropdown1
           title="BIO"
           content={
@@ -52,6 +61,20 @@ export default function AboutPage() {
             />
           }
         />
+        <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+          <h2>Plasticity</h2>
+          Design should move. It should adapt, shift, and grow. I love the concept of design plasticity—the ability to reshape without losing structure. Inspired by space plasticity in architecture, I design with fluidity in mind. Branding that bends without breaking. Layouts that evolve. Systems that stay strong, no matter how they change.
+          But more than that, design plasticity breaks closed thinking. In engineering, the difference between asking, "How do we get across the water?" instead of "How do we build a bridge?" opens up new solutions. Design should focus on the problem statement, not the assumed answer. The best ideas come from questioning the question itself.
+
+          <h2>InsideOut</h2>
+          Good design isn't just flexible—it's informed. Every design choice adds to a system of operations. That system should serve people, not the other way around. But corporate structures design from a distance, shaping policies for a world that doesn't exist. I try to understand the needs of the user. If I'm making a menu, I get behind the cash register, take orders, and cut unnecessary steps. When I worked in radio, I got behind the mic and made my own track—not just to understand the process, but to see what was worth showcasing, what added value, and how to shape a message.
+          But immersion isn't always enough. When I create a system, I know its functions inside and out—a new user does not. That's when real-world observation matters more than personal experience. Don't wait for a review, a secondhand account, or a formal report. Watch where people look first. Listen to what they actually say. Design isn't about dictating how something should work—it's about seeing how it does. The best solutions come from the inside, not from the top down.
+
+          <h2>Automation</h2>
+          Automation should aid people, not replace them. When AI took off in 2023, companies rushed to automate the art itself instead of the work around it—marketing, sales funnels, funding. They stripped out the part people loved most, gutting creative teams to churn out eerie, half-baked production.
+          Automation should start by removing the least enjoyable tasks. Happy people are productive people. It should eliminate inefficiencies—task switching, wait time, defects, handoff errors—not human expertise. A company's most valuable resource isn't production; it's people. Layoffs break trust. Experience and loyalty can't be restored once lost. When people are in constant fear of being replaced, with their stability hanging by a thread, they can't perform at their best.
+          Productivity isn't about pushing people harder—it's about designing better systems. If automation reduces workload, it shouldn't be used to cut costs but to reinvest in people and scale production. Design isn't just about output; it's about creating an environment where people can live their best lives.
+        </div>
         <Dropdown1 title="Process" content={
           <AnimatePresence mode="wait">
             {openProcess === null && (

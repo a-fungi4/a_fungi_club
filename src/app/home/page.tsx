@@ -54,8 +54,19 @@ export default function HomePage() {
             Go to Project
           </a>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5em', justifyContent: 'center', alignItems: 'center', marginTop: '1.5em', width: '100%' }}>
-            <Dropdown2
-              title="Figma"
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: I Made this UI</h2>
+        <h2>Figma Resources</h2>
+        <p>Beginner Guides: Quick Rundown, Components1, Components2, Prototyping, Animation, Comprehensive Rundown. Best Practices: Figma best practices. Reference Guide: Root Layout Structure, Header Components, Navigation Components, Main Content Components, Section Components, Footer Components, UI Components, Interactive Components, Media Components, Typography Components, Utility Components, Variant Suffixes, Responsive Variants. Types: Layout Types, Container Types, Grid Types, Flex Types, Spacing Types, Navigation Types, Menu Types, Breadcrumb Types, Header Types, Page Types, Content Types, Card Types, List Types.</p>
+        
+        <h2>Cursor AI Resources</h2>
+        <p>Tools: CursorAI, Next.js, CursorFigmaMCP, SVG to JSX, Free Code Camp, Figma Sites. Getting Started: Discussion, Step-by-step plan, Design creation, Component breakdown, Scaffolding, Figma devmode, SVG assets. Tips: Ruleset, Jargon, Naming layers, Animation steps, Adjusting values, Patience, Free code camp.</p>
+        
+        <h2>Deployment Resources</h2>
+        <p>Tools: Vercel, Next.JS, Figma Sites, Github Pages. Ready to Deploy? Vercel compatibility, Github Pages static sites.</p>
+      </div>
+      <Dropdown2
+        title="Figma"
               icon={<FFigma />}
               content={
                 <>

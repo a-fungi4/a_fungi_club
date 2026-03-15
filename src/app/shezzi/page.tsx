@@ -70,6 +70,17 @@ export default async function ShezziPage() {
       <Banner title="Shezzi" variant="general">
         <HPTextbox text={SHEZZI_BLURB} />
       </Banner>
+      <div aria-hidden="true" style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}>
+        <h2>Banner: Shezzi</h2>
+        <p>{SHEZZI_BLURB}</p>
+        
+        <h2>Capability Profile</h2>
+        {readmeHtml ? (
+          <div dangerouslySetInnerHTML={{ __html: readmeHtml }} />
+        ) : (
+          <p>Technical details for Shezzi: Locally-run, multi-model AI system.</p>
+        )}
+      </div>
       
       <div className={styles.contentRow}>
         <div className={styles.logoWrapper}>
