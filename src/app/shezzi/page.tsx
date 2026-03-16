@@ -6,6 +6,7 @@ import ShezziProjectPageLogo from "@/components/icons/ShezziProjectPageLogo";
 import ShezziBrandmarkIcon from "@/components/icons/ShezziBrandmarkIcon";
 import Dropdown1 from "@/components/Dropdown1";
 import styles from "./page.module.css";
+import "./github-markdown.css";
 
 const SHEZZI_BLURB = `Shezzi
 Most AI systems are built to run on infrastructure you don't own. Shezzi was built on the assumption that intelligence shouldn't require it.

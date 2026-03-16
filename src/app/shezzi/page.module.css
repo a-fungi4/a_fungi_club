@@ -32,41 +32,16 @@
 
 .readmeContainer {
   width: 100%;
-  background: #151029;
+  background: #0d1117; /* GitHub's dark background */
   border-radius: 40px;
   padding: 3rem;
-  box-shadow: none; /* Shadow handled by parent or omitted for embedded look */
-  color: white;
-  font-family: 'Hack', monospace;
+  color: #e6edf3;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   overflow-x: hidden;
 }
 
 .readmeContainer :global(.markdown-body) {
   background-color: transparent !important;
-  color: #e6edf3 !important;
-}
-
-.readmeContainer :global(a) {
-  color: #4493f8 !important;
-}
-
-.readmeContainer :global(pre) {
-  background-color: #0d1117 !important;
-  border-radius: 6px;
-  padding: 16px;
-}
-
-.readmeContainer :global(code) {
-  background-color: rgba(110, 118, 129, 0.4);
-  border-radius: 6px;
-  padding: 0.2em 0.4em;
-}
-
-.readmeContainer :global(h1),
-.readmeContainer :global(h2),
-.readmeContainer :global(h3) {
-  border-bottom: 1px solid #30363d;
-  padding-bottom: 0.3em;
 }
 
 .loading {
