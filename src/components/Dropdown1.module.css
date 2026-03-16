@@ -1,5 +1,5 @@
 .dropdown {
-  width: clamp(320px, 80vw, 1000px);
+  width: clamp(320px, 90vw, 1000px);
   height: auto;
   padding-left: clamp(12px, 4vw, 44px);
   padding-right: clamp(12px, 4vw, 44px);
@@ -14,7 +14,7 @@
   gap: clamp(2px, 1vw, 20px);
   box-sizing: border-box;
   box-shadow: 0 0 16px var(--color-redC, #C0282D);
-  margin: clamp(12px, 3vw, 32px) clamp(12px, 3vw, 32px);
+  margin: 1.5rem auto;
 }
 
 .header {
@@ -245,15 +245,17 @@
 /* End of Selection */
 
 @media (max-width: 900px) {
-  .dropdown, .Dropdown1expanded {
-    width: 90vw;
-    height: 300px;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    padding-top: 16px;
-    padding-bottom: 16px;
+  .dropdown, .Dropdown1expanded, .Dropdown1expandedHug {
+    width: 95vw;
+    height: auto;
+    min-height: 200px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     border-radius: 10px;
-    gap: 2vw;
+    gap: 1rem;
+    margin: 1rem auto;
   }
   .Placeholder {
     width: 70px;
@@ -314,7 +316,7 @@
 }
 
 .Dropdown1expanded {
-  width: clamp(320px, 80vw, 1000px);
+  width: clamp(320px, 90vw, 1000px);
   min-height: 320px;
   padding: clamp(8px, 2vw, 24px);
   background: #151029;
@@ -326,6 +328,7 @@
   gap: clamp(8px, 2vw, 24px);
   box-sizing: border-box;
   box-shadow: 0 0 16px var(--color-redC, #C0282D);
+  margin: 1.5rem auto;
 }
 
 .LightPurpleContainer {
@@ -413,7 +416,7 @@
 }
 
 .Dropdown1expandedHug {
-  width: clamp(320px, 80vw, 1000px);
+  width: clamp(320px, 90vw, 1000px);
   padding: clamp(8px, 2vw, 24px);
   background: #151029;
   border-radius: 2vw;
@@ -426,4 +429,5 @@
   box-shadow: 0 0 16px var(--color-redC, #C0282D);
   height: 100%;
   min-height: 0;
+  margin: 1.5rem auto;
 } 
