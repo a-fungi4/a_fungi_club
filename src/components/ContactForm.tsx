@@ -10,6 +10,7 @@ const ContactForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +18,13 @@ const ContactForm: React.FC = () => {
     setSuccess(null);
     setError(null);
     try {
+      const form = e.currentTarget as HTMLFormElement;
+      const honeypot = (form.elements.namedItem('website') as HTMLInputElement)?.value;
+      if (honeypot) {
+        setLoading(false);
+        setSuccess('Message sent successfully!');
+        return;
+      }
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,6 +50,16 @@ const ContactForm: React.FC = () => {
   return (
     <div className={styles.Contactform}>
       <form className={styles.ContactformForm} onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="website"
+          autoComplete="off"
+          tabIndex={-1}
+          aria-hidden="true"
+          style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+          value=""
+          onChange={() => {}}
+        />
         <div className={styles.NameSection}>
           <span className={styles.Nameinputicon}>
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,10 +123,27 @@ const ContactForm: React.FC = () => {
             disabled={loading}
           />
         </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginTop: 8 }}>
+          <input
+            id="privacy-consent"
+            type="checkbox"
+            checked={privacyConsent}
+            onChange={e => setPrivacyConsent(e.target.checked)}
+            required
+            style={{ marginTop: 3, flexShrink: 0 }}
+          />
+          <label htmlFor="privacy-consent" style={{ fontSize: 12, lineHeight: '1.4' }}>
+            I have read and agree to the{' '}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
+              Privacy Policy
+            </a>
+            . I consent to my submitted data being used to respond to my inquiry.
+          </label>
+        </div>
         <button
           type="submit"
           className={`${styles.SubmitButton} ${styles.Sendbutton}`}
-          disabled={loading}
+          disabled={loading || !privacyConsent}
         >
           <div className={styles.Send}>
             {loading ? 'Sending...' : 'Send'}

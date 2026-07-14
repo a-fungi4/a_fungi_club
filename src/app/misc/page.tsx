@@ -136,7 +136,25 @@ export default function MiscPage() {
           defaultText="SHSHSHSH"
           hoverText="Privacy Policy"
           icon={<MiscPrivacy />}
-          content={<p>Content for Misc Item 4</p>}
+          content={
+            <div>
+              <p>
+                We care about your privacy. Read our full{' '}
+                <a href="/privacy" style={{ textDecoration: 'underline' }}>Privacy Policy</a>{' '}
+                to understand how we collect, use, and protect your data.
+              </p>
+              <p>
+                Key points: We use Google Analytics and Meta Pixel (with your consent).
+                Orders are processed by Square and fulfilled by Printful.
+                You may request deletion of your data at any time.
+              </p>
+              <p>
+                <a href="/terms" style={{ textDecoration: 'underline' }}>Terms of Service</a>
+                &nbsp;|&nbsp;
+                <a href="/cookies" style={{ textDecoration: 'underline' }}>Cookie Policy</a>
+              </p>
+            </div>
+          }
         />
       </div>
     </>

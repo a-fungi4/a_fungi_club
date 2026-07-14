@@ -219,6 +219,14 @@ export default function TGPageClient() {
         <div className={styles.ItSGoodTackyGarbage} style={{ marginTop: 4 }}>
           It&apos;s good tacky garbage
         </div>
+        <p style={{ fontSize: 11, color: '#888', marginTop: 8, maxWidth: 320, textAlign: 'center', lineHeight: 1.4 }}>
+          By placing an order you agree to our{' '}
+          <a href="/terms" style={{ textDecoration: 'underline', color: '#CCBBE9' }}>Terms of Service</a>
+          {' '}and{' '}
+          <a href="/privacy" style={{ textDecoration: 'underline', color: '#CCBBE9' }}>Privacy Policy</a>.
+          Orders are fulfilled by Printful and payments processed by Square.
+          All sales are final; see our <a href="/terms" style={{ textDecoration: 'underline', color: '#CCBBE9' }}>Refund Policy</a>.
+        </p>
       </div>
       {/* HowTo Container */}
       <div className={styles.HowToContainer}>

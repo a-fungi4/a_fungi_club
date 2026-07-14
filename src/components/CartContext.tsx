@@ -29,18 +29,30 @@ export const useCart = () => {
 };
 
 const CART_STORAGE_KEY = 'afungi_cart';
+const CONSENT_KEY = 'afungi_cookie_consent';
+
+function storageConsent() {
+  if (typeof window === 'undefined') return true; // default to allowed during SSR
+  try {
+    return localStorage.getItem(CONSENT_KEY) !== 'rejected';
+  } catch {
+    return true;
+  }
+}
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  // Load from localStorage
+  // Load from localStorage only if consent has not been explicitly rejected
   useEffect(() => {
+    if (!storageConsent()) return;
     const stored = localStorage.getItem(CART_STORAGE_KEY);
     if (stored) setCart(JSON.parse(stored));
   }, []);
 
-  // Save to localStorage
+  // Save to localStorage only if consent has not been explicitly rejected
   useEffect(() => {
+    if (!storageConsent()) return;
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
   }, [cart]);
 

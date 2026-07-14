@@ -13,10 +13,13 @@
     "test-cron-setup": "node scripts/test-cron-setup.js"
   },
   "dependencies": {
+    "@portabletext/react": "^6.2.0",
+    "@sanity/image-url": "^2.1.1",
     "asynckit": "^0.5.0",
     "autoprefixer": "^10.4.21",
     "framer-motion": "^12.23.0",
     "next": "^16.1.6",
+    "next-sanity": "^13.1.1",
     "nodemailer": "^7.0.4",
     "postcss": "^8.5.6",
     "react": "^19.2.4",

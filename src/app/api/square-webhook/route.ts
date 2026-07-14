@@ -66,7 +66,15 @@ interface CartData {
 export async function POST(req: NextRequest) {
   console.log('=== SQUARE WEBHOOK RECEIVED ===');
   console.log('Timestamp:', new Date().toISOString());
-  console.log('Headers:', Object.fromEntries(req.headers.entries()));
+  // Log only non-sensitive headers to avoid leaking API keys/signatures
+  const safeHeaders: Record<string, string> = {};
+  req.headers.forEach((value, key) => {
+    const lower = key.toLowerCase();
+    if (lower === 'content-type' || lower === 'user-agent' || lower.startsWith('x-square-')) {
+      safeHeaders[key] = value;
+    }
+  });
+  console.log('Headers (redacted):', safeHeaders);
   
   try {
     // 1. Verify the webhook signature (recommended for production)
@@ -83,7 +91,12 @@ export async function POST(req: NextRequest) {
     
     // Parse the body back to JSON
     const payload: SquareWebhookPayload = JSON.parse(body);
-    console.log('Received Square webhook payload:', JSON.stringify(payload, null, 2));
+    console.log('Received Square webhook event:', {
+      type: payload?.type,
+      orderId: payload?.data?.object?.order?.id,
+      paymentId: payload?.data?.object?.payment?.id,
+      paymentStatus: payload?.data?.object?.payment?.status,
+    });
 
     // 3. Handle different event types
     const eventType = payload?.type;
@@ -112,7 +125,13 @@ export async function POST(req: NextRequest) {
     let cartData: CartData;
     try {
       cartData = JSON.parse(order.note);
-      console.log('Parsed cart data:', JSON.stringify(cartData, null, 2));
+      console.log('Parsed cart data:', {
+        itemCount: cartData.items?.length,
+        recipientCity: cartData.recipient?.city,
+        recipientState: cartData.recipient?.state,
+        recipientCountry: cartData.recipient?.country,
+        // Never log name, address, zip, email, phone, or full item details
+      });
     } catch (parseError) {
       console.error('Failed to parse cart data from note:', parseError);
       return NextResponse.json({ 
@@ -193,7 +212,13 @@ export async function POST(req: NextRequest) {
       // shipping: 'STANDARD',
     };
 
-    console.log('Sending to Printful:', JSON.stringify(printfulOrderPayload, null, 2));
+    console.log('Sending to Printful:', {
+      external_id: printfulOrderPayload.external_id,
+      itemCount: printfulOrderPayload.items.length,
+      recipientCity: printfulOrderPayload.recipient.city,
+      recipientState: printfulOrderPayload.recipient.state_code,
+      recipientCountry: printfulOrderPayload.recipient.country_code,
+    });
 
     // 8. Call Printful API
     let printfulResponse;
@@ -226,7 +251,11 @@ export async function POST(req: NextRequest) {
       }, { status: 500 });
     }
 
-    console.log('Printful order created successfully:', printfulResult);
+    console.log('Printful order created successfully:', {
+      id: printfulResult.result?.id,
+      external_id: printfulOrderPayload.external_id,
+      status: printfulResult.result?.status,
+    });
 
     // 9. Respond to Square
     return NextResponse.json({ 
