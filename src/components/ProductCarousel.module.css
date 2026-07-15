@@ -346,15 +346,18 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .modal {
-  background: #1a1a1a;
+  background: #151029;
   border-radius: 12px;
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
+  /* Explicit responsive width so the content fills it (no side-scroll). */
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
 }
 

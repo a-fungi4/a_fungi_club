@@ -1,276 +1,112 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SquareClient, SquareEnvironment } from 'square';
 import { verifyWebhookSignature } from './verifySignature';
+import {
+  createPrintfulOrder,
+  printfulOrderExists,
+  resolveRecipient,
+  type PrintfulLineItem,
+} from '@/lib/printful';
 
-// Types for better type safety
-interface SquarePayment {
-  id: string;
-  status: string;
-  orderId?: string;
-  amountMoney?: {
-    amount: number;
-    currency: string;
-  };
-}
+export const runtime = 'nodejs';
 
-interface SquareOrder {
-  id: string;
-  note?: string;
-  lineItems?: Array<{
-    uid: string;
-    name: string;
-    quantity: string;
-    basePriceMoney: {
-      amount: number;
-      currency: string;
-    };
-    variationName?: string;
-  }>;
-}
+/**
+ * Backup fulfillment path. The primary path creates the Printful order
+ * synchronously in /api/square-pay. This webhook only fires as a safety net:
+ * if that synchronous call ever failed after a successful charge, Square's
+ * payment.updated event lets us retry. Creation is idempotent on the Square
+ * order id, so a normal successful checkout results in a no-op here.
+ */
 
-interface SquareWebhookPayload {
-  type: string;
-  data: {
-    object: {
-      payment?: SquarePayment;
-      order?: SquareOrder;
-    };
-  };
-}
+const square = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN!,
+  environment:
+    process.env.SQUARE_ENVIRONMENT === 'production'
+      ? SquareEnvironment.Production
+      : SquareEnvironment.Sandbox,
+});
 
-interface CartItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  variation?: string;
-  printfulVariantId?: string;
-}
-
-interface ShippingInfo {
-  name: string;
-  address1: string;
-  address2?: string;
-  city: string;
-  state: string;
-  country: string;
-  zip: string;
-  phone?: string;
-  email: string;
-}
-
-interface CartData {
-  recipient: ShippingInfo;
-  items: CartItem[];
+interface WebhookPayload {
+  type?: string;
+  // Raw Square webhook JSON is snake_case (we parse the raw body ourselves).
+  data?: { object?: { payment?: { id?: string; status?: string; order_id?: string } } };
 }
 
 export async function POST(req: NextRequest) {
-  console.log('=== SQUARE WEBHOOK RECEIVED ===');
-  console.log('Timestamp:', new Date().toISOString());
-  // Log only non-sensitive headers to avoid leaking API keys/signatures
-  const safeHeaders: Record<string, string> = {};
-  req.headers.forEach((value, key) => {
-    const lower = key.toLowerCase();
-    if (lower === 'content-type' || lower === 'user-agent' || lower.startsWith('x-square-')) {
-      safeHeaders[key] = value;
-    }
-  });
-  console.log('Headers (redacted):', safeHeaders);
-  
   try {
-    // 1. Verify the webhook signature (recommended for production)
-    const signature = req.headers.get('x-square-signature');
+    const signature = req.headers.get('x-square-hmacsha256-signature') || req.headers.get('x-square-signature');
     const webhookUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/square-webhook`;
-    
-    // Get the raw body for signature verification
     const body = await req.text();
-    
+
     if (!verifyWebhookSignature(body, signature, webhookUrl)) {
-      console.warn('Webhook signature verification failed');
       return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
     }
-    
-    // Parse the body back to JSON
-    const payload: SquareWebhookPayload = JSON.parse(body);
-    console.log('Received Square webhook event:', {
-      type: payload?.type,
-      orderId: payload?.data?.object?.order?.id,
-      paymentId: payload?.data?.object?.payment?.id,
-      paymentStatus: payload?.data?.object?.payment?.status,
-    });
 
-    // 3. Handle different event types
-    const eventType = payload?.type;
+    const payload: WebhookPayload = JSON.parse(body);
     const payment = payload?.data?.object?.payment;
-    const order = payload?.data?.object?.order;
 
-    console.log('Event type:', eventType);
-    console.log('Payment status:', payment?.status);
-    console.log('Order ID:', order?.id);
-
-    // Only process completed payments
-    if (eventType !== 'payment.updated' || payment?.status !== 'COMPLETED') {
-      console.log('Ignoring event:', eventType, 'with status:', payment?.status);
+    if (payload?.type !== 'payment.updated' || payment?.status !== 'COMPLETED') {
       return NextResponse.json({ ignored: true, reason: 'Not a completed payment' });
     }
 
-    // 4. Extract and validate order data
-    if (!order?.note) {
-      console.error('Order note not found in webhook payload');
-      return NextResponse.json({ 
-        error: 'Order note not found in webhook payload',
-        orderId: order?.id 
-      }, { status: 400 });
+    const orderId = payment.order_id;
+    if (!orderId) {
+      return NextResponse.json({ ignored: true, reason: 'No order id on payment' });
     }
 
-    let cartData: CartData;
+    // Idempotency: if the sync path already created it, do nothing.
+    if (await printfulOrderExists(orderId)) {
+      return NextResponse.json({ ok: true, printful: 'exists' });
+    }
+
+    // Reconstruct the Printful order from the metadata we stored at pay time.
+    const orderRes = await square.orders.get({ orderId });
+    const meta = orderRes.order?.metadata || {};
+    if (!meta.pf) {
+      return NextResponse.json(
+        { error: 'Order missing fulfillment metadata', orderId },
+        { status: 422 },
+      );
+    }
+
+    let pf: [number, number, number][];
     try {
-      cartData = JSON.parse(order.note);
-      console.log('Parsed cart data:', {
-        itemCount: cartData.items?.length,
-        recipientCity: cartData.recipient?.city,
-        recipientState: cartData.recipient?.state,
-        recipientCountry: cartData.recipient?.country,
-        // Never log name, address, zip, email, phone, or full item details
-      });
-    } catch (parseError) {
-      console.error('Failed to parse cart data from note:', parseError);
-      return NextResponse.json({ 
-        error: 'Failed to parse cart data from note',
-        orderId: order.id 
-      }, { status: 400 });
+      pf = JSON.parse(meta.pf);
+    } catch {
+      return NextResponse.json({ error: 'Bad pf metadata', orderId }, { status: 422 });
     }
 
-    // 5. Validate cart data structure
-    if (!cartData.recipient || !cartData.items || !Array.isArray(cartData.items)) {
-      console.error('Invalid cart data structure:', cartData);
-      return NextResponse.json({ 
-        error: 'Invalid cart data structure',
-        orderId: order.id 
-      }, { status: 400 });
-    }
-
-    if (cartData.items.length === 0) {
-      console.error('Cart is empty');
-      return NextResponse.json({ 
-        error: 'Cart is empty',
-        orderId: order.id 
-      }, { status: 400 });
-    }
-
-    // 6. Validate shipping information
-    const recipient = cartData.recipient;
-    const requiredFields = ['name', 'address1', 'city', 'state', 'zip', 'email'];
-    const missingFields = requiredFields.filter(field => !recipient[field as keyof ShippingInfo]);
-    
-    if (missingFields.length > 0) {
-      console.error('Missing required shipping fields:', missingFields);
-      return NextResponse.json({ 
-        error: `Missing required shipping fields: ${missingFields.join(', ')}`,
-        orderId: order.id 
-      }, { status: 400 });
-    }
-
-    // 7. Create Printful order
-    const PRINTFUL_API_KEY = process.env.PRINTFUL_API_KEY;
-    if (!PRINTFUL_API_KEY) {
-      console.error('Printful API key not set in environment variables');
-      return NextResponse.json({ 
-        error: 'Printful API key not configured',
-        orderId: order.id 
-      }, { status: 500 });
-    }
-
-    // Map cart items to Printful format
-    const printfulItems = cartData.items.map(item => {
-      if (!item.printfulVariantId) {
-        throw new Error(`Missing Printful variant ID for item: ${item.name}`);
-      }
-
-      return {
-        variant_id: parseInt(item.printfulVariantId),
-        quantity: item.quantity,
-        retail_price: item.price.toFixed(2),
-        name: item.name,
-      };
+    const items: PrintfulLineItem[] = pf.map(([variant_id, quantity, templateId]) => ({
+      variant_id,
+      quantity,
+      templateId: templateId || undefined,
+    }));
+    const s = (v: string | null | undefined) => v ?? undefined;
+    const recipient = resolveRecipient({
+      name: s(meta.ship_name),
+      address1: s(meta.ship_addr1),
+      address2: s(meta.ship_addr2),
+      city: s(meta.ship_city),
+      state_code: s(meta.ship_state),
+      country_code: meta.ship_country || 'US',
+      zip: meta.ship_zip || '',
+      email: s(meta.ship_email),
+      phone: s(meta.ship_phone),
     });
 
-    const printfulOrderPayload = {
-      external_id: order.id, // Use Square order ID as external reference
-      recipient: {
-        name: recipient.name,
-        address1: recipient.address1,
-        address2: recipient.address2 || '',
-        city: recipient.city,
-        state_code: recipient.state,
-        country_code: recipient.country || 'US',
-        zip: recipient.zip,
-        phone: recipient.phone || '',
-        email: recipient.email,
-      },
-      items: printfulItems,
-      // Optional: Add shipping method if needed
-      // shipping: 'STANDARD',
-    };
-
-    console.log('Sending to Printful:', {
-      external_id: printfulOrderPayload.external_id,
-      itemCount: printfulOrderPayload.items.length,
-      recipientCity: printfulOrderPayload.recipient.city,
-      recipientState: printfulOrderPayload.recipient.state_code,
-      recipientCountry: printfulOrderPayload.recipient.country_code,
+    await createPrintfulOrder({
+      externalId: orderId,
+      recipient,
+      items,
+      confirm: process.env.PRINTFUL_CONFIRM_ORDERS === 'true',
     });
 
-    // 8. Call Printful API
-    let printfulResponse;
-    try {
-      printfulResponse = await fetch('https://api.printful.com/orders', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${PRINTFUL_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(printfulOrderPayload),
-      });
-    } catch (fetchError) {
-      console.error('Error calling Printful API:', fetchError);
-      return NextResponse.json({ 
-        error: 'Failed to call Printful API',
-        orderId: order.id,
-        details: fetchError instanceof Error ? fetchError.message : 'Unknown error'
-      }, { status: 500 });
-    }
-
-    const printfulResult = await printfulResponse.json();
-    
-    if (!printfulResponse.ok) {
-      console.error('Printful API error:', printfulResult);
-      return NextResponse.json({ 
-        error: 'Printful API error',
-        orderId: order.id,
-        details: printfulResult 
-      }, { status: 500 });
-    }
-
-    console.log('Printful order created successfully:', {
-      id: printfulResult.result?.id,
-      external_id: printfulOrderPayload.external_id,
-      status: printfulResult.result?.status,
-    });
-
-    // 9. Respond to Square
-    return NextResponse.json({ 
-      success: true, 
-      orderId: order.id,
-      printfulOrderId: printfulResult.result?.id,
-      printful: printfulResult 
-    });
-
+    return NextResponse.json({ ok: true, printful: 'created', orderId });
   } catch (error) {
-    // Log error for debugging
-    console.error('Error handling Square webhook:', error);
-    return NextResponse.json({ 
-      error: 'Internal server error',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+    console.error('square-webhook error:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Webhook error' },
+      { status: 500 },
+    );
   }
-} 
+}

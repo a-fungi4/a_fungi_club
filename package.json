@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test-webhook": "node scripts/test-webhook.js",
-    "sync-printful-to-square": "tsx src/scripts/sync_printful_to_square.ts",
-    "process-orders": "./scripts/process-orders-cron.sh",
-    "test-cron-setup": "node scripts/test-cron-setup.js"
+    "sync-printful-to-square": "tsx src/scripts/sync_printful_to_square.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.2.0",

@@ -15,6 +15,8 @@ export interface Product {
   price: string | number;
   description?: string;
   image?: string;
+  /** All item-level image URLs (e.g. every color mockup). */
+  images?: string[];
   variations?: Variation[];
   category?: string | null;
 } 

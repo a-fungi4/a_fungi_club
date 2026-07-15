@@ -1,16 +1,19 @@
 import { NextResponse } from 'next/server';
-import { SquareClient } from 'square';
+import { SquareClient, SquareEnvironment } from 'square';
 
-console.log('SQUARE_ACCESS_TOKEN:', process.env.SQUARE_ACCESS_TOKEN);
 const client = new SquareClient({
   token: process.env.SQUARE_ACCESS_TOKEN!,
+  environment:
+    process.env.SQUARE_ENVIRONMENT === 'production'
+      ? SquareEnvironment.Production
+      : SquareEnvironment.Sandbox,
 });
 
 // Minimal types for this API
 interface CatalogImage {
   id: string;
   type: 'IMAGE';
-  imageData?: { url?: string };
+  imageData?: { url?: string; name?: string };
 }
 interface CatalogItemVariation {
   id: string;
@@ -18,6 +21,8 @@ interface CatalogItemVariation {
   itemVariationData?: {
     name?: string;
     description?: string;
+    sku?: string;
+    upc?: string;
     priceMoney?: { amount: number };
     imageIds?: string[];
     itemOptionValues?: Array<{
@@ -73,40 +78,20 @@ export async function GET() {
     const images: CatalogImage[] = [];
     const itemOptions: CatalogItemOption[] = [];
     const categories: CatalogCategory[] = [];
-    const variationToPrintful: Record<string, string> = {};
+    // Printful mapping per Square variation. Two ways to link a variation:
+    //   1. GTIN/upc field = Printful TEMPLATE id (same value for every variation
+    //      of the item). We resolve the variant id later by matching color/size.
+    //   2. SKU = "PF-<variantId>-T<templateId>" or "PF-<variantId>" (explicit).
+    // Entries may carry color/size so the quote route can resolve case 1.
+    const variationToPrintful: Record<
+      string,
+      { variantId?: number; templateId?: number; color?: string | null; size?: string | null }
+    > = {};
     for await (const obj of page as AsyncIterable<CatalogObject>) {
       if (obj.type === 'ITEM') items.push(obj as CatalogItem);
       if (obj.type === 'IMAGE') images.push(obj as CatalogImage);
       if (obj.type === 'ITEM_OPTION') itemOptions.push(obj as CatalogItemOption);
       if (obj.type === 'CATEGORY') categories.push(obj as CatalogCategory);
-      if (obj.type === 'ITEM_VARIATION' && obj.itemVariationData?.metadata?.printful_variant_id) {
-        variationToPrintful[obj.id] = obj.itemVariationData.metadata.printful_variant_id;
-      }
-    }
-    
-    // Add test mappings for development
-    if (process.env.NODE_ENV === 'development') {
-      // Black shirt variations
-      variationToPrintful['73EEL43L7XF2ZXDJ6C75VSKZ'] = '401'; // Black, S
-      variationToPrintful['EISZI2RLUEUET22KDHJUS2U5'] = '402'; // Black, M
-      variationToPrintful['QVOT6I4QFAWNV5B4UGUN3MWP'] = '403'; // Black, L
-      variationToPrintful['BVOEG4PKXLFXU4CFQLEFEZ7I'] = '404'; // Black, XL
-      variationToPrintful['QXJ63Q2FAIYQOQILJSB62OJN'] = '405'; // Black, 2XL
-      variationToPrintful['VOSHZWLX46BP5FCYOZHCUYBQ'] = '407'; // Black, 3XL
-      variationToPrintful['QZIW6YY2SG2L35C3PVVXW5N7'] = '408'; // Black, 4XL
-      
-      // White shirt variations
-      variationToPrintful['QYRZLKZJKL5GCCIC4ZAJYQJ3'] = '409'; // White, S
-      variationToPrintful['OVOL4MIWRV7FWVJNQOWYUOV6'] = '410'; // White, M
-      variationToPrintful['ZPR7LZ6NLKYM4E45RDGDIDXM'] = '411'; // White, L
-      variationToPrintful['6OB4C4SPRDQWDFBG2HGI3DLW'] = '412'; // White, XL
-      variationToPrintful['BDBSU4ZNOXRDV46YME3WO4V6'] = '413'; // White, 2XL
-      variationToPrintful['D545AA67F3EMT44YH2ILM6VD'] = '414'; // White, 3XL
-      variationToPrintful['VUGRQDZDK3ZVFKPZOUGTA5R7'] = '415'; // White, 4XL
-      
-      // Sticker variation
-      variationToPrintful['ERVVBT47XM6JKJA5ESIN7XMQ'] = '406'; // Bad Trip Holo Sticker
-      console.log('Added test variant mappings:', Object.keys(variationToPrintful).length);
     }
     // Log raw itemData for debugging categoryId, handling BigInt
    // for (const item of items) {
@@ -117,9 +102,14 @@ export async function GET() {
    // }
     // Build image_id -> url map
     const imageMap: Record<string, string> = {};
+    // Map an image NAME (lowercased, e.g. "red", "graphite") -> its URL, so a
+    // variation's color can be matched to the correct color mockup.
+    const imageNameToUrl: Record<string, string> = {};
     for (const img of images) {
       if (img.id && img.imageData && img.imageData.url) {
         imageMap[img.id] = img.imageData.url;
+        const nm = img.imageData.name?.trim().toLowerCase();
+        if (nm && !imageNameToUrl[nm]) imageNameToUrl[nm] = img.imageData.url;
       }
     }
     // Build option and value maps
@@ -138,11 +128,15 @@ export async function GET() {
     }
     // Map products to include image URL and resolved variation options
     const products = items.map(item => {
+      // All item-level images (every color mockup), de-duplicated.
+      const images = Array.from(
+        new Set((item.itemData?.imageIds || []).map(id => imageMap[id]).filter(Boolean)),
+      ) as string[];
       let image = '';
       if (item.itemData?.imageUrl) {
         image = item.itemData.imageUrl;
-      } else if (item.itemData?.imageIds && item.itemData.imageIds.length > 0) {
-        image = imageMap[item.itemData.imageIds[0]] || '';
+      } else if (images.length > 0) {
+        image = images[0];
       }
       // Get price from first variation
       let price = 'N/A';
@@ -154,7 +148,7 @@ export async function GET() {
         let size: string | null = null;
         
         if (v.name) {
-          const nameParts = v.name.split(',').map(str => str.trim());
+          const nameParts = v.name.split(/[,/]/).map(str => str.trim());
           if (nameParts.length >= 2) {
             color = nameParts[0];
             size = nameParts[1];
@@ -163,7 +157,35 @@ export async function GET() {
             color = nameParts[0];
           }
         }
-        
+
+        // Build the Printful mapping for this variation. The GTIN/upc field
+        // holds the Printful TEMPLATE id (same on every variation).
+        const sku = v.sku || v.metadata?.printful_variant_id || '';
+        const gtin = (v.upc || '').trim();
+        const templateId = /^\d+$/.test(gtin) ? Number(gtin) : undefined;
+
+        // Explicit "PF-<variantId>-T<templateId>" / "PF-<variantId>".
+        const skuMatch = sku.match(/^(?:PF-?)?(\d+)(?:-T(\d+))?$/i);
+        // Printful/Square-synced SKUs embed the variant id after an underscore,
+        // e.g. "6A5662FA835AD_15114" -> variantId 15114 (most reliable).
+        const skuSuffix = sku.match(/_(\d+)$/);
+
+        if (skuMatch) {
+          variationToPrintful[variation.id] = {
+            variantId: Number(skuMatch[1]),
+            templateId: skuMatch[2] ? Number(skuMatch[2]) : templateId,
+          };
+        } else if (skuSuffix && templateId != null) {
+          // Direct variant id from SKU + template from GTIN — no color/size match needed.
+          variationToPrintful[variation.id] = {
+            variantId: Number(skuSuffix[1]),
+            templateId,
+          };
+        } else if (templateId != null) {
+          // Only the template is known; resolve the variant later via color/size.
+          variationToPrintful[variation.id] = { templateId, color, size };
+        }
+
         return {
           id: variation.id,
           name: v.name || '',
@@ -176,7 +198,12 @@ export async function GET() {
           color,
           size,
           description: v.description || '',
-          image: v.imageIds && v.imageIds.length > 0 ? imageMap[v.imageIds[0]] || '' : image,
+          // Prefer the image named after this color (e.g. "Red" -> red mockup),
+          // then the variation's own image, then the item's main image.
+          image:
+            (color && imageNameToUrl[color.trim().toLowerCase()]) ||
+            (v.imageIds && v.imageIds.length > 0 ? imageMap[v.imageIds[0]] : '') ||
+            image,
         };
       });
       if (variations.length > 0 && variations[0].price !== 'N/A') {
@@ -194,6 +221,7 @@ export async function GET() {
         description: item.itemData?.description || '',
         price,
         image,
+        images,
         variations,
         category,
       };

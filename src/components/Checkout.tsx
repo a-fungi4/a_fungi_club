@@ -1,369 +1,274 @@
-import React, { useState } from 'react';
-import styles from './Checkout.module.css';
-import { useCart, CartItem } from './CartContext';
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import { useCart } from './CartContext';
 
-// Simple US state tax rates (example, not legal advice)
-const STATE_TAX_RATES: Record<string, number> = {
-  CA: 0.0725,
-  NY: 0.04,
-  TX: 0.0625,
-  FL: 0.06,
-  IL: 0.0625,
-  PA: 0.06,
-  OH: 0.0575,
-  GA: 0.04,
-  NC: 0.0475,
-  MI: 0.06,
-  NJ: 0.06625,
-  VA: 0.053,
-  WA: 0.065,
-  AZ: 0.056,
-  MA: 0.0625,
-  TN: 0.07,
-  IN: 0.07,
-  MO: 0.04225,
-  MD: 0.06,
-  WI: 0.05,
-  CO: 0.029,
-  MN: 0.06875,
-  SC: 0.06,
-  AL: 0.04,
-  LA: 0.0445,
-  KY: 0.06,
-  OR: 0.0,
-  OK: 0.045,
-  CT: 0.0635,
-  IA: 0.06,
-  AR: 0.065,
-  KS: 0.065,
-  NV: 0.0685,
-  UT: 0.0485,
-  MS: 0.07,
-  NE: 0.055,
-  NM: 0.05125,
-  WV: 0.06,
-  ID: 0.06,
-  HI: 0.04,
-  NH: 0.0,
-  ME: 0.055,
-  RI: 0.07,
-  MT: 0.0,
-  DE: 0.0,
-  SD: 0.045,
-  ND: 0.05,
-  AK: 0.0,
-  VT: 0.06,
-  WY: 0.04,
-};
-const US_STATES = Object.keys(STATE_TAX_RATES);
-
-interface CheckoutProps {
-  cartItems?: React.ReactNode[];
-  onClose?: () => void;
-  onOrder?: () => void;
+// ── Minimal typing for the Square Web Payments SDK (loaded from CDN) ──
+interface SquareCard {
+  attach: (selector: string | HTMLElement) => Promise<void>;
+  tokenize: () => Promise<{ status: string; token?: string; errors?: { message: string }[] }>;
+  destroy?: () => void;
 }
-
+interface SquarePayments {
+  card: () => Promise<SquareCard>;
+}
+interface SquareSDK {
+  payments: (appId: string, locationId: string) => SquarePayments;
+}
 declare global {
   interface Window {
-    Square?: unknown;
+    Square?: SquareSDK;
   }
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ cartItems, onClose, onOrder }) => {
-  const [loading, setLoading] = useState(false);
+interface ShippingOption {
+  id: string;
+  label: string;
+  shippingCents: number;
+  taxCents: number;
+  totalCents: number;
+  minDeliveryDays?: number;
+  maxDeliveryDays?: number;
+  token: string;
+}
+
+interface CheckoutProps {
+  onClose?: () => void;
+  onSuccess?: (orderId: string) => void;
+}
+
+const ENV = process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT || 'sandbox';
+const APP_ID = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID || '';
+const LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || '';
+const SDK_URL =
+  ENV === 'production'
+    ? 'https://web.squarecdn.com/v1/square.js'
+    : 'https://sandbox.web.squarecdn.com/v1/square.js';
+
+const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+
+const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+
+function loadSquareSdk(): Promise<SquareSDK> {
+  return new Promise((resolve, reject) => {
+    if (window.Square) return resolve(window.Square);
+    const existing = document.querySelector(`script[src="${SDK_URL}"]`);
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.Square!));
+      existing.addEventListener('error', () => reject(new Error('Failed to load Square SDK')));
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = SDK_URL;
+    script.onload = () => (window.Square ? resolve(window.Square) : reject(new Error('Square SDK unavailable')));
+    script.onerror = () => reject(new Error('Failed to load Square SDK'));
+    document.head.appendChild(script);
+  });
+}
+
+const inputStyle: React.CSSProperties = {
+  width: '100%', padding: '8px 10px', marginBottom: 8, borderRadius: 6,
+  border: '1px solid #3a2f5a', background: '#0f0b1e', color: '#fff',
+  fontFamily: 'Hack, monospace', fontSize: 14, boxSizing: 'border-box',
+};
+
+const Checkout: React.FC<CheckoutProps> = ({ onClose, onSuccess }) => {
+  const { cart, clearCart } = useCart();
+
+  const [recipient, setRecipient] = useState({
+    name: '', email: '', phone: '',
+    address1: '', address2: '', city: '', state_code: 'CA', country_code: 'US', zip: '',
+  });
+
+  const [options, setOptions] = useState<ShippingOption[] | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [quoting, setQuoting] = useState(false);
+  const [paying, setPaying] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { cart } = useCart();
-  // New shipping info state
-  const [shipping, setShipping] = useState({
-    name: '',
-    email: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state_code: 'CA',
-    country_code: 'US',
-    zip: '',
-  });
-  const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
-  const [billing, setBilling] = useState({
-    address1: '',
-    address2: '',
-    city: '',
-    state_code: 'CA',
-    country_code: 'US',
-    zip: '',
-  });
-  const [emailOptIn, setEmailOptIn] = useState(false);
 
-  // Calculate subtotal, tax, discount, and total
-  const subtotalCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.price * 100) * item.quantity, 0);
-  const taxRate = STATE_TAX_RATES[shipping.state_code] || 0;
-  const totalTaxCents = Math.round(subtotalCents * taxRate);
-  const totalDiscountCents = cart.reduce((sum: number, item: CartItem) => sum + Math.round(item.discount ? item.discount * 100 * item.quantity : 0), 0);
-  const totalCents = subtotalCents + totalTaxCents - totalDiscountCents;
+  const cardRef = useRef<SquareCard | null>(null);
+  const [cardReady, setCardReady] = useState(false);
 
-  const handlePurchase = async () => {
-    setLoading(true);
+  const subtotalCents = cart.reduce((s, i) => s + Math.round(i.price * 100) * i.quantity, 0);
+  const selected = options?.find((o) => o.id === selectedId) || null;
+
+  const setField = (k: keyof typeof recipient, v: string) => {
+    setRecipient((r) => ({ ...r, [k]: v }));
+    // Any address change invalidates the quote.
+    setOptions(null);
+    setSelectedId(null);
+  };
+
+  const addressComplete =
+    recipient.name && recipient.email && recipient.address1 && recipient.city &&
+    recipient.state_code && recipient.zip;
+
+  const handleQuote = async () => {
+    setQuoting(true);
     setError(null);
+    setOptions(null);
+    setSelectedId(null);
     try {
-      // Send cart, shipping, and billing to backend
-      const res = await fetch('/api/square-checkout', {
+      const res = await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          cart,
-          shipping,
-          billing: billingSameAsShipping ? shipping : billing,
-        }),
+        body: JSON.stringify({ cart, recipient }),
       });
       const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data.error || 'Failed to create checkout');
-      if (onOrder) onOrder();
-      window.location.href = data.url;
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || 'Checkout error');
-      } else {
-        setError('Checkout error');
-      }
+      if (!res.ok) throw new Error(data.error || 'Could not calculate shipping & tax');
+      if (!data.options?.length) throw new Error('No shipping options available');
+      setOptions(data.options);
+      setSelectedId(data.options[0].id);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Quote failed');
     } finally {
-      setLoading(false);
+      setQuoting(false);
+    }
+  };
+
+  // Mount the Square card form once an option is selected.
+  useEffect(() => {
+    if (!selected || cardReady) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        if (!APP_ID || !LOCATION_ID) {
+          throw new Error('Square is not configured (missing app/location id)');
+        }
+        const sdk = await loadSquareSdk();
+        if (cancelled) return;
+        const payments = sdk.payments(APP_ID, LOCATION_ID);
+        const card = await payments.card();
+        if (cancelled) return;
+        await card.attach('#sq-card');
+        cardRef.current = card;
+        setCardReady(true);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load card form');
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [selected, cardReady]);
+
+  const handlePay = async () => {
+    if (!selected || !cardRef.current) return;
+    setPaying(true);
+    setError(null);
+    try {
+      const result = await cardRef.current.tokenize();
+      if (result.status !== 'OK' || !result.token) {
+        throw new Error(result.errors?.[0]?.message || 'Card was declined or invalid');
+      }
+      const res = await fetch('/api/square-pay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sourceId: result.token, token: selected.token, cart, recipient }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || 'Payment failed');
+      clearCart();
+      onSuccess?.(data.orderId);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Payment error');
+    } finally {
+      setPaying(false);
     }
   };
 
   return (
-    <div className={styles.Checkout}>
-      <div className={styles.XBar}>
-        <button
-          type="button"
-          aria-label="Close checkout"
-          className={styles.XButton}
-          onClick={onClose}
-          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-        >
-          <svg width="100%" height="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-            <rect width="12" height="12" rx="6" fill="#C0282D"/>
-            <path d="M8.22181 2.34591C8.60022 1.96756 9.2136 1.96752 9.59198 2.34591C9.97031 2.72429 9.97031 3.33768 9.59198 3.71607L7.37019 5.93786L9.71625 8.28392C10.0946 8.66231 10.0946 9.2757 9.71625 9.65408C9.33787 10.0325 8.72449 10.0324 8.34609 9.65408L6.00003 7.30802L3.65397 9.65408C3.27558 10.0325 2.66221 10.0324 2.2838 9.65408C1.9054 9.27568 1.9054 8.66232 2.2838 8.28392L4.62986 5.93786L2.40807 3.71607C2.02967 3.33767 2.02967 2.72431 2.40807 2.34591C2.78648 1.96756 3.39986 1.96752 3.77824 2.34591L6.00003 4.56769L8.22181 2.34591Z" fill="white"/>
-          </svg>
+    <div style={{
+      background: '#151029', color: '#fff', borderRadius: 16, padding: 24,
+      width: 'min(460px, 92vw)', maxHeight: '88vh', overflowY: 'auto',
+      fontFamily: 'Hack, monospace', boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <strong style={{ fontSize: 18 }}>Checkout</strong>
+        <button onClick={onClose} aria-label="Close checkout"
+          style={{ background: '#C0282D', color: '#fff', border: 'none', borderRadius: '50%', width: 24, height: 24, cursor: 'pointer' }}>×</button>
+      </div>
+
+      {/* Shipping address */}
+      <div style={{ color: '#2DA9E1', fontSize: 13, margin: '4px 0 8px' }}>Shipping address</div>
+      <input style={inputStyle} placeholder="Full name" value={recipient.name} onChange={(e) => setField('name', e.target.value)} />
+      <input style={inputStyle} placeholder="Email" type="email" value={recipient.email} onChange={(e) => setField('email', e.target.value)} />
+      <input style={inputStyle} placeholder="Phone (optional)" value={recipient.phone} onChange={(e) => setField('phone', e.target.value)} />
+      <input style={inputStyle} placeholder="Address line 1" value={recipient.address1} onChange={(e) => setField('address1', e.target.value)} />
+      <input style={inputStyle} placeholder="Address line 2 (optional)" value={recipient.address2} onChange={(e) => setField('address2', e.target.value)} />
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input style={{ ...inputStyle, flex: 2 }} placeholder="City" value={recipient.city} onChange={(e) => setField('city', e.target.value)} />
+        <select style={{ ...inputStyle, flex: 1 }} value={recipient.state_code} onChange={(e) => setField('state_code', e.target.value)}>
+          {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+        <input style={{ ...inputStyle, flex: 1 }} placeholder="ZIP" value={recipient.zip} onChange={(e) => setField('zip', e.target.value)} />
+      </div>
+
+      {!options && (
+        <button onClick={handleQuote} disabled={!addressComplete || quoting}
+          style={{ width: '100%', padding: 10, marginTop: 4, borderRadius: 8, border: 'none',
+            background: addressComplete ? '#2DA9E1' : '#3a3a3a', color: '#fff',
+            cursor: addressComplete && !quoting ? 'pointer' : 'not-allowed', fontFamily: 'Hack, monospace' }}>
+          {quoting ? 'Calculating…' : 'Calculate shipping & tax'}
         </button>
-      </div>
-      <div className={styles.CheckoutMainContent}>
-        <div className={styles.CheckoutContainer1}>
-          {cartItems && cartItems.length > 0 ? cartItems : null}
-        </div>
-        <div className={styles.CheckoutContainer2}>
-          <div className={styles.Nameinput}>
-            <input
-              type="text"
-              value={shipping.name}
-              onChange={e => setShipping({ ...shipping, name: e.target.value })}
-              placeholder="Full Name"
-              required
-            />
-          </div>
-          <div className={styles.Emailinput}>
-            <input
-              type="email"
-              value={shipping.email}
-              onChange={e => setShipping({ ...shipping, email: e.target.value })}
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className={styles.BillingAddress}>Billing Address</div>
-          <div className={styles.Signupforemail} style={{ marginBottom: 8 }}>
-            <div
-              className={styles.Agreetoterms}
-              onClick={() => setBillingSameAsShipping(v => !v)}
-              tabIndex={0}
-              role="checkbox"
-              aria-checked={billingSameAsShipping}
-              style={{ cursor: 'pointer' }}
-            >
-              <div className={styles.Checkcircle}>
-                <input
-                  type="checkbox"
-                  checked={billingSameAsShipping}
-                  onChange={e => setBillingSameAsShipping(e.target.checked)}
-                  style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}
-                  id="billing-same"
-                  tabIndex={-1}
-                />
-                {billingSameAsShipping && (
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M13.4765 1.7294C12.7785 0.977243 11.6472 0.977243 10.9492 1.7294L4.63022 8.52197L3.05084 6.82382C2.35282 6.07627 1.2211 6.07627 0.523514 6.82382C-0.174505 7.57598 -0.174505 8.79421 0.523514 9.54176L3.3668 12.6012C4.06482 13.3533 5.19607 13.3533 5.89409 12.6012L13.4765 4.44734C14.1745 3.69518 14.1745 2.47695 13.4765 1.7294Z" fill="white"/>
-                  </svg>
-                )}
-              </div>
-            </div>
-            <label htmlFor="billing-same" style={{ color: 'white', fontSize: 14, fontFamily: 'Hack, monospace', marginLeft: 8, cursor: 'pointer' }}>
-              Billing address is the same as shipping address
+      )}
+
+      {/* Shipping options */}
+      {options && (
+        <>
+          <div style={{ color: '#2DA9E1', fontSize: 13, margin: '14px 0 6px' }}>Shipping method</div>
+          {options.map((o) => (
+            <label key={o.id} style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8,
+              padding: '8px 10px', marginBottom: 6, borderRadius: 8, cursor: 'pointer',
+              border: `1px solid ${selectedId === o.id ? '#2DA9E1' : '#3a2f5a'}`,
+              background: selectedId === o.id ? '#1c1636' : '#0f0b1e',
+            }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <input type="radio" name="ship" checked={selectedId === o.id} onChange={() => setSelectedId(o.id)} />
+                <span style={{ fontSize: 13 }}>
+                  {o.label}
+                  {o.minDeliveryDays != null && (
+                    <span style={{ color: '#9a8fc0', display: 'block', fontSize: 11 }}>
+                      {o.minDeliveryDays}–{o.maxDeliveryDays} business days
+                    </span>
+                  )}
+                </span>
+              </span>
+              <span>{money(o.shippingCents)}</span>
             </label>
+          ))}
+
+          {/* Order summary */}
+          <div style={{ borderTop: '1px solid #2DA9E1', margin: '12px 0 8px', paddingTop: 8, fontSize: 14 }}>
+            <Row label="Subtotal" value={money(subtotalCents)} />
+            {selected && <Row label="Shipping" value={money(selected.shippingCents)} />}
+            {selected && selected.taxCents > 0 && <Row label="Sales tax" value={money(selected.taxCents)} />}
+            {selected && (
+              <Row label="Total" value={money(selected.totalCents)} bold />
+            )}
           </div>
-          {!billingSameAsShipping && (
-            <>
-              <div className={styles.Addressline1input}>
-                <input
-                  type="text"
-                  value={billing.address1}
-                  onChange={e => setBilling({ ...billing, address1: e.target.value })}
-                  placeholder="Billing Address 1"
-                  required
-                />
-              </div>
-              <div className={styles.Addressline2input}>
-                <input
-                  type="text"
-                  value={billing.address2 || ''}
-                  onChange={e => setBilling({ ...billing, address2: e.target.value })}
-                  placeholder="Billing Address 2 (optional)"
-                />
-              </div>
-              <div className={styles.Addressline3input} style={{ display: 'flex', gap: 8, alignItems: 'center', minHeight: 0 }}>
-                <input
-                  type="text"
-                  value={billing.city}
-                  onChange={e => setBilling({ ...billing, city: e.target.value })}
-                  placeholder="Billing City"
-                  required
-                  style={{ flex: 2, minWidth: 0 }}
-                />
-                <select
-                  id="billing-state"
-                  value={billing.state_code}
-                  onChange={e => setBilling({ ...billing, state_code: e.target.value })}
-                  required
-                  style={{ flex: 1, minWidth: 0 }}
-                >
-                  {US_STATES.map(state => (
-                    <option key={state} value={state}>{state}</option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  value={billing.zip}
-                  onChange={e => setBilling({ ...billing, zip: e.target.value })}
-                  placeholder="Billing ZIP"
-                  required
-                  style={{ flex: 1, minWidth: 0 }}
-                />
-                <input
-                  type="text"
-                  value={billing.country_code}
-                  onChange={e => setBilling({ ...billing, country_code: e.target.value })}
-                  placeholder="Billing Country (e.g. US)"
-                  required
-                  style={{ flex: 1, minWidth: 0 }}
-                />
-              </div>
-            </>
-          )}
-          <div className={styles.ShippingAddress}>Shipping Address</div>
-          <div className={styles.Addressline1input}>
-            <input
-              type="text"
-              value={shipping.address1}
-              onChange={e => setShipping({ ...shipping, address1: e.target.value })}
-              placeholder="Address 1"
-              required
-            />
-          </div>
-          <div className={styles.Addressline2input}>
-            <input
-              type="text"
-              value={shipping.address2 || ''}
-              onChange={e => setShipping({ ...shipping, address2: e.target.value })}
-              placeholder="Address 2 (optional)"
-            />
-          </div>
-          <div className={styles.Addressline3input} style={{ display: 'flex', gap: 8, alignItems: 'center', minHeight: 0 }}>
-            <input
-              type="text"
-              value={shipping.city}
-              onChange={e => setShipping({ ...shipping, city: e.target.value })}
-              placeholder="City"
-              required
-              style={{ flex: 2, minWidth: 0 }}
-            />
-            <select
-              id="shipping-state"
-              value={shipping.state_code}
-              onChange={e => setShipping({ ...shipping, state_code: e.target.value })}
-              required
-              style={{ flex: 1, minWidth: 0 }}
-            >
-              {US_STATES.map(state => (
-                <option key={state} value={state}>{state}</option>
-              ))}
-            </select>
-            <input
-              type="text"
-              value={shipping.zip}
-              onChange={e => setShipping({ ...shipping, zip: e.target.value })}
-              placeholder="ZIP"
-              required
-              style={{ flex: 1, minWidth: 0 }}
-            />
-            <input
-              type="text"
-              value={shipping.country_code}
-              onChange={e => setShipping({ ...shipping, country_code: e.target.value })}
-              placeholder="Country (e.g. US)"
-              required
-              style={{ flex: 1, minWidth: 0 }}
-            />
-          </div>
-          <div className={styles.Signupforemail}>
-            <div
-              className={styles.Agreetoterms}
-              onClick={() => setEmailOptIn(v => !v)}
-              tabIndex={0}
-              role="checkbox"
-              aria-checked={emailOptIn}
-              style={{ cursor: 'pointer' }}
-            >
-              <div className={styles.Checkcircle}>
-                <input
-                  type="checkbox"
-                  checked={emailOptIn}
-                  onChange={e => setEmailOptIn(e.target.checked)}
-                  style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}
-                  id="email-opt-in"
-                  tabIndex={-1}
-                />
-                {emailOptIn && (
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M13.4765 1.7294C12.7785 0.977243 11.6472 0.977243 10.9492 1.7294L4.63022 8.52197L3.05084 6.82382C2.35282 6.07627 1.2211 6.07627 0.523514 6.82382C-0.174505 7.57598 -0.174505 8.79421 0.523514 9.54176L3.3668 12.6012C4.06482 13.3533 5.19607 13.3533 5.89409 12.6012L13.4765 4.44734C14.1745 3.69518 14.1745 2.47695 13.4765 1.7294Z" fill="white"/>
-                  </svg>
-                )}
-              </div>
-            </div>
-            <div className={styles.SignUpForEmailMarketingUpdates}>
-              <label htmlFor="email-opt-in" style={{ color: 'white', fontSize: 14, fontFamily: 'Hack, monospace', marginLeft: 8, cursor: 'pointer' }}>
-                Sign Up for Email marketing updates
-              </label>
-            </div>
-          </div>
-        </div>
-        <div className={styles.CheckoutContainer3}>
-          <div className={styles.Paymentinfo}>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-            {/* Order summary display */}
-            <div style={{ fontWeight: 'bold', fontSize: 16, color: '#2DA9E1', marginBottom: 12, textAlign: 'right' }}>
-              <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Subtotal: ${ (subtotalCents / 100).toFixed(2) }</div>
-              {totalTaxCents > 0 && <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Tax: ${ (totalTaxCents / 100).toFixed(2) }</div>}
-              {totalDiscountCents > 0 && <div style={{ fontWeight: 'normal', color: '#fff', fontSize: 15 }}>Discount: -${ (totalDiscountCents / 100).toFixed(2) }</div>}
-              <div style={{ borderTop: '1px solid #2DA9E1', margin: '6px 0' }} />
-              Order Total: ${ (totalCents / 100).toFixed(2) }
-            </div>
-            <div className={styles.Addtocartbutton} onClick={handlePurchase} style={{ cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.5 : 1 }}>
-              <div className={styles.Purchase}>{loading ? 'Processing...' : 'Purchase'}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+          {/* Square card form */}
+          <div style={{ color: '#2DA9E1', fontSize: 13, margin: '8px 0 6px' }}>Card details</div>
+          <div id="sq-card" style={{ background: '#fff', borderRadius: 6, padding: 4, minHeight: 44 }} />
+          {!cardReady && <div style={{ fontSize: 12, color: '#9a8fc0', marginTop: 6 }}>Loading secure card form…</div>}
+
+          <button onClick={handlePay} disabled={!cardReady || paying}
+            style={{ width: '100%', padding: 12, marginTop: 12, borderRadius: 8, border: 'none',
+              background: cardReady ? '#2DA9E1' : '#3a3a3a', color: '#fff', fontSize: 16,
+              cursor: cardReady && !paying ? 'pointer' : 'not-allowed', fontFamily: 'Hack, monospace' }}>
+            {paying ? 'Processing…' : selected ? `Pay ${money(selected.totalCents)}` : 'Pay'}
+          </button>
+        </>
+      )}
+
+      {error && <div style={{ color: '#ff6b6b', fontSize: 13, marginTop: 10 }}>{error}</div>}
     </div>
   );
 };
 
-export default Checkout; 
+const Row: React.FC<{ label: string; value: string; bold?: boolean }> = ({ label, value, bold }) => (
+  <div style={{ display: 'flex', justifyContent: 'space-between', margin: '2px 0', fontWeight: bold ? 700 : 400 }}>
+    <span>{label}</span><span>{value}</span>
+  </div>
+);
+
+export default Checkout;

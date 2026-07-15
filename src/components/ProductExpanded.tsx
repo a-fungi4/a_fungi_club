@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import styles from './ProductExpanded.module.css';
 import Image from 'next/image';
 import { Variation } from '@/types/Product';
@@ -12,6 +12,7 @@ interface SizeOption {
 
 interface ProductExpandedProps {
   image?: string;
+  images?: string[];
   name: string;
   price: string | number;
   details: string;
@@ -71,6 +72,17 @@ function parseVariations(variations: Variation[]) {
   };
 }
 
+// Split a product description into the main copy and the "DISCLAIMER" section.
+// Matches a line that is just "Disclaimer" / "DISCLAIMER" / "**Disclaimer**".
+function splitDisclaimer(text: string): { main: string; disclaimer: string | null } {
+  const m = text.match(/(?:\r?\n|^)[\s*]*disclaimer[\s*:]*(?:\r?\n|$)/i);
+  if (!m || m.index === undefined) return { main: text.trim(), disclaimer: null };
+  return {
+    main: text.slice(0, m.index).trim(),
+    disclaimer: text.slice(m.index + m[0].length).trim() || null,
+  };
+}
+
 function colorToHex(color: string) {
   const map: Record<string, string> = {
     // Printful sidebar filter colors
@@ -115,7 +127,7 @@ function colorToHex(color: string) {
     "Pebble": "#9a8479",
     "Heather Aqua": "#27a8c8",
     "Heather Team Purple": "#b680c1",
-    "Burnt Orange": "#ed8043",
+    "Burnt Orange": "#d1774a",
     "Heather Columbia Blue": "#7d95e8",
     "Toast": "#cf8d4c",
     "Sage": "#9eab96",
@@ -228,11 +240,18 @@ function colorToHex(color: string) {
     "Chambray": "#d9f3ff",
     "Ivory": "#fff4d9",
   };
-  return map[color] || '#888'; // fallback to grey if not found
+  if (map[color]) return map[color];
+  // Case-insensitive fallback (Square uses "Burnt orange", map has "Burnt Orange").
+  const lower = color.trim().toLowerCase();
+  for (const key in map) {
+    if (key.toLowerCase() === lower) return map[key];
+  }
+  return '#888'; // fallback to grey if not found
 }
 
 const ProductExpanded: React.FC<ProductExpandedProps> = ({
   image,
+  images,
   name,
   price,
   details,
@@ -248,14 +267,20 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
 }) => {
   // Parse variations with useMemo to prevent recalculation on every render
   const { colors, sizes, byColor, variationMap } = useMemo(() => parseVariations(variations), [variations]);
+  const { main: mainDetails, disclaimer } = useMemo(() => splitDisclaimer(details || ''), [details]);
   const [showLargePhoto, setShowLargePhoto] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
 
-  // Gather all unique images: main image + all variation images
+  // Gather all unique images: the full item-level image set plus each
+  // variation's (color-matched) image, so selecting any color can jump to it.
   const allImages = Array.from(
-    new Set([
-      image,
-      ...variations.map(v => v.image).filter(Boolean)
-    ].filter(Boolean))
+    new Set(
+      [
+        ...(images || []),
+        image,
+        ...variations.map(v => v.image),
+      ].filter(Boolean),
+    ),
   ) as string[];
   const [currentIdx, setCurrentIdx] = useState(0);
   const hasImages = allImages.length > 0;
@@ -301,6 +326,16 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
     // For products with multiple variations, require both color and size selection
     return variationMap[`${selectedColor}|${selectedSize}`] || null;
   }, [variationMap, selectedColor, selectedSize, variations, name, price, details, image]);
+
+  // When a color is selected, jump the photo to that color's shirt image.
+  useEffect(() => {
+    if (!selectedColor) return;
+    const match = variations.find(v => v.color === selectedColor && v.image);
+    const target = match?.image;
+    if (!target) return;
+    const idx = allImages.indexOf(target);
+    if (idx >= 0) setCurrentIdx(idx);
+  }, [selectedColor, variations, allImages]);
 
   // Memoize click handlers to prevent unnecessary re-renders
   const handleColorClick = useCallback((color: string) => {
@@ -362,11 +397,12 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
                 <Image
                   src={showImage}
                   alt={name}
-                  width={138}
-                  height={138}
+                  fill
+                  sizes="(max-width: 600px) 90vw, 240px"
+                  style={{ objectFit: 'contain' }}
                 />
               ) : (
-                <Image src="/file.svg" alt="No image" width={138} height={138} />
+                <Image src="/file.svg" alt="No image" width={64} height={64} />
               )}
             </div>
             {/* Large Photo Overlay */}
@@ -478,7 +514,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
             )}
             {/* Show selected variation details or invalid combination warning */}
             {selectedVariation ? (
-              <div style={{ margin: '12px 0', color: '#fff', fontSize: 14 }}>
+              <div style={{ margin: '12px 0', color: '#fff', fontSize: 14, textAlign: 'center' }}>
                 {variations.length === 0 ? (
                   <div>No variations available for this product.</div>
                 ) : (
@@ -492,7 +528,7 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
             ) : (
               // Show warning if current color/size combination is invalid
               selectedColor && selectedSize && !byColor[selectedColor]?.includes(selectedSize) && (
-                <div style={{ margin: '12px 0', color: '#ff6b6b', fontSize: 12, fontStyle: 'italic' }}>
+                <div style={{ margin: '12px 0', color: '#ff6b6b', fontSize: 12, fontStyle: 'italic', textAlign: 'center' }}>
                   ⚠️ {selectedSize} not available in {selectedColor}. Please select a different size.
                 </div>
               )
@@ -522,25 +558,35 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
             </div>
             {/* Product Details */}
             <div className={styles.Productdetails}>
-              <div className={styles.ProductDetails}>{details}</div>
+              <div className={styles.ProductDetails}>{mainDetails}</div>
             </div>
+            {/* Disclaimer — separate box */}
+            {disclaimer && (
+              <div className={styles.Disclaimer}>
+                <div className={styles.DisclaimerLabel}>Disclaimer</div>
+                <div className={styles.DisclaimerText}>{disclaimer}</div>
+              </div>
+            )}
           </div>
         </div>
         {/* Add to Cart Button outside content for positioning */}
-        <div 
-          className={`${styles.Addtocartbutton} ${!selectedVariation ? styles.AddtocartbuttonDisabled : ''}`} 
-          onClick={() => { 
+        <div
+          className={`${styles.Addtocartbutton} ${!selectedVariation ? styles.AddtocartbuttonDisabled : ''}`}
+          onClick={() => {
             if (selectedVariation) {
-              onAddToCart(); 
+              onAddToCart();
+              setJustAdded(true);
+              setTimeout(() => setJustAdded(false), 1600);
             }
           }}
-          style={{ 
+          style={{
             cursor: selectedVariation ? 'pointer' : 'not-allowed',
-            opacity: selectedVariation ? 1 : 0.5
+            opacity: selectedVariation ? 1 : 0.5,
+            background: justAdded ? '#1f9d55' : undefined,
           }}
         >
           <div className={styles.AddToCart}>
-            {selectedVariation ? 'Add to Cart' : 'Select Valid Options'}
+            {!selectedVariation ? 'Select Valid Options' : justAdded ? '✓ Added to cart' : 'Add to Cart'}
           </div>
         </div>
       </div>

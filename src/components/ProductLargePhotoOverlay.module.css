@@ -13,8 +13,10 @@
 }
 
 .ProductLargePhoto {
-  width: 460px;
-  height: 664px;
+  width: min(460px, 92vw);
+  height: min(664px, 90vh);
+  max-width: 92vw;
+  max-height: 90vh;
   background: linear-gradient(0deg, rgba(132,96,132,0.12) 0%, rgba(132,96,132,0.12) 100%), #151029;
   box-shadow: 0px 0px 16px rgba(192, 40, 45, 0.54);
   overflow: hidden;
@@ -51,8 +53,9 @@
 }
 
 .Placeholder {
-  width: 432px;
-  height: 626px;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -83,17 +86,16 @@
 
 @media (max-width: 600px) {
   .ProductLargePhoto {
-    width: 98vw;
-    height: 70vh;
+    width: 96vw;
+    height: auto;
     min-width: 0;
     min-height: 0;
-    max-width: 99vw;
-    max-height: 90vh;
+    max-width: 96vw;
+    max-height: 88vh;
   }
   .Placeholder {
-    width: 96vw;
-    height: 60vw;
-    max-width: 99vw;
-    max-height: 60vh;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 60vw;
   }
 } 

@@ -11,25 +11,36 @@
   display: inline-flex;
 }
 
+/* Keep the cart + order-status icons small (their SVGs are width/height:100%,
+   so they need an explicitly sized box). */
 .ShoppingCartSvgrepoCom {
   position: relative;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  padding: 0;
 }
 
 .Layer1 {
   position: relative;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
 }
 
 @media (min-width: 768px) {
   .Cartandstatus {
-    padding: 0.6vw 0.8vw;
-    gap: 1.5vw;
+    padding: 6px 10px;
+    gap: 12px;
   }
-  
+
   .ShoppingCartSvgrepoCom {
-    transform: scale(1.2);
+    width: 30px;
+    height: 30px;
   }
-  
+
   .Layer1 {
-    transform: scale(1.2);
+    width: 30px;
+    height: 30px;
   }
 }

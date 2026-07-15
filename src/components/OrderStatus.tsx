@@ -1,95 +1,210 @@
+'use client';
 import React, { useState } from 'react';
-import styles from './OrderStatus.module.css';
 
 interface OrderStatusProps {
-  status?: string;
-  email?: string;
   onClose?: () => void;
-  onSendOtp?: () => void;
 }
 
-const statusList = [
-  'FULFILLED',
-  'PARTIAL',
-  'ONHOLD',
-  'IN PROCESS',
-  'CANCEL',
-  'FAILED',
-  'PENDING',
-  'DRAFT',
-];
+interface Shipment {
+  carrier?: string;
+  trackingNumber?: string;
+  trackingUrl?: string;
+}
+interface StatusResult {
+  orderId: string;
+  createdAt?: string;
+  squareState?: string;
+  totalCents?: number;
+  items: { name: string; quantity: number }[];
+  printfulStatus?: string;
+  shipments: Shipment[];
+}
 
-const OrderStatus: React.FC<OrderStatusProps> = ({ status = 'order status', email = 'Email', onClose, onSendOtp }) => {
-  const [otpState, setOtpState] = useState(false);
-  const [resultState, setResultState] = useState(false);
+// Friendly labels + a simple 3-step progression for the Printful status.
+const PF_LABELS: Record<string, string> = {
+  draft: 'Order received', pending: 'Order received',
+  inprocess: 'In production', onhold: 'On hold',
+  partial: 'Shipped', fulfilled: 'Shipped',
+  canceled: 'Canceled', failed: 'Failed',
+};
+const STEPS = ['Order received', 'In production', 'Shipped'];
+function stepIndex(status?: string): number {
+  const label = status ? PF_LABELS[status] : undefined;
+  const i = label ? STEPS.indexOf(label) : -1;
+  return i;
+}
+
+const money = (c?: number) => (c == null ? '' : `$${(c / 100).toFixed(2)}`);
+
+const inputStyle: React.CSSProperties = {
+  width: '100%', padding: '9px 10px', marginBottom: 10, borderRadius: 6,
+  border: '1px solid #3a2f5a', background: '#0f0b1e', color: '#fff',
+  fontFamily: 'Hack, monospace', fontSize: 14, boxSizing: 'border-box',
+};
+const btnStyle = (enabled: boolean): React.CSSProperties => ({
+  width: '100%', padding: 11, borderRadius: 8, border: 'none', fontSize: 15,
+  background: enabled ? '#2DA9E1' : '#3a3a3a', color: '#fff',
+  cursor: enabled ? 'pointer' : 'not-allowed', fontFamily: 'Moby, sans-serif',
+});
+
+const OrderStatus: React.FC<OrderStatusProps> = ({ onClose }) => {
+  const [step, setStep] = useState<'form' | 'otp' | 'result'>('form');
+  const [orderId, setOrderId] = useState('');
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [challenge, setChallenge] = useState('');
+  const [result, setResult] = useState<StatusResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const requestOtp = async () => {
+    setLoading(true); setError(null);
+    try {
+      const res = await fetch('/api/order-status/request', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: orderId.trim(), email: email.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not send code');
+      setChallenge(data.challenge);
+      setStep('otp');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Error');
+    } finally { setLoading(false); }
+  };
+
+  const verifyOtp = async () => {
+    setLoading(true); setError(null);
+    try {
+      const res = await fetch('/api/order-status/verify', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challenge, otp: otp.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not verify code');
+      setResult(data);
+      setStep('result');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Error');
+    } finally { setLoading(false); }
+  };
+
+  const activeStep = result ? stepIndex(result.printfulStatus) : -1;
+  const isTerminal = result?.printfulStatus === 'canceled' || result?.printfulStatus === 'failed';
 
   return (
-    <div className={styles.OrderstatusResultWrapper}>
-      {resultState ? (
-        <div className={styles.OrderstatusResult} data-layer="OrderStatus">
-          <div className={styles.Frame166Result} data-layer="Frame 166">
-            <div className={styles.ExitButton} data-svg-wrapper data-layer="Exit Button" onClick={onClose}>
-              <svg width="100%" height="100%" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.964844" width="8.03535" height="7.97267" rx="3.98633" fill="#C0282D"/>
-                <path d="M6.10324 2.14314C6.29412 1.9523 6.60352 1.95228 6.79438 2.14314C6.98522 2.33401 6.98522 2.64341 6.79438 2.83428L5.67367 3.95499L6.85707 5.13839C7.0479 5.32925 7.0479 5.63866 6.85707 5.82952C6.6662 6.02039 6.3568 6.02037 6.16593 5.82952L4.98253 4.64613L3.79914 5.82952C3.60827 6.02039 3.29887 6.02037 3.108 5.82952C2.91713 5.63865 2.91713 5.32926 3.108 5.13839L4.2914 3.95499L3.17068 2.83428C2.97981 2.64341 2.97981 2.33401 3.17068 2.14314C3.36156 1.9523 3.67096 1.95228 3.86182 2.14314L4.98253 3.26385L6.10324 2.14314Z" fill="white"/>
-              </svg>
+    <div style={{
+      background: '#151029', color: '#fff', borderRadius: 16, padding: 22,
+      width: 'min(420px, 92vw)', maxHeight: '86vh', overflowY: 'auto',
+      fontFamily: 'Hack, monospace', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', boxSizing: 'border-box',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+        <strong style={{ fontFamily: 'Moby, sans-serif', fontSize: 18 }}>Order Status</strong>
+        <button onClick={onClose} aria-label="Close"
+          style={{ background: '#C0282D', color: '#fff', border: 'none', borderRadius: '50%', width: 24, height: 24, cursor: 'pointer' }}>×</button>
+      </div>
+
+      {step === 'form' && (
+        <>
+          <p style={{ fontSize: 12, color: '#9a8fc0', marginBottom: 12 }}>
+            Enter your order number (from your confirmation email) and the email you used at checkout.
+          </p>
+          <input style={inputStyle} placeholder="Order number" value={orderId} onChange={e => setOrderId(e.target.value)} />
+          <input style={inputStyle} placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          <button style={btnStyle(!!orderId.trim() && !!email.trim() && !loading)}
+            disabled={!orderId.trim() || !email.trim() || loading} onClick={requestOtp}>
+            {loading ? 'Sending…' : 'Send code'}
+          </button>
+        </>
+      )}
+
+      {step === 'otp' && (
+        <>
+          <p style={{ fontSize: 13, color: '#9a8fc0', marginBottom: 12 }}>
+            We emailed a 6-digit code to <strong style={{ color: '#fff' }}>{email}</strong>. Enter it below.
+          </p>
+          <input style={{ ...inputStyle, letterSpacing: 6, textAlign: 'center', fontSize: 20 }}
+            placeholder="••••••" inputMode="numeric" maxLength={6}
+            value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, ''))} />
+          <button style={btnStyle(otp.trim().length === 6 && !loading)}
+            disabled={otp.trim().length !== 6 || loading} onClick={verifyOtp}>
+            {loading ? 'Checking…' : 'View my order'}
+          </button>
+          <button onClick={() => { setStep('form'); setOtp(''); setError(null); }}
+            style={{ background: 'none', border: 'none', color: '#2DA9E1', cursor: 'pointer', marginTop: 10, fontSize: 12 }}>
+            ← Use a different order/email
+          </button>
+        </>
+      )}
+
+      {step === 'result' && result && (
+        <>
+          <div style={{ fontSize: 12, color: '#9a8fc0', marginBottom: 4 }}>Order #{result.orderId}</div>
+          {result.createdAt && (
+            <div style={{ fontSize: 12, color: '#9a8fc0', marginBottom: 12 }}>
+              Placed {new Date(result.createdAt).toLocaleDateString()}
             </div>
-          </div>
-          <div className={styles.Frame180Result} data-layer="Frame 180">
-            <div className={styles.OrderStatusTextResult} data-layer="ORDER STATUS">ORDER STATUS</div>
-            <div className={styles.Timeline}>
-              {statusList.map((status, i) => (
-                <div className={styles.TimelineRow} key={status}>
-                  <div className={styles.TimelineDotWrapper}>
-                    <div className={styles.TimelineDot} />
-                    {i < statusList.length - 1 && <div className={styles.TimelineLine} />}
-                  </div>
-                  <div className={styles.StatusLabel}>{status}</div>
+          )}
+
+          {/* Progress */}
+          {isTerminal ? (
+            <div style={{ background: 'rgba(192,40,45,0.2)', border: '1px solid #C0282D', borderRadius: 8, padding: 10, marginBottom: 12, textAlign: 'center' }}>
+              This order was {result.printfulStatus}.
+            </div>
+          ) : (
+            <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+              {STEPS.map((label, i) => (
+                <div key={label} style={{ flex: 1, textAlign: 'center' }}>
+                  <div style={{ height: 6, borderRadius: 3, background: i <= activeStep ? '#2DA9E1' : '#3a2f5a', marginBottom: 6 }} />
+                  <div style={{ fontSize: 10, color: i <= activeStep ? '#fff' : '#9a8fc0' }}>{label}</div>
                 </div>
               ))}
             </div>
-            <div className={styles.AddtocartbuttonResult} data-layer="AddToCartButton" onClick={onClose}>
-              <div className={styles.CoolResult} data-layer="COOL">COOL</div>
-            </div>
+          )}
+          <div style={{ fontSize: 13, marginBottom: 12 }}>
+            Status: <strong style={{ color: '#2DA9E1' }}>
+              {result.printfulStatus ? (PF_LABELS[result.printfulStatus] || result.printfulStatus) : 'Processing'}
+            </strong>
           </div>
-        </div>
-      ) : (
-        <div className={styles.Orderstatus} data-layer="OrderStatus">
-          <div className={styles.Frame166} data-layer="Frame 166">
-            <div className={styles.ExitButton} data-svg-wrapper data-layer="Exit Button" onClick={onClose}>
-              <svg width="100%" height="100%" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.964844" width="8.03535" height="7.97267" rx="3.98633" fill="#C0282D"/>
-                <path d="M6.10324 2.14314C6.29412 1.9523 6.60352 1.95228 6.79438 2.14314C6.98522 2.33401 6.98522 2.64341 6.79438 2.83428L5.67367 3.95499L6.85707 5.13839C7.0479 5.32925 7.0479 5.63866 6.85707 5.82952C6.6662 6.02039 6.3568 6.02037 6.16593 5.82952L4.98253 4.64613L3.79914 5.82952C3.60827 6.02039 3.29887 6.02037 3.108 5.82952C2.91713 5.63865 2.91713 5.32926 3.108 5.13839L4.2914 3.95499L3.17068 2.83428C2.97981 2.64341 2.97981 2.33401 3.17068 2.14314C3.36156 1.9523 3.67096 1.95228 3.86182 2.14314L4.98253 3.26385L6.10324 2.14314Z" fill="white"/>
-              </svg>
-            </div>
-          </div>
-          <div className={styles.Frame180Outer} data-layer="Frame 180">
-            <div className={styles.Frame180} data-layer="Frame 180">
-              {otpState ? (
-                <>
-                  <div className={styles.OrderStatusText} data-layer="OTP">OTP</div>
-                  <div className={styles.Frame169} data-layer="Frame 169">OTP</div>
-                  <div className={styles.Addtocartbutton} data-layer="AddToCartButton" onClick={() => setResultState(true)}>
-                    <div className={styles.SendOtp} data-layer="VIEW MY ORDER">VIEW MY ORDER</div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={styles.OrderStatusText} data-layer="order status">{status}</div>
-                  <div className={styles.Frame169} data-layer="Frame 169">
-                    <div className={styles.Email} data-layer="Email">{email}</div>
-                  </div>
-                  <div className={styles.Addtocartbutton} data-layer="AddToCartButton" onClick={() => { setOtpState(true); if (onSendOtp) onSendOtp(); }}>
-                    <div className={styles.SendOtp} data-layer="SEND OTP">SEND OTP</div>
-                  </div>
-                </>
+
+          {/* Items */}
+          {result.items.length > 0 && (
+            <div style={{ borderTop: '1px solid #2DA9E1', paddingTop: 8, marginBottom: 8 }}>
+              {result.items.map((it, idx) => (
+                <div key={idx} style={{ fontSize: 13, display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{it.name}</span><span>× {it.quantity}</span>
+                </div>
+              ))}
+              {result.totalCents != null && (
+                <div style={{ fontSize: 13, display: 'flex', justifyContent: 'space-between', marginTop: 6, fontWeight: 700 }}>
+                  <span>Total</span><span>{money(result.totalCents)}</span>
+                </div>
               )}
             </div>
-          </div>
-        </div>
+          )}
+
+          {/* Tracking */}
+          {result.shipments.length > 0 && (
+            <div style={{ marginTop: 8 }}>
+              <div style={{ color: '#2DA9E1', fontSize: 13, marginBottom: 6 }}>Tracking</div>
+              {result.shipments.map((s, idx) => (
+                <div key={idx} style={{ fontSize: 13, marginBottom: 4 }}>
+                  {s.carrier ? `${s.carrier}: ` : ''}
+                  {s.trackingUrl
+                    ? <a href={s.trackingUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#CCBBE9' }}>{s.trackingNumber || 'Track package'}</a>
+                    : (s.trackingNumber || '—')}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button style={{ ...btnStyle(true), marginTop: 14 }} onClick={onClose}>Done</button>
+        </>
       )}
+
+      {error && <div style={{ color: '#ff6b6b', fontSize: 13, marginTop: 10 }}>{error}</div>}
     </div>
   );
 };
 
-export default OrderStatus; 
+export default OrderStatus;

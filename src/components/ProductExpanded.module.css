@@ -1,39 +1,39 @@
 .Productexpanded {
-  width: auto;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   position: relative;
-  padding-left: 1vh;
-  padding-right: 1vh;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+  padding: 10px;
   background: linear-gradient(0deg, rgba(132,96,132,0.12) 0%, rgba(132,96,132,0.12) 100%), #151029;
   box-shadow: 0px 0px 8px rgba(192, 40, 45, 0.54);
-  overflow: auto;
+  overflow: visible;
   border-radius: 8px;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 32px;
-  display: inline-flex;
-  aspect-ratio: 3/2;
-  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .PhotoPrice {
-  width: auto;
+  width: 100%;
   height: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Photo {
-  width: 15vw;
-  max-width: 220px;
+  width: min(38vw, 240px);
+  max-width: 240px;
   height: auto;
-  aspect-ratio: 250 / 280;
-  background: black;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 8px;
   position: relative;
-  margin: 0 auto 1vh auto;
+  margin: 0 auto 8px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,56 +59,61 @@
 }
 
 .SelectionDots {
-  position: absolute;
-  left: 50px;
-  top: 228px;
-  justify-content: flex-start;
+  position: relative;
+  width: 100%;
+  justify-content: center;
   align-items: center;
   gap: 6px;
-  display: inline-flex;
+  row-gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 6px 0 10px;
 }
 
 .Productnameandprice {
-  width: auto;
+  width: 100%;
   height: auto;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   gap: 7px;
   display: flex;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
 }
 .Productname {
   width: 100%;
   background: #2DA9E1;
-  border-radius: 100px;
+  border-radius: 22px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  padding: 8px 16px;
   display: flex;
   color: white;
-  font-size: 0.5em;
+  font-size: clamp(15px, 4.2vw, 22px);
+  line-height: 1.15;
+  text-align: center;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   flex-direction: column;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 .Price {
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 4px 16px;
   background: #C0282D;
   border-radius: 100px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   display: flex;
   color: white;
-  font-size: 0.5em;
+  font-size: clamp(13px, 3.6vw, 18px);
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .Addtocartbutton {
   width: 100%;
@@ -142,24 +147,18 @@
   text-align: center;
 }
 .Line9 {
-  display: flex;
-  align-items: center;
-  width: auto;
-  height: 100%;
-  max-height: 4px;
-  min-height: 4px;
+  display: none;
 }
 
 .SizeDesc {
-  width: 50%;
-  height: 100%;
-  flex: 1 1 0%;
+  width: 100%;
+  height: auto;
   min-height: 0;
-  gap: 0.25vh;
+  gap: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 200 / 280;
+  box-sizing: border-box;
 }
 .Colorselection {
   width: 100%;
@@ -193,15 +192,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 .SizeSelectorLabel {
   color: white;
-  font-size: 1em;
+  font-size: clamp(11px, 2.6vw, 14px);
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   margin-bottom: 4px;
   letter-spacing: 0.1em;
+  text-align: center;
 }
 .Sizeselection {
   width: 100%;
@@ -241,10 +241,21 @@
   word-wrap: break-word;
 }
 .QtyWrapper {
-  width: 133px;
+  width: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 16px;
   position: relative;
+  margin: 8px auto;
+}
+.Qty {
+  color: #fff;
+  font-family: 'Hack', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
 }
 .QtyBox {
   padding-left: 10px;
@@ -276,56 +287,79 @@
   position: relative;
 }
 .Productdetails {
-  flex: 1 1 0%;
   width: 100%;
   height: auto;
-  max-height: 300px;
-  aspect-ratio: 1/1;
-  padding: 8px;
+  max-height: 34vh;
+  padding: 10px 12px;
   background: rgba(45, 169, 225, 0.25);
   border-radius: 8px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
   display: flex;
   position: relative;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 .ProductDetails {
   width: 100%;
   height: auto;
-  aspect-ratio: 1/1;
-  max-width: 320px;
-  min-width: 200px;
-  max-height: 100px;
-  align-self: stretch;
   color: white;
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.5;
   font-family: 'Hack', monospace;
   font-weight: 400;
   word-wrap: break-word;
+  white-space: pre-line;
+  text-align: center;
+}
+
+/* Disclaimer — its own box below the description. Box is centered; text is left-aligned. */
+.Disclaimer {
+  width: 100%;
+  margin: 8px auto 0;
+  padding: 10px 12px;
+  background: rgba(192, 40, 45, 0.18);
+  border: 1px solid rgba(192, 40, 45, 0.5);
+  border-radius: 8px;
+  box-sizing: border-box;
+  max-height: 30vh;
+  overflow-y: auto;
+  text-align: left;
+}
+.DisclaimerLabel {
+  color: #ff8a8f;
+  font-family: 'Moby', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  text-align: left;
+}
+.DisclaimerText {
+  color: #fff;
+  font-family: 'Hack', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-line;
+  text-align: left;
 }
 .Lessinfobutton {
   align-self: stretch;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+  padding: 8px 12px;
   background: #C0282D;
   box-shadow: 0px 0px 8px rgba(45, 169, 225, 0.56);
   overflow: hidden;
   border-radius: 100px;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   display: flex;
   cursor: pointer;
-  justify-content: space-between;
   gap: 8px;
 }
 .LessInfo {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
   color: white;
-  font-size: 0.5em;
+  font-size: 16px;
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
@@ -353,15 +387,15 @@
 
 .ProductexpandedContent {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 0;
-  height: 95%;
-  width: auto;
-  gap: 1vh;
-  padding: 1vh;
-  align-items: flex-start;
-  justify-content: center;
+  width: 100%;
+  gap: 12px;
+  padding: 4px;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 0;
+  box-sizing: border-box;
 }
 
 .ContentButton {
@@ -373,18 +407,19 @@
 }
 
 .ColorSelector {
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 .ColorSelectorLabel {
   color: white;
-  font-size: 1vw;
+  font-size: clamp(11px, 2.6vw, 14px);
   font-family: 'Moby', sans-serif;
   font-weight: 400;
   margin-bottom: 4px;
   letter-spacing: 0.1em;
+  text-align: center;
 }
 
 .SizeCircleSvg {
@@ -432,7 +467,7 @@
   display: flex;
   flex-direction: row;
   gap: clamp(8px, 2vw, 24px);
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -475,11 +510,11 @@
   min-width: 0;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: clamp(8px, 2vw, 24px);
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  height: clamp(24px, 4vw, 40px);
-  max-height: clamp(24px, 4vw, 40px);
+  row-gap: 10px;
   padding: 0;
   margin: 0;
   max-width: none;
@@ -556,18 +591,15 @@
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
 
   .Productexpanded {
-    aspect-ratio: 25/40;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     width: 100%;
     max-width: 100%;
     height: auto;
-    padding-bottom: 3vh;
+    padding-bottom: 2vh;
     padding-top: 1vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: unset;
+    overflow: visible;
     gap: 0;
     box-sizing: border-box;
   }
@@ -632,13 +664,11 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
-    justify-content: center;
-    aspect-ratio: 1/1.2;
+    justify-content: flex-start;
+    height: auto;
     box-sizing: border-box;
     padding: 0;
-    gap: 2vh;
+    gap: 12px;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -651,12 +681,13 @@
 
   .Photo {
     width: 100%;
+    max-width: 320px;
     height: auto;
     aspect-ratio: 1/1;
     background: #fff;
     justify-content: center;
     box-sizing: border-box;
-    margin-bottom: 0;
+    margin: 0 auto;
   }
 
   /* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile *//* Mobile */
@@ -773,8 +804,6 @@
     margin-bottom: 0;
   }
   .Productname {
-    font-size: 2.5vh;
-    padding: 0.3vh;
     width: 100%;
   }
   .SizeCircle {

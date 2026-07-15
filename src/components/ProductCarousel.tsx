@@ -135,12 +135,21 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
     return cards;
   }, [center, numProducts, uniqueProducts]);
 
-  // Helper function to get images for a product
+  // The selected color's shirt image for the currently-expanded product, so its
+  // card reflects the color chosen in the modal.
+  const selectedColorImage = useMemo(() => {
+    if (expandedIdx === null || !modalState?.color) return undefined;
+    const prod = uniqueProducts[expandedIdx];
+    return prod?.variations?.find(v => v.color === modalState.color && v.image)?.image;
+  }, [expandedIdx, modalState, uniqueProducts]);
+
+  // Images for the small product CARD — capped so the dots don't overflow.
+  // (The modal receives the full image set separately.)
   const getImagesForProduct = (product: Product) => {
+    if (product.images && product.images.length > 0) return product.images.slice(0, 6);
     if (product.variations && product.variations.length > 0) {
-      return product.variations
-        .map(v => v.image)
-        .filter(Boolean) as string[];
+      const vImgs = product.variations.map(v => v.image).filter(Boolean) as string[];
+      if (vImgs.length > 0) return vImgs.slice(0, 6);
     }
     return product.image ? [product.image] : [];
   };
@@ -184,6 +193,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
                 setExpandedIdx(idx);
               }}
               selected={expandedIdx === idx}
+              activeImage={expandedIdx === idx ? selectedColorImage : undefined}
             />
           </div>
         ))}
@@ -198,6 +208,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
               price={uniqueProducts[expandedIdx]?.price}
               details={uniqueProducts[expandedIdx]?.description || ''}
               image={uniqueProducts[expandedIdx]?.image}
+              images={uniqueProducts[expandedIdx]?.images}
               variations={uniqueProducts[expandedIdx]?.variations || []}
               onSelectSize={size => setModalState(s => s ? { ...s, size } : s)}
               quantity={quantity}

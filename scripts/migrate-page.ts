@@ -20,9 +20,9 @@ const __dirname = dirname(__filename)
 
 // Configure Sanity client with WRITE token
 const client = createClient({
-  projectId: 'usdp8jlt',
-  dataset: 'production',
-  apiVersion: '2025-05-01',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-05-01',
   token: process.env.SANITY_API_WRITE_TOKEN,
   useCdn: false,
 })

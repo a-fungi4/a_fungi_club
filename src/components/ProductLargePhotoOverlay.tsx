@@ -29,7 +29,14 @@ const ProductLargePhotoOverlay: React.FC<ProductLargePhotoOverlayProps> = ({ ima
         </div>
         <div className={styles.Placeholder}>
           {image ? (
-            <Image src={image} alt={title} width={600} height={600} />
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 600px) 96vw, 432px"
+              className={styles.LargeImg}
+              style={{ objectFit: 'contain' }}
+            />
           ) : (
             <div className={styles.VectorPlaceholder}>
               <svg width="432" height="432" viewBox="0 0 432 432" fill="none" xmlns="http://www.w3.org/2000/svg">

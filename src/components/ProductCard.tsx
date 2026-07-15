@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styles from './ProductCard.module.css';
 import Image from 'next/image';
 import { Variation } from '@/types/Product';
-import ProductLargePhotoOverlay from './ProductLargePhotoOverlay';
-import ReactDOM from 'react-dom';
 
 interface ProductCardProps {
   images?: string[];
@@ -13,6 +11,8 @@ interface ProductCardProps {
   onViewDetails?: () => void;
   selected?: boolean;
   variations?: Variation[];
+  /** When set, overrides the shown image (e.g. the selected color's shirt). */
+  activeImage?: string;
 }
 
 const defaultImage = (
@@ -24,11 +24,10 @@ const defaultImage = (
   </div>
 );
 
-const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock, onViewDetails, selected }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock, onViewDetails, selected, activeImage }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [showLargePhoto, setShowLargePhoto] = useState(false);
   const hasImages = images && images.length > 0;
-  const showImage = hasImages ? images[currentIdx] : undefined;
+  const showImage = activeImage || (hasImages ? images[currentIdx] : undefined);
   const totalImages = hasImages ? images.length : 1;
   const goLeft = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -40,19 +39,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock
   };
 
   return (
-    <div className={selected ? styles.ProductCard + ' ' + styles.ProductCardSelected : styles.ProductCard}>
-      {/* Image Section */}
-      <div
-        className={styles.ProductCard__imageArea}
-        style={{ cursor: hasImages ? 'pointer' : undefined }}
-        onClick={() => hasImages && setShowLargePhoto(true)}
-      >
+    <div
+      className={selected ? styles.ProductCard + ' ' + styles.ProductCardSelected : styles.ProductCard}
+      onClick={onViewDetails}
+      style={{ cursor: onViewDetails ? 'pointer' : 'default' }}
+    >
+      {/* Image Section — click opens the details modal (large photo lives there) */}
+      <div className={styles.ProductCard__imageArea}>
         {showImage ? (
           <div className={styles.ProductCard__imageArea}>
             <Image
               src={showImage}
               alt={title}
               fill
+              sizes="(max-width: 600px) 90vw, 240px"
               className={styles.ProductCard__img}
             />
           </div>
@@ -60,16 +60,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ images, title, price, inStock
           defaultImage
         )}
       </div>
-      {/* Large Photo Overlay */}
-      {showLargePhoto && showImage &&
-        typeof window !== 'undefined' &&
-        ReactDOM.createPortal(
-          <ProductLargePhotoOverlay
-            image={showImage}
-            title={title}
-            onClose={() => setShowLargePhoto(false)}
-          />, document.body)
-      }
       {/* Selection Dots */}
       <div className={styles.ProductCard__selectionDots}>
         {/* Left Arrow */}

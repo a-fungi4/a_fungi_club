@@ -65,17 +65,104 @@
   .constructionContent {
     padding: 40px 20px;
   }
-  
+
   .constructionTitle {
     font-size: 2rem;
   }
-  
+
   .constructionMessage {
     font-size: 1.1rem;
   }
-  
+
   .constructionIcon {
     font-size: 60px;
+  }
+}
+
+/* ── Store layout (logo + cart header, HowTo, product area) ───────────────── */
+.Cartstatuscontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Keep the Tacky Garbage logo small and fixed-size (SVG is width/height:100%). */
+.TGLogoCircle {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.CartAndStatusWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ItSGoodTackyGarbage {
+  color: #ccbbe9;
+  font-family: 'Moby', sans-serif;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.HowToContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 8px auto 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
+  font-family: 'Moby', sans-serif;
+}
+
+.HowToDropdownsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 40px);
+  row-gap: 20px;
+  margin-top: 12px;
+}
+
+.tgPageContentWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  /* Prevent the carousel's scaled/translated cards from causing page-wide
+     horizontal scroll on small screens. */
+  overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+  .Cartstatuscontainer {
+    padding: 12px 12px 6px;
+    gap: 8px;
+  }
+  .TGLogoCircle {
+    width: 56px;
+    height: 56px;
+  }
+  .ItSGoodTackyGarbage {
+    font-size: 13px;
+  }
+  .HowToContainer {
+    padding: 0 12px;
+  }
+  .HowToDropdownsWrapper {
+    gap: 16px;
+    row-gap: 16px;
+  }
+  .tgPageContentWrapper {
+    padding: 12px 8px;
   }
 }
 
