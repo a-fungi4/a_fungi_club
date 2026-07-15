@@ -158,29 +158,32 @@ export async function GET() {
           }
         }
 
-        // Build the Printful mapping for this variation. The GTIN/upc field
-        // holds the Printful TEMPLATE id (same on every variation).
-        const sku = v.sku || v.metadata?.printful_variant_id || '';
+        // Build the Printful mapping for this variation.
+        //
+        // TEMPLATE id can come from either:
+        //   • a "-T<id>" (or "_T<id>") marker on the SKU — no length limit, so
+        //     this works for any template id, e.g. "6A5662FA835AD_15114-T105031594"
+        //   • the GTIN/upc field — leading zeros are ignored, so a 9-digit
+        //     template padded to 12 digits ("000105031594") reads back as 105031594.
+        // VARIANT id comes from the SKU: "PF-<id>", a trailing "_<id>"
+        // (Printful-synced SKUs), or a bare all-digit SKU.
+        const sku = (v.sku || v.metadata?.printful_variant_id || '').trim();
         const gtin = (v.upc || '').trim();
-        const templateId = /^\d+$/.test(gtin) ? Number(gtin) : undefined;
 
-        // Explicit "PF-<variantId>-T<templateId>" / "PF-<variantId>".
-        const skuMatch = sku.match(/^(?:PF-?)?(\d+)(?:-T(\d+))?$/i);
-        // Printful/Square-synced SKUs embed the variant id after an underscore,
-        // e.g. "6A5662FA835AD_15114" -> variantId 15114 (most reliable).
-        const skuSuffix = sku.match(/_(\d+)$/);
+        const skuTemplate = sku.match(/[-_]T(\d+)\b/i);
+        const templateId = skuTemplate
+          ? Number(skuTemplate[1])
+          : (/^\d+$/.test(gtin) ? Number(gtin) : undefined);
 
-        if (skuMatch) {
-          variationToPrintful[variation.id] = {
-            variantId: Number(skuMatch[1]),
-            templateId: skuMatch[2] ? Number(skuMatch[2]) : templateId,
-          };
-        } else if (skuSuffix && templateId != null) {
-          // Direct variant id from SKU + template from GTIN — no color/size match needed.
-          variationToPrintful[variation.id] = {
-            variantId: Number(skuSuffix[1]),
-            templateId,
-          };
+        const skuNoTemplate = sku.replace(/[-_]T\d+\b/i, '');
+        const vMatch =
+          skuNoTemplate.match(/^PF-?(\d+)$/i) ||
+          skuNoTemplate.match(/_(\d+)$/) ||
+          skuNoTemplate.match(/^(\d+)$/);
+        const variantId = vMatch ? Number(vMatch[1]) : undefined;
+
+        if (variantId != null) {
+          variationToPrintful[variation.id] = { variantId, templateId };
         } else if (templateId != null) {
           // Only the template is known; resolve the variant later via color/size.
           variationToPrintful[variation.id] = { templateId, color, size };
@@ -198,11 +201,11 @@ export async function GET() {
           color,
           size,
           description: v.description || '',
-          // Prefer the image named after this color (e.g. "Red" -> red mockup),
-          // then the variation's own image, then the item's main image.
+          // Prefer the variation's OWN assigned photo (most reliable, set per
+          // color in Square), then an image named after the color, then the main.
           image:
-            (color && imageNameToUrl[color.trim().toLowerCase()]) ||
             (v.imageIds && v.imageIds.length > 0 ? imageMap[v.imageIds[0]] : '') ||
+            (color && imageNameToUrl[color.trim().toLowerCase()]) ||
             image,
         };
       });

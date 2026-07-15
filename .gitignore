@@ -46,3 +46,7 @@ next-env.d.ts
 
 # local environment variables
 .env.local
+
+# runtime logs (leftover cron output)
+sync_cron.log
+*.log

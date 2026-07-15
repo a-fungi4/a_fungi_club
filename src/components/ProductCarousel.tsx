@@ -232,13 +232,18 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
                 
                 // Use variation ID if available, otherwise fall back to product ID
                 const itemId = selectedVariation?.id || product.id;
-                
+
+                // Build a clean variation label from whatever color/size exist
+                // (avoids "( / )" for items with no color/size, like the bucket hat).
+                const variationLabel =
+                  [modalState.color, modalState.size].filter(Boolean).join(' / ') || undefined;
+
                 addToCart({
                   id: itemId,
                   name: product.name,
                   price: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
                   image: product.image,
-                  variation: selectedVariation ? `${modalState.color} / ${modalState.size}` : undefined,
+                  variation: variationLabel,
                 }, quantity);
                 
                 // Show success message

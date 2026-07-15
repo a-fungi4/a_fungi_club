@@ -297,34 +297,31 @@ const ProductExpanded: React.FC<ProductExpandedProps> = ({
 
   // Get the selected variation with useMemo
   const selectedVariation = useMemo(() => {
-    // If no variations exist, return a default variation object
+    // No variations — treat the product itself as the item.
     if (variations.length === 0) {
+      return { id: 'default', name, price, color: '', size: '', description: details, image };
+    }
+
+    // A single variation means there's nothing to choose — always selectable.
+    if (variations.length === 1) {
+      const v = variations[0];
       return {
-        id: 'default',
-        name: name,
-        price: price,
-        color: 'Default',
-        size: 'Default',
-        description: details,
-        image: image
+        id: v.id,
+        name: v.name || name,
+        price: v.price ?? price,
+        color: v.color || '',
+        size: v.size || '',
+        description: v.description || details,
+        image: v.image || image,
       };
     }
-    
-    // If there's only one variation and it has no color/size, treat it as a simple product
-    if (variations.length === 1 && (!variations[0].color && !variations[0].size)) {
-      return {
-        id: variations[0].id,
-        name: variations[0].name || name,
-        price: variations[0].price,
-        color: 'Default',
-        size: 'Default',
-        description: variations[0].description || details,
-        image: variations[0].image || image
-      };
-    }
-    
-    // For products with multiple variations, require both color and size selection
-    return variationMap[`${selectedColor}|${selectedSize}`] || null;
+
+    // Multiple variations — match the selected color/size.
+    const match = variationMap[`${selectedColor}|${selectedSize}`];
+    if (match) return match;
+    // If nothing parsed into a color/size map, don't block adding — use the first.
+    if (Object.keys(variationMap).length === 0) return variations[0];
+    return null;
   }, [variationMap, selectedColor, selectedSize, variations, name, price, details, image]);
 
   // When a color is selected, jump the photo to that color's shirt image.
