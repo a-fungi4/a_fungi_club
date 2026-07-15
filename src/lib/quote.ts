@@ -16,8 +16,6 @@ export interface QuotePayload {
   totalCents: number;
   /** Hash of the cart contents this quote was issued for. */
   cartHash: string;
-  /** Printful items to fulfill: [variantId, quantity, templateId (0 = none)][]. */
-  pf: [number, number, number][];
   /** Destination, so pay can rebuild the Printful recipient. */
   zip: string;
   country: string;

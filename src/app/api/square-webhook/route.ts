@@ -62,24 +62,24 @@ export async function POST(req: NextRequest) {
     // Reconstruct the Printful order from the metadata we stored at pay time.
     const orderRes = await square.orders.get({ orderId });
     const meta = orderRes.order?.metadata || {};
-    if (!meta.pf) {
+    if (!meta.it) {
       return NextResponse.json(
         { error: 'Order missing fulfillment metadata', orderId },
         { status: 422 },
       );
     }
 
-    let pf: [number, number, number][];
+    let it: [string, number][];
     try {
-      pf = JSON.parse(meta.pf);
+      it = JSON.parse(meta.it);
     } catch {
-      return NextResponse.json({ error: 'Bad pf metadata', orderId }, { status: 422 });
+      return NextResponse.json({ error: 'Bad item metadata', orderId }, { status: 422 });
     }
 
-    const items: PrintfulLineItem[] = pf.map(([variant_id, quantity, templateId]) => ({
-      variant_id,
+    // [Square variation id (= Printful external_variant_id), quantity][]
+    const items: PrintfulLineItem[] = it.map(([externalVariantId, quantity]) => ({
+      externalVariantId,
       quantity,
-      templateId: templateId || undefined,
     }));
     const s = (v: string | null | undefined) => v ?? undefined;
     const recipient = resolveRecipient({

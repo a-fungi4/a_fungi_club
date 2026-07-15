@@ -1,19 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getShippingRates,
-  getTemplateVariantMap,
-  resolveRecipient,
-  variantMatchKey,
-  type PrintfulLineItem,
-  type Recipient,
-} from '@/lib/printful';
+import { getShippingRates, resolveRecipient, type PrintfulLineItem, type Recipient } from '@/lib/printful';
 import { calculateSquareTaxCents } from '@/lib/square';
 import { hashCart, signQuote, type QuotePayload } from '@/lib/quote';
 
 export const runtime = 'nodejs';
 
 interface CartItem {
-  id: string; // Square variation id
+  id: string; // Square variation id (= Printful external_variant_id)
   name: string;
   price: number; // dollars
   quantity: number;
@@ -21,21 +14,6 @@ interface CartItem {
 }
 
 const QUOTE_TTL_SECONDS = 15 * 60;
-
-interface VariantEntry {
-  variantId?: number;
-  templateId?: number;
-  color?: string | null;
-  size?: string | null;
-}
-
-async function getVariantMap(): Promise<Record<string, VariantEntry>> {
-  const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${base}/api/square-products`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Failed to load product mapping');
-  const data = await res.json();
-  return data.variationToPrintful || {};
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,51 +31,12 @@ export async function POST(req: NextRequest) {
 
     const recipient = resolveRecipient(rawRecipient);
 
-    // Map each Square variation to its Printful variant (+ template) id.
-    const variantMap = await getVariantMap();
-    const pfItems: PrintfulLineItem[] = [];
-    const missing: string[] = [];
-    const unmatched: string[] = [];
-    for (const item of cart) {
-      const entry = variantMap[item.id];
-      if (!entry) {
-        missing.push(item.name || item.id);
-        continue;
-      }
-      let variantId = entry.variantId;
-      // GTIN-based mapping: resolve the variant from the template by color/size.
-      if (variantId == null && entry.templateId != null) {
-        try {
-          const tplMap = await getTemplateVariantMap(entry.templateId);
-          variantId = tplMap[variantMatchKey(entry.color, entry.size)];
-        } catch {
-          /* fall through to unmatched */
-        }
-        if (variantId == null) {
-          unmatched.push(item.name || `${entry.color ?? ''} ${entry.size ?? ''}`.trim());
-          continue;
-        }
-      }
-      if (variantId == null) {
-        missing.push(item.name || item.id);
-        continue;
-      }
-      pfItems.push({ variant_id: variantId, quantity: item.quantity, templateId: entry.templateId });
-    }
-    if (missing.length > 0) {
-      return NextResponse.json(
-        { error: `These items aren't linked to Printful yet: ${missing.join(', ')}` },
-        { status: 400 },
-      );
-    }
-    if (unmatched.length > 0) {
-      return NextResponse.json(
-        {
-          error: `Couldn't match these to a Printful color/size (check the variation names match Printful): ${unmatched.join(', ')}`,
-        },
-        { status: 400 },
-      );
-    }
+    // Each cart item's id is the Square variation id, which is Printful's
+    // external_variant_id for the synced product — no SKU/template mapping needed.
+    const pfItems: PrintfulLineItem[] = cart.map((i) => ({
+      externalVariantId: i.id,
+      quantity: i.quantity,
+    }));
 
     const rates = await getShippingRates(pfItems, recipient);
 
@@ -107,12 +46,6 @@ export async function POST(req: NextRequest) {
     );
     const currency = rates[0]?.currency || 'USD';
     const cartHash = hashCart(cart);
-    // pf carries [catalogVariantId, quantity, templateId] (0 = no template).
-    const pf: [number, number, number][] = pfItems.map((i) => [
-      i.variant_id,
-      i.quantity,
-      i.templateId ?? 0,
-    ]);
     const exp = Math.floor(Date.now() / 1000) + QUOTE_TTL_SECONDS;
     const squareLineItems = cart.map((i) => ({ catalogObjectId: i.id, quantity: i.quantity }));
 
@@ -133,7 +66,6 @@ export async function POST(req: NextRequest) {
           taxCents,
           totalCents,
           cartHash,
-          pf,
           zip: recipient.zip,
           country: recipient.country_code || 'US',
           exp,

@@ -103,8 +103,9 @@ export async function POST(req: NextRequest) {
 
     // Stash everything the webhook backup needs to (re)create the Printful order.
     // Square rejects empty-string metadata values, so only include set fields.
+    // `it` = [Square variation id (= Printful external_variant_id), quantity][].
     const rawMeta: Record<string, string | undefined> = {
-      pf: JSON.stringify(quote.pf),
+      it: JSON.stringify(cart.map((i) => [i.id, i.quantity])),
       ship_name: recipient.name,
       ship_addr1: recipient.address1,
       ship_addr2: recipient.address2,
@@ -199,10 +200,12 @@ export async function POST(req: NextRequest) {
           phone: recipient.phone,
           email: recipient.email,
         });
-        const items: PrintfulLineItem[] = quote.pf.map(([variant_id, quantity, templateId]) => ({
-          variant_id,
-          quantity,
-          templateId: templateId || undefined,
+        // Each cart item's id is the Square variation id = Printful external_variant_id.
+        const items: PrintfulLineItem[] = cart.map((i) => ({
+          externalVariantId: i.id,
+          quantity: i.quantity,
+          name: i.name,
+          retail_price: i.price.toFixed(2),
         }));
         await createPrintfulOrder({
           externalId: order.id,

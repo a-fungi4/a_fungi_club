@@ -78,15 +78,6 @@ export async function GET() {
     const images: CatalogImage[] = [];
     const itemOptions: CatalogItemOption[] = [];
     const categories: CatalogCategory[] = [];
-    // Printful mapping per Square variation. Two ways to link a variation:
-    //   1. GTIN/upc field = Printful TEMPLATE id (same value for every variation
-    //      of the item). We resolve the variant id later by matching color/size.
-    //   2. SKU = "PF-<variantId>-T<templateId>" or "PF-<variantId>" (explicit).
-    // Entries may carry color/size so the quote route can resolve case 1.
-    const variationToPrintful: Record<
-      string,
-      { variantId?: number; templateId?: number; color?: string | null; size?: string | null }
-    > = {};
     for await (const obj of page as AsyncIterable<CatalogObject>) {
       if (obj.type === 'ITEM') items.push(obj as CatalogItem);
       if (obj.type === 'IMAGE') images.push(obj as CatalogImage);
@@ -158,37 +149,8 @@ export async function GET() {
           }
         }
 
-        // Build the Printful mapping for this variation.
-        //
-        // TEMPLATE id can come from either:
-        //   • a "-T<id>" (or "_T<id>") marker on the SKU — no length limit, so
-        //     this works for any template id, e.g. "6A5662FA835AD_15114-T105031594"
-        //   • the GTIN/upc field — leading zeros are ignored, so a 9-digit
-        //     template padded to 12 digits ("000105031594") reads back as 105031594.
-        // VARIANT id comes from the SKU: "PF-<id>", a trailing "_<id>"
-        // (Printful-synced SKUs), or a bare all-digit SKU.
-        const sku = (v.sku || v.metadata?.printful_variant_id || '').trim();
-        const gtin = (v.upc || '').trim();
-
-        const skuTemplate = sku.match(/[-_]T(\d+)\b/i);
-        const templateId = skuTemplate
-          ? Number(skuTemplate[1])
-          : (/^\d+$/.test(gtin) ? Number(gtin) : undefined);
-
-        const skuNoTemplate = sku.replace(/[-_]T\d+\b/i, '');
-        const vMatch =
-          skuNoTemplate.match(/^PF-?(\d+)$/i) ||
-          skuNoTemplate.match(/_(\d+)$/) ||
-          skuNoTemplate.match(/^(\d+)$/);
-        const variantId = vMatch ? Number(vMatch[1]) : undefined;
-
-        if (variantId != null) {
-          variationToPrintful[variation.id] = { variantId, templateId };
-        } else if (templateId != null) {
-          // Only the template is known; resolve the variant later via color/size.
-          variationToPrintful[variation.id] = { templateId, color, size };
-        }
-
+        // Fulfillment maps the Square variation id directly to Printful's
+        // external_variant_id at order time — no SKU/GTIN parsing needed here.
         return {
           id: variation.id,
           name: v.name || '',
@@ -229,7 +191,7 @@ export async function GET() {
         category,
       };
     });
-    const safeProducts = JSON.parse(JSON.stringify({ products, variationToPrintful }, replacer));
+    const safeProducts = JSON.parse(JSON.stringify({ products }, replacer));
     console.log('GET /api/square-products: success, returning products:', Array.isArray(safeProducts.products) ? safeProducts.products.length : 0);
     return NextResponse.json(safeProducts);
   } catch (error: unknown) {
